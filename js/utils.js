@@ -845,9 +845,8 @@ const anzhiyu = {
       return;
     }
     const urlParams = new URLSearchParams(window.location.search);
-    const navMusicMeting = document.querySelector("#nav-music meting-js");
-    const userId = navMusicMeting?.getAttribute("id") || "7104056389";
-    const userServer = navMusicMeting?.getAttribute("server") || "netease";
+    const userId = "8152976493";
+    const userServer = "netease";
     const anMusicPageMeting = document.getElementById("anMusic-page-meting");
     if (urlParams.get("id") && urlParams.get("server")) {
       const id = urlParams.get("id");
@@ -918,11 +917,9 @@ const anzhiyu = {
       localStorage.removeItem("musicData");
       anzhiyu.snackbarShow("已移除相关缓存歌曲");
     });
-    if (anMusicSwitchingBtn) {
-      anMusicSwitchingBtn.addEventListener("click", () => {
-        anzhiyu.changeMusicList();
-      });
-    }
+    anMusicSwitchingBtn.addEventListener("click", () => {
+      anzhiyu.changeMusicList();
+    });
 
     // 默认加载的歌单
     if (GLOBAL_CONFIG.music_page_default === "custom") {

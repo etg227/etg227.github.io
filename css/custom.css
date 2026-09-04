@@ -1,26 +1,6 @@
-/* 花澪：在安知鱼原生视觉上做轻量延伸 */
-:root {
-  --huamio-main: #425aef;
-  --huamio-main-soft: rgba(66, 90, 239, 0.1);
-  --huamio-border: var(--style-border-always);
-}
-
-#site-name .title {
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
-#home_top #random-banner,
-#home_top .categoryItem,
-#home_top .todayCard,
-#recent-posts > .recent-post-item,
-#aside-content .card-widget {
-  box-shadow: var(--anzhiyu-shadow-border);
-}
-
-#home_top #random-banner .random-banner-media {
-  position: absolute;
-  inset: 0;
+/* 首页彩虹猫：替代原先会出现切块异常的 canvas，保留原博客布局。 */
+#random-banner .nyan-cat-banner {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -29,242 +9,84 @@
   image-rendering: pixelated;
 }
 
-#home_top #random-hover {
-  z-index: 2;
-}
-
-.topGroup .todayCard-cover--empty {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  background:
-    radial-gradient(circle at 76% 28%, rgba(255, 255, 255, 0.2), transparent 18%),
-    linear-gradient(135deg, #425aef 0%, #5b72f4 52%, #7c8cff 100%);
-}
-
-.recent-post-item .article-title {
-  font-weight: 700;
-  letter-spacing: -0.015em;
-}
-
-/* 项目页沿用主题的圆角、边框与主色，不另起一套视觉系统。 */
-#page:has(.project-intro) > .page-title {
-  display: none;
-}
-
-.project-intro {
-  margin-bottom: 1.5rem;
-  padding: clamp(1.5rem, 4vw, 2.5rem);
-  overflow: hidden;
-  border: var(--huamio-border);
-  border-radius: 16px;
-  color: var(--anzhiyu-white);
-  background: linear-gradient(135deg, #3451e9, #5b72f4);
-  box-shadow: var(--anzhiyu-shadow-border);
-}
-
-.project-intro__label {
-  display: inline-block;
-  margin-bottom: 0.8rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.11em;
-  opacity: 0.78;
-}
-
-.project-intro h1 {
-  margin: 0 0 0.9rem !important;
-  color: #fff !important;
-  font-size: clamp(2rem, 5vw, 3.4rem);
-  line-height: 1.16;
-  letter-spacing: -0.045em;
-}
-
-.project-intro h1::before,
-.project-card h3::before,
-.principle-grid h3::before {
-  display: none !important;
-}
-
-.project-intro p {
-  max-width: 46rem;
-  margin: 0;
-  color: rgba(255, 255, 255, 0.84);
-  font-size: 1rem;
-  line-height: 1.8;
-}
-
-.project-actions,
-.project-card__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem 1rem;
-}
-
-.project-actions {
-  margin-top: 1.4rem;
-}
-
-.project-button {
-  display: inline-flex;
-  align-items: center;
-  min-height: 42px;
-  padding: 0.62rem 0.95rem;
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  border-radius: 12px;
-  color: #fff !important;
-  font-weight: 700;
-  text-decoration: none !important;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.project-button:hover {
-  color: #fff !important;
-  background: rgba(255, 255, 255, 0.14);
-  transform: translateY(-2px);
-}
-
-.project-button--primary {
-  color: var(--huamio-main) !important;
-  background: #fff;
-}
-
-.project-button--primary:hover {
-  color: var(--huamio-main) !important;
-  background: #fff;
-}
-
-.project-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin: 1rem 0 1.8rem;
-}
-
-.project-card {
-  padding: clamp(1.25rem, 3vw, 1.8rem);
-  border: var(--huamio-border);
-  border-radius: 12px;
-  background: var(--anzhiyu-card-bg);
-  box-shadow: var(--anzhiyu-shadow-border);
-}
-
-.project-card--featured {
-  border-top: 4px solid var(--huamio-main);
-}
-
-.project-card__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-  margin-bottom: 0.75rem;
-}
-
-.project-card__meta span {
-  padding: 0.25rem 0.58rem;
-  border-radius: 999px;
-  color: var(--huamio-main);
-  background: var(--huamio-main-soft);
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.project-card h3 {
-  margin: 0 0 0.6rem !important;
-}
-
-.project-card p,
-.project-card li {
-  line-height: 1.75;
-}
-
-.project-card__links {
-  margin-top: 1rem;
-}
-
-.project-card__links a {
-  font-weight: 700;
-  text-decoration: none !important;
-}
-
-.principle-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.8rem;
-  margin-top: 1rem;
-}
-
-.principle-grid > div {
-  padding: 1rem;
-  border: var(--huamio-border);
-  border-radius: 12px;
-  background: var(--anzhiyu-card-bg);
-}
-
-.principle-grid strong {
-  color: var(--huamio-main);
-  font-size: 0.78rem;
-}
-
-.principle-grid h3 {
-  margin: 0.35rem 0 !important;
-  font-size: 1rem;
-}
-
-.principle-grid p {
-  margin: 0;
-  line-height: 1.65;
-}
-
-@media (max-width: 768px) {
-  .project-intro {
-    border-radius: 12px;
-  }
-
-  .principle-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* 原博客的文章标题风车效果 */
+/* 文章页H1-H6图标样式效果 */
+/* 控制风车转动速度 4s那里可以自己调节快慢 */
 h1::before,
 h2::before,
 h3::before,
 h4::before,
 h5::before,
 h6::before {
+  -webkit-animation: ccc 4s linear infinite;
   animation: ccc 4s linear infinite;
 }
-
-@keyframes ccc {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(-1turn); }
+/* 控制风车转动方向 -1turn 为逆时针转动，1turn 为顺时针转动，相同数字部分记得统一修改 */
+@-webkit-keyframes ccc {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(-1turn);
+    transform: rotate(-1turn);
+  }
 }
-
-#content-inner.layout h1::before { color: #ef50a8; }
-#content-inner.layout h2::before { color: #fb7061; }
-#content-inner.layout h3::before { color: #ffbf00; }
-#content-inner.layout h4::before { color: #a9e000; }
-#content-inner.layout h5::before { color: #57c850; }
-#content-inner.layout h6::before { color: #5ec1e0; }
-
+@keyframes ccc {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(-1turn);
+    transform: rotate(-1turn);
+  }
+}
+/* 设置风车颜色 */
+#content-inner.layout h1::before {
+  color: #ef50a8;
+  margin-left: -1.55rem;
+  font-size: 1.3rem;
+  margin-top: -0.23rem;
+}
+#content-inner.layout h2::before {
+  color: #fb7061;
+  margin-left: -1.35rem;
+  font-size: 1.1rem;
+  margin-top: -0.12rem;
+}
+#content-inner.layout h3::before {
+  color: #ffbf00;
+  margin-left: -1.22rem;
+  font-size: 0.95rem;
+  margin-top: -0.09rem;
+}
+#content-inner.layout h4::before {
+  color: #a9e000;
+  margin-left: -1.05rem;
+  font-size: 0.8rem;
+  margin-top: -0.09rem;
+}
+#content-inner.layout h5::before {
+  color: #57c850;
+  margin-left: -0.9rem;
+  font-size: 0.7rem;
+  margin-top: 0rem;
+}
+#content-inner.layout h6::before {
+  color: #5ec1e0;
+  margin-left: -0.9rem;
+  font-size: 0.66rem;
+  margin-top: 0rem;
+}
+/* s设置风车hover动效 6s那里可以自己调节快慢*/
 #content-inner.layout h1:hover,
 #content-inner.layout h2:hover,
 #content-inner.layout h3:hover,
 #content-inner.layout h4:hover,
 #content-inner.layout h5:hover,
-#content-inner.layout h6:hover,
+#content-inner.layout h6:hover {
+  color: var(--theme-color);
+}
 #content-inner.layout h1:hover::before,
 #content-inner.layout h2:hover::before,
 #content-inner.layout h3:hover::before,
@@ -272,4 +94,6 @@ h6::before {
 #content-inner.layout h5:hover::before,
 #content-inner.layout h6:hover::before {
   color: var(--theme-color);
+  -webkit-animation: ccc 6s linear infinite;
+  animation: ccc 6s linear infinite;
 }

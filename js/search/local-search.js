@@ -183,8 +183,7 @@ window.addEventListener("load", () => {
 
               // highlight all keywords
               keywords.forEach(keyword => {
-                const safeKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-                const regS = new RegExp(safeKeyword, "gi");
+                const regS = new RegExp(keyword, "gi");
                 matchContent = matchContent.replace(regS, '<span class="search-keyword">' + keyword + "</span>");
                 dataTitle = dataTitle.replace(regS, '<span class="search-keyword">' + keyword + "</span>");
               });
