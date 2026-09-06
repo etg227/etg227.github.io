@@ -743,7 +743,7 @@ const anzhiyu = {
     document.getElementById("loading-box").classList.add("loaded");
   },
   // 将音乐缓存播放
-  cacheAndPlayMusic() {
+  cacheAndPlayMusic() { const player = document.querySelector("#anMusic-page meting-js")?.aplayer; if (player && player.list.audios.length) player.list.switch(Math.floor(Math.random() * player.list.audios.length)); return;
     let data = localStorage.getItem("musicData");
     if (data) {
       data = JSON.parse(data);
@@ -845,7 +845,7 @@ const anzhiyu = {
       return;
     }
     const urlParams = new URLSearchParams(window.location.search);
-    const userId = "8152976493";
+    const userId = "7104056389";
     const userServer = "netease";
     const anMusicPageMeting = document.getElementById("anMusic-page-meting");
     if (urlParams.get("id") && urlParams.get("server")) {
@@ -961,7 +961,7 @@ const anzhiyu = {
     });
   },
   // 切换歌单
-  changeMusicList: async function () {
+  changeMusicList: async function () { return anzhiyu.getCustomPlayList();
     const anMusicPage = document.getElementById("anMusic-page");
     const metingAplayer = anMusicPage.querySelector("meting-js").aplayer;
     const currentTime = new Date().getTime();
@@ -1150,7 +1150,7 @@ const anzhiyu = {
   },
 
   // 创建二维码
-  qrcodeCreate: function () {
+  qrcodeCreate: function () { if (typeof QRCode === "undefined") return;
     if (document.getElementById("qrcode")) {
       document.getElementById("qrcode").innerHTML = "";
       var qrcode = new QRCode(document.getElementById("qrcode"), {
