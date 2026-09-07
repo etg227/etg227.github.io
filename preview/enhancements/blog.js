@@ -18,7 +18,7 @@
   }
   function setup() {
     const copy=document.querySelector('[data-copy-page]');
-    if(copy&&!copy.dataset.ready){copy.dataset.ready='true';copy.addEventListener('click',async()=>{const status=document.querySelector('[data-copy-status]');try{await navigator.clipboard.writeText(location.href);status.textContent='链接已复制';}catch{status.textContent='未能复制，请复制浏览器地址栏中的链接。';}});}
+    if(copy&&!copy.dataset.ready){copy.dataset.ready='true';copy.addEventListener('click',async()=>{const status=document.querySelector('[data-copy-status]');status.textContent='正在复制…';let timer;try{await Promise.race([navigator.clipboard.writeText(location.href),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('timeout')),4000);})]);status.textContent='链接已复制';}catch{status.textContent='未能复制，请复制浏览器地址栏中的链接。';}finally{clearTimeout(timer);}});}
     const music = document.querySelector('#anMusic-page');
     if (music && !document.querySelector('[data-music-status]')) {
       const note = document.createElement('p');
