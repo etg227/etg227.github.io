@@ -928,7 +928,9 @@ const anzhiyu = {
 
     // 监听键盘事件
     //空格控制音乐
-    document.addEventListener("keydown", function (event) {
+    if(window.flowerMusicKeys) document.removeEventListener("keydown",window.flowerMusicKeys);
+    window.flowerMusicKeys=function(event){
+      if(document.querySelector("#anMusic-page meting-js")?.aplayer !== metingAplayer || event.target?.closest?.("input,textarea,select,[contenteditable=true]")) return;
       //暂停开启音乐
       if (event.code === "Space") {
         event.preventDefault();
@@ -958,7 +960,8 @@ const anzhiyu = {
           metingAplayer.volume(musicVolume, true);
         }
       }
-    });
+    };
+    document.addEventListener("keydown",window.flowerMusicKeys);
   },
   // 切换歌单
   changeMusicList: async function () { return anzhiyu.getCustomPlayList();

@@ -1585,7 +1585,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const isEscapeKeyPressed = event.keyCode === 27;
       const isShiftKeyPressed = event.shiftKey;
       const isKeyboardEnabled = anzhiyu_keyboard;
-      const isInInputField = anzhiyu_intype;
+      const isInInputField = !!event.target?.closest?.("input,textarea,select,[contenteditable=true]");
 
       if (isEscapeKeyPressed) {
         anzhiyu.hideLoading();

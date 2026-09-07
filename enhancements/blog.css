@@ -63,3 +63,11 @@
 @media(max-width:768px){#bannerGroup .categoryButton{display:flex!important;align-items:flex-start!important;justify-content:flex-start!important}#bannerGroup .categoryButtonText{position:relative!important;top:auto!important;left:auto!important;bottom:auto!important;line-height:1.3!important;margin:0!important}#bannerGroup .categoryButton:after{bottom:10px!important;left:14px!important}}
 html[data-theme="dark"] #todayCard.flower-intro{background:linear-gradient(125deg,#40382c,#65502d)}
 html[data-theme="dark"] #recent-posts .unvisited-post{color:var(--anzhiyu-secondtext)!important}
+.blog-reward-unavailable{display:block;text-align:center;padding:24px;color:var(--anzhiyu-secondtext)}
+#pagination.pagination-post>div{background:var(--anzhiyu-card-bg);border:1px solid var(--anzhiyu-card-border);border-radius:12px;overflow:hidden}
+#pagination.pagination-post .pagination-info{color:var(--anzhiyu-fontcolor)}
+#pagination.pagination-post .pagination-info .label{color:var(--anzhiyu-secondtext)}
+#pagination.pagination-post a:has(img){color:inherit}
+#pagination.pagination-post>div:hover{border-color:var(--anzhiyu-main)}
+#pagination.pagination-post{background:transparent}
+#pagination.pagination-post :is(.prev_info,.next_info){color:var(--anzhiyu-fontcolor);line-height:1.7}
