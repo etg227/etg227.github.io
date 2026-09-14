@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "channel": "stable",
+  "status_label": "开发预览",
+  "updated_at": "2026-09-14T16:30:00+08:00",
+  "notes": "v0.15 将更新发现入口迁移到博客公开版本通道，并保留 Control Server 作为后备更新源。当前公开签名安装包尚未发布，因此 published=false，不会向普通用户触发安装提示。",
+  "releases": {
+    "macos-arm64": {
+      "platform": "macos-arm64",
+      "channel": "stable",
+      "version": "0.15.0",
+      "published": false,
+      "url": "",
+      "sha256": "",
+      "mandatory": false,
+      "notes": "博客公开更新通道、GBF 专项优化、本地静态资源缓存与 Local Clash 开发测试。"
+    },
+    "macos-x64": {
+      "platform": "macos-x64",
+      "channel": "stable",
+      "version": "0.15.0",
+      "published": false,
+      "url": "",
+      "sha256": "",
+      "mandatory": false,
+      "notes": "博客公开更新通道、GBF 专项优化、本地静态资源缓存与 Local Clash 开发测试。"
+    },
+    "windows-x64": {
+      "platform": "windows-x64",
+      "channel": "stable",
+      "version": "0.15.0",
+      "published": false,
+      "url": "",
+      "sha256": "",
+      "mandatory": false,
+      "notes": "博客公开更新通道、GBF 专项优化、本地静态资源缓存与 Local Clash 开发测试。"
+    }
+  }
+}
