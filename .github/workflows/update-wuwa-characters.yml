@@ -1,0 +1,28 @@
+name: Update WuWa character library
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '20 3 * * 1'
+  push:
+    paths:
+      - '.github/workflows/update-wuwa-characters.yml'
+      - 'scripts/update_wuwa_characters.py'
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests
+      - run: python scripts/update_wuwa_characters.py
+      - name: Commit snapshot
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add wuwa/data/characters.json
+          git diff --cached --quiet || git commit -m "chore: refresh WuWa character library"
+          git push
