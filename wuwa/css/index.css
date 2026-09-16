@@ -1,0 +1,5 @@
+/* Compatibility shim for direct /wuwa/ refresh.
+   The generated WuWa page currently links css/index.css relatively,
+   which resolves to /wuwa/css/index.css on a hard refresh.
+   Reuse the site's canonical AnZhiYu stylesheet here so direct loads and PJAX loads match. */
+@import url('/css/index.css');
