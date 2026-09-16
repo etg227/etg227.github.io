@@ -32,7 +32,7 @@ function readEcho(card){
 function snapshot(){
   const name=character();if(!name)return null;
   const stats={};
-  ['totalAtk','totalHp','totalDef','critRate','critDmg','energyRegen','elementDmg','globalDmg','globalAmp'].forEach(id=>stats[id]=Number($(id)?.value||0));
+  ['totalAtk','totalHp','totalDef','critRate','critDmg','energyRegen','elementDmg','globalDmg','globalAmp','nonEchoAtkPct','nonEchoHpPct','nonEchoDefPct'].forEach(id=>stats[id]=Number($(id)?.value||0));
   return{
     version:4,
     characterName:name,
@@ -93,6 +93,7 @@ async function loadProfile(name){
     if($('mainEchoEffect')&&p.gear.mainEchoEffect){$('mainEchoEffect').value=p.gear.mainEchoEffect;fire($('mainEchoEffect'))}
     if($('weaponMode')&&p.gear.weaponMode){$('weaponMode').value=p.gear.weaponMode;fire($('weaponMode'))}
   }
+  ['nonEchoAtkPct','nonEchoHpPct','nonEchoDefPct'].forEach(id=>{if(!(id in (p.stats||{}))){const el=$(id);if(el){el.value='0';fire(el,'input')}}});
   Object.entries(p.stats||{}).forEach(([id,v])=>{const el=$(id);if(el){el.value=String(v);fire(el,'input')}});
   const cards=[...document.querySelectorAll('.echo-card')];
   for(let i=0;i<cards.length;i++)await restoreEcho(cards[i],p.echoes?.[i]);

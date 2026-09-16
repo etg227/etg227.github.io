@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="鸣潮单角色声骸边际收益、角色机制、共鸣链与单件评分计算器。" />
   <title>鸣潮声骸边际评分器</title>
-  <link rel="stylesheet" href="styles.css?v=20260916-10" />
+  <link rel="stylesheet" href="styles.css?v=20260916-11" />
   <style>
     .profile-grid{grid-template-columns:1.35fr .55fr .65fr}
     .current-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -18,6 +18,7 @@
     .echo-row select:disabled{opacity:.65;cursor:not-allowed}
     .score-note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:7px}
     .model-warning{font-size:11px;color:var(--warn);margin-top:6px}
+    .character-card .nomodel{font-size:10px;font-style:normal;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 6px;margin-top:2px}
     @media(max-width:820px){.profile-grid,.current-stat-grid{grid-template-columns:1fr 1fr}}
     @media(max-width:620px){.profile-grid,.current-stat-grid{grid-template-columns:1fr}.chain-item{grid-template-columns:44px 1fr}}
   </style>
@@ -69,16 +70,22 @@
         <label>全伤害加成 %<input id="globalDmg" type="number" value="0" step="0.1"></label>
         <label>Amplify / 加深 %<input id="globalAmp" type="number" value="0" step="0.1"></label>
       </div>
+      <div class="form-grid three compact-top">
+        <label>非声骸攻击 %<input id="nonEchoAtkPct" type="number" value="0" step="0.1"></label>
+        <label>非声骸生命 %<input id="nonEchoHpPct" type="number" value="0" step="0.1"></label>
+        <label>非声骸防御 %<input id="nonEchoDefPct" type="number" value="0" step="0.1"></label>
+      </div>
+      <p class="micro">非声骸百分比：武器副属性、武器被动、固有天赋等来源的攻击/生命/防御百分比。填写后可修正百分比词条的稀释计算，不填则按 0 处理（旧口径）。</p>
     </details>
   </section>
 
   <section class="panel full">
-    <div class="panel-title-row"><div><span class="step">04</span><h2>当前 5 只声骸</h2></div><span class="hint">每只独立评分 · 固定档位下拉</span></div>
+    <div class="panel-title-row"><div><span class="step">03</span><h2>当前 5 只声骸</h2></div><span class="hint">每只独立评分 · 固定档位下拉</span></div>
     <div id="equippedEchoes" class="equipped-grid"></div>
   </section>
 
   <section class="panel full compare-panel">
-    <div class="panel-title-row"><div><span class="step">05</span><h2>候选声骸替换</h2></div><button class="primary" id="calculateBtn" type="button">重新计算</button></div>
+    <div class="panel-title-row"><div><span class="step">04</span><h2>候选声骸替换</h2></div><button class="primary" id="calculateBtn" type="button">重新计算</button></div>
     <div class="replace-grid">
       <label>替换位置<select id="replaceSlot"><option value="0">声骸 1</option><option value="1">声骸 2</option><option value="2">声骸 3</option><option value="3">声骸 4</option><option value="4">声骸 5</option></select></label>
       <label>COST<select id="candidateCost"><option value="4">4 COST</option><option value="3">3 COST</option><option value="1">1 COST</option></select></label>
@@ -91,7 +98,7 @@
   </section>
 
   <section class="panel full results-panel">
-    <div class="panel-title-row"><div><span class="step">06</span><h2>计算结果</h2></div><span class="hint">角色机制感知评分</span></div>
+    <div class="panel-title-row"><div><span class="step">05</span><h2>计算结果</h2></div><span class="hint">角色机制感知评分</span></div>
     <div class="hero-results">
       <div class="metric-card accent"><span>候选声骸替换提升</span><strong id="overallGain">—</strong><small>相对当前整套</small></div>
       <div class="metric-card"><span>候选副词条评分</span><strong id="candidateScore">—</strong><small>100 = 5 条当前最优平均档</small></div>
@@ -104,12 +111,8 @@
     </div>
   </section>
 
-  <div id="mechanicSummary" hidden></div><div id="mechanicTags" hidden></div><div id="chainSummary" hidden></div><div id="mechanicSource" hidden></div><div id="characterModelStatus" hidden></div><div id="scoreMethodNote" hidden></div>
-  <div id="rollControls" hidden></div>
-  <div id="boundaryCards" hidden></div>
 </main>
-<script src="app.js?v=20260916-10"></script>
-<script src="/wuwa/profile-save-v2.js?v=20260916-10"></script>
-<script src="recommendation-ui.js?v=20260916-10"></script>
+<script src="app.js?v=20260916-11"></script>
+<script src="/wuwa/profile-save-v2.js?v=20260916-11"></script>
 </body>
 </html>

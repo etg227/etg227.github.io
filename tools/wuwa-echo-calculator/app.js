@@ -52,6 +52,42 @@ const FIXED_MAIN={4:{type:'flatAtk',value:150},3:{type:'flatAtk',value:100},1:{t
 
 const SONATAS={
   none:{label:'不计套装效果',static:[],combat:[],note:'不额外加入合鸣套装效果。'},
+  elem2:{
+    label:'属性合鸣 · 2件（对应属性伤害 +10%）',
+    static:[{kind:'elementDmg',value:10}],
+    combat:[],
+    note:'凝夜白霜 / 熔山裂谷 / 彻空冥雷 / 啸谷长风 / 浮星祛暗 / 沉日劫明 通用 2 件效果：对应属性伤害 +10%。'
+  },
+  elem5:{
+    label:'属性合鸣 · 5件（按满触发）',
+    static:[{kind:'elementDmg',value:10}],
+    combat:[{kind:'elementDmg',value:30}],
+    note:'2 件静态属性伤害 +10%；5 件按满层/满触发计算，战斗态再 +30% 对应属性伤害（各属性套满触发数值一致）。'
+  },
+  lingering2:{
+    label:'不绝余音 · 2件（攻击 +10%）',
+    static:[{kind:'atkPct',value:10}],
+    combat:[],
+    note:'静态：攻击力 +10%。'
+  },
+  lingering5:{
+    label:'不绝余音 · 5件（按满层）',
+    static:[{kind:'atkPct',value:10}],
+    combat:[{kind:'atkPct',value:20}],
+    note:'2 件攻击 +10%；5 件在场每 1.5 秒攻击 +5%、最多 4 层，按满层战斗态再 +20%。'
+  },
+  moonlit2:{
+    label:'轻云出月 · 2件（共鸣效率 +10%）',
+    static:[{kind:'energyRegen',value:10}],
+    combat:[],
+    note:'共鸣效率 +10%。ER 为阈值属性，不折算为伤害，仅作记录。'
+  },
+  rejuv5:{
+    label:'隐世回光 · 5件（治疗触发攻击）',
+    static:[],
+    combat:[{kind:'atkPct',value:15}],
+    note:'5 件：治疗队友时全队攻击 +15%，按已触发计算；2 件治疗加成不参与伤害评分。'
+  },
   eternal2:{
     label:'此间永驻之光 · 2件',
     static:[{kind:'elementDmg',value:10}],
@@ -112,8 +148,11 @@ async function loadData(){
       roster=arr.filter(x=>x?.name).map((x,i)=>({id:String(x.id||i),name:String(x.name).trim(),image:x.image||''}));
     }
   }
-  if(m.status==='fulfilled'&&m.value?.characters){mechanics=m.value;roster=roster.filter(c=>mechanics.characters?.[c.name]);}
-  if($('rosterSource'))$('rosterSource').textContent=`角色库 · ${roster.length} 名`;
+  if(m.status==='fulfilled'&&m.value?.characters)mechanics=m.value;
+  if($('rosterSource')){
+    const modeled=roster.filter(c=>mechanics.characters?.[c.name]).length;
+    $('rosterSource').textContent=`角色库 · ${roster.length} 名（${modeled} 名已建模）`;
+  }
   renderCharacters();
 }
 function avatar(c){
@@ -122,7 +161,7 @@ function avatar(c){
 }
 function renderCharacters(filter=''){
   const q=filter.trim().toLowerCase();
-  $('characterGrid').innerHTML=roster.filter(c=>!q||c.name.toLowerCase().includes(q)).map(c=>`<button class="character-card" data-char-id="${esc(c.id)}" type="button">${avatar(c)}<span>${esc(c.name)}</span></button>`).join('');
+  $('characterGrid').innerHTML=roster.filter(c=>!q||c.name.toLowerCase().includes(q)).map(c=>`<button class="character-card" data-char-id="${esc(c.id)}" type="button">${avatar(c)}<span>${esc(c.name)}</span>${mechanics.characters?.[c.name]?'':'<em class="nomodel">未建模</em>'}</button>`).join('');
 }
 function currentProfile(){return selectedCharacter?mechanics.characters?.[selectedCharacter.name]||null:null}
 
@@ -136,7 +175,7 @@ function mountGearConfig(){
 }
 function refreshWeaponOptions(profile,applyDefault=true){const el=$('weaponMode');if(!el)return;const sig=profile?.signature_weapon;el.innerHTML='<option value="none">不计专武被动</option>'+(sig?.name?`<option value="signature">${esc(sig.name)}（专武）</option>`:'');el.value=(applyDefault&&sig?.verified)?'signature':'none'}
 function applyProfileDefaults(profile){refreshWeaponOptions(profile,true);if($('sonataMode'))$('sonataMode').value=(profile?.defaults?.sonata&&SONATAS[profile.defaults.sonata])?profile.defaults.sonata:'none';if($('mainEchoEffect'))$('mainEchoEffect').value=(profile?.defaults?.main_echo&&MAIN_ECHO_EFFECTS[profile.defaults.main_echo])?profile.defaults.main_echo:'none'}
-function clearCharacterData(){M={echoes:[blankEcho(4),blankEcho(3),blankEcho(3),blankEcho(1),blankEcho(1)],candidate:blankEcho(4)};gearTouched=false;if($('chainLevel'))$('chainLevel').value='0';['totalAtk','totalHp','totalDef','critRate','critDmg','energyRegen'].forEach(id=>{if($(id))$(id).value=''});['elementDmg','globalDmg','globalAmp'].forEach(id=>{if($(id))$(id).value='0'});if($('replaceSlot'))$('replaceSlot').value='0';if($('candidateCost'))$('candidateCost').value='4';echoCards();candidateRows();['overallGain','candidateScore','critFactor','bestStandard'].forEach(id=>{if($(id))$(id).textContent='—'});if($('critState'))$('critState').textContent='—';if($('lineMarginals'))$('lineMarginals').innerHTML='';if($('standardBars'))$('standardBars').innerHTML=''}
+function clearCharacterData(){M={echoes:[blankEcho(4),blankEcho(3),blankEcho(3),blankEcho(1),blankEcho(1)],candidate:blankEcho(4)};gearTouched=false;if($('chainLevel'))$('chainLevel').value='0';['totalAtk','totalHp','totalDef','critRate','critDmg','energyRegen'].forEach(id=>{if($(id))$(id).value=''});['elementDmg','globalDmg','globalAmp','nonEchoAtkPct','nonEchoHpPct','nonEchoDefPct'].forEach(id=>{if($(id))$(id).value='0'});if($('replaceSlot'))$('replaceSlot').value='0';if($('candidateCost'))$('candidateCost').value='4';echoCards();candidateRows();['overallGain','candidateScore','critFactor','bestStandard'].forEach(id=>{if($(id))$(id).textContent='—'});if($('critState'))$('critState').textContent='—';if($('lineMarginals'))$('lineMarginals').innerHTML='';if($('standardBars'))$('standardBars').innerHTML=''}
 
 function selectCharacter(c){
   selectedCharacter=c;
@@ -157,7 +196,17 @@ function chainEffects(profile,chain){
 function gearEffects(){const s=SONATAS[$('sonataMode')?.value]||SONATAS.none;const e=MAIN_ECHO_EFFECTS[$('mainEchoEffect')?.value]||MAIN_ECHO_EFFECTS.none;const w=($('weaponMode')?.value==='signature')?(signatureInfo()?.effects||[]):[];return [...(s.static||[]).map(x=>({...x,source:'sonata-static'})),...(s.combat||[]).map(x=>({...x,source:'sonata-combat'})),...(e.static||[]).map(x=>({...x,source:'main-echo-static'})),...(e.combat||[]).map(x=>({...x,source:'main-echo-combat'})),...w]}
 function allAutoEffects(profile,chain){return [...chainEffects(profile,chain),...gearEffects()]}
 
-function renderMechanics(){}
+function renderMechanics(){
+  const el=$('characterModelStatus');if(!el)return;
+  if(!selectedCharacter){el.innerHTML='<strong>角色机制：</strong>请选择角色。';return}
+  const p=currentProfile();
+  if(p?.verified){
+    const mix=Object.entries(normalizedWeights(p)).filter(([,w])=>w>=.005).map(([k,w])=>`${DAMAGE_LABEL[k]||k} ${(w*100).toFixed(0)}%`).join(' · ');
+    el.innerHTML=`<strong>角色机制：</strong>${esc(selectedCharacter.name)} 已建模，主倍率 ${esc(($('scaler')?.value||'atk').toUpperCase())}。伤害构成：${esc(mix||'—')}。`;
+  }else{
+    el.innerHTML=`<strong>角色机制：</strong>${esc(selectedCharacter.name)} 尚未建模，按通用口径计算（不含类型伤害权重与专武/套装默认值）。评分依然基于你填写的实际面板。`;
+  }
+}
 
 function renderMainRows(e,root){
   const fixed=FIXED_MAIN[e.cost];
@@ -225,15 +274,16 @@ function panelState(){
   return{
     atk:num('totalAtk'),hp:num('totalHp'),def:num('totalDef'),
     critRate:num('critRate'),critDmg:num('critDmg'),energyRegen:num('energyRegen'),
-    extraElementDmg:num('elementDmg'),globalDmg:num('globalDmg'),globalAmp:num('globalAmp')
+    extraElementDmg:num('elementDmg'),globalDmg:num('globalDmg'),globalAmp:num('globalAmp'),
+    nonEchoAtkPct:num('nonEchoAtkPct'),nonEchoHpPct:num('nonEchoHpPct'),nonEchoDefPct:num('nonEchoDefPct')
   };
 }
 function makeContext(){
   const panel=panelState(),curAgg=aggregate(M.echoes),profile=currentProfile(),chain=Number($('chainLevel').value||0);
   const baseEff={
-    atk:Math.max(1,(panel.atk-curAgg.flatAtk)/Math.max(.01,1+curAgg.atkPct/100)),
-    hp:Math.max(1,(panel.hp-curAgg.flatHp)/Math.max(.01,1+curAgg.hpPct/100)),
-    def:Math.max(1,(panel.def-curAgg.flatDef)/Math.max(.01,1+curAgg.defPct/100))
+    atk:Math.max(1,(panel.atk-curAgg.flatAtk)/Math.max(.01,1+(curAgg.atkPct+panel.nonEchoAtkPct)/100)),
+    hp:Math.max(1,(panel.hp-curAgg.flatHp)/Math.max(.01,1+(curAgg.hpPct+panel.nonEchoHpPct)/100)),
+    def:Math.max(1,(panel.def-curAgg.flatDef)/Math.max(.01,1+(curAgg.defPct+panel.nonEchoDefPct)/100))
   };
   const nonEcho={
     critRate:panel.critRate-curAgg.critRate,
@@ -251,9 +301,9 @@ function autoBucket(ctx){
 function modelFromAggregate(ctx,a){
   const auto=autoBucket(ctx);
   return{
-    atk:ctx.baseEff.atk*(1+(a.atkPct+auto.atkPct)/100)+a.flatAtk,
-    hp:ctx.baseEff.hp*(1+(a.hpPct+auto.hpPct)/100)+a.flatHp,
-    def:ctx.baseEff.def*(1+(a.defPct+auto.defPct)/100)+a.flatDef,
+    atk:ctx.baseEff.atk*(1+(a.atkPct+auto.atkPct+ctx.panel.nonEchoAtkPct)/100)+a.flatAtk,
+    hp:ctx.baseEff.hp*(1+(a.hpPct+auto.hpPct+ctx.panel.nonEchoHpPct)/100)+a.flatHp,
+    def:ctx.baseEff.def*(1+(a.defPct+auto.defPct+ctx.panel.nonEchoDefPct)/100)+a.flatDef,
     critRate:ctx.nonEcho.critRate+a.critRate+auto.critRate,
     critDmg:ctx.nonEcho.critDmg+a.critDmg+auto.critDmg,
     energyRegen:ctx.nonEcho.energyRegen+a.energyRegen,
@@ -336,10 +386,6 @@ function bars(root,rows){
   const mx=Math.max(.01,...rows.map(x=>Math.abs(x.gain)));
   root.innerHTML=rows.map(x=>`<div class="bar-row ${x.gain<0?'negative':''}"><div class="bar-label">${esc(x.label)}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,Math.abs(x.gain)/mx*100)}%"></div></div><div class="bar-value">${pct(x.gain)}</div></div>`).join('')||'<div class="micro">暂无数据。</div>';
 }
-function renderRollControls(){
-  $('rollControls').innerHTML='';
-}
-
 function calculate(){
   pullEchoes();
   const ctx=makeContext(),slot=Number($('replaceSlot').value||0),next=clone(M.echoes);
@@ -363,8 +409,10 @@ function calculate(){
   $('critState').textContent=`战斗态 ${currentStats.critRate.toFixed(1)} / ${currentStats.critDmg.toFixed(1)}`;
 
   const standards=standardCandidates(ctx);
-  $('bestStandard').textContent=standards[0]?.label||'—';
-  $('bestStandardNote').textContent=ctx.profile?.verified?'已考虑角色机制 / 共鸣链 / 套装':'类型伤害词条待角色机制补齐';
+  $('bestStandard').textContent=standards[0]?TYPE_LABELS[standards[0].type]||standards[0].label:'—';
+  $('bestStandardNote').textContent=standards[0]
+    ?`平均档 ${standards[0].value}${standards[0].type.startsWith('flat')?'':'%'} · 边际提升 ${pct(standards[0].gain)}${ctx.profile?.verified?' · 已考虑角色机制':' · 通用口径（角色未建模）'}`
+    :'填写角色与当前面板后生成推荐';
   bars($('standardBars'),standards.map(x=>({label:x.label,gain:x.gain})));
 
   const lineRows=[];
@@ -395,9 +443,9 @@ function bind(){
   });
   $('chainLevel').addEventListener('change',()=>{renderMechanics();calculate()});
   $('scaler').addEventListener('change',calculate);
-  ['totalAtk','totalHp','totalDef','critRate','critDmg','energyRegen','elementDmg','globalDmg','globalAmp'].forEach(id=>$(id)?.addEventListener('input',calculate));
+  ['totalAtk','totalHp','totalDef','critRate','critDmg','energyRegen','elementDmg','globalDmg','globalAmp','nonEchoAtkPct','nonEchoHpPct','nonEchoDefPct'].forEach(id=>$(id)?.addEventListener('input',calculate));
   $('resetStatsBtn').addEventListener('click',()=>{
-    Object.entries({totalAtk:2300,totalHp:21000,totalDef:1500,critRate:75,critDmg:250,energyRegen:125,elementDmg:0,globalDmg:0,globalAmp:0}).forEach(([k,v])=>{if($(k))$(k).value=v});
+    Object.entries({totalAtk:2300,totalHp:21000,totalDef:1500,critRate:75,critDmg:250,energyRegen:125,elementDmg:0,globalDmg:0,globalAmp:0,nonEchoAtkPct:0,nonEchoHpPct:0,nonEchoDefPct:0}).forEach(([k,v])=>{if($(k))$(k).value=v});
     calculate();
   });
   $('equippedEchoes').addEventListener('change',e=>{
@@ -440,7 +488,7 @@ function init(){
   echoCards();
   candidateRows();
   mountGearConfig();
-  renderRollControls();
+  renderMechanics();
   bind();
   loadData().finally(()=>{calculate()});
 }
