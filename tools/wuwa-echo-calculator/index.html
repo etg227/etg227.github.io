@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="鸣潮单角色声骸边际收益、角色机制、共鸣链与单件评分计算器。" />
   <title>鸣潮声骸边际评分器</title>
-  <link rel="stylesheet" href="styles.css?v=20260916-4" />
+  <link rel="stylesheet" href="styles.css?v=20260916-5" />
   <style>
     .profile-grid{grid-template-columns:1.35fr .55fr .65fr}
     .current-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -32,7 +32,7 @@
     <div class="profile-grid">
       <button class="character-pick" id="characterPick" type="button">
         <span class="portrait placeholder">?</span>
-        <span class="pick-copy"><b id="characterName">选择角色</b><small id="rosterSource">正在读取库街区角色库…</small></span>
+        <span class="pick-copy"><b id="characterName">选择角色</b><small id="rosterSource">正在读取角色库…</small></span>
       </button>
       <label>共鸣链
         <select id="chainLevel">
@@ -48,12 +48,12 @@
       <div class="browser-head"><input id="characterSearch" placeholder="搜索角色名称"><button id="closeCharacterBrowser" type="button">关闭</button></div>
       <div class="character-grid" id="characterGrid"></div>
     </div>
-    <div class="callout" id="characterModelStatus"><strong>角色机制：</strong>请选择角色。有效的普攻/重击/共鸣技能/共鸣解放词条会由角色机制库自动决定，不再让玩家填写伤害占比。</div>
+    <div class="callout" id="characterModelStatus"><strong>角色机制：</strong>请选择角色。</div>
   </section>
 
   <section class="panel">
     <div class="panel-title-row"><div><span class="step">02</span><h2>当前面板</h2></div><button class="mini" id="resetStatsBtn" type="button">重置示例</button></div>
-    <p class="micro">只填当前装备状态下的角色面板，不再要求填写基础面板。</p>
+    <p class="micro">填写角色详情页当前静态面板；共鸣链、套装和首位声骸的战斗态增益会自动加入。</p>
     <div class="current-stat-grid">
       <label>攻击 ATK<input id="totalAtk" type="number" value="2300"></label>
       <label>生命 HP<input id="totalHp" type="number" value="21000"></label>
@@ -63,9 +63,9 @@
       <label>共鸣效率 ER %<input id="energyRegen" type="number" value="125" step="0.1"></label>
     </div>
     <details>
-      <summary>当前伤害加成（可选）</summary>
+      <summary>其他伤害加成（可选）</summary>
       <div class="form-grid three compact-top">
-        <label>属性伤害加成 %<input id="elementDmg" type="number" value="0" step="0.1"></label>
+        <label>其他静态属性伤害 %<input id="elementDmg" type="number" value="0" step="0.1"></label>
         <label>全伤害加成 %<input id="globalDmg" type="number" value="0" step="0.1"></label>
         <label>Amplify / 加深 %<input id="globalAmp" type="number" value="0" step="0.1"></label>
       </div>
@@ -104,7 +104,7 @@
       <div class="metric-card accent"><span>候选声骸替换提升</span><strong id="overallGain">—</strong><small>相对当前整套</small></div>
       <div class="metric-card"><span>候选副词条评分</span><strong id="candidateScore">—</strong><small>100 = 5 条当前最优平均档</small></div>
       <div class="metric-card"><span>当前期望暴击乘区</span><strong id="critFactor">—</strong><small id="critState">—</small></div>
-      <div class="metric-card"><span>最值钱标准词条</span><strong id="bestStandard">—</strong><small id="bestStandardNote">随角色 / 共鸣链变化</small></div>
+      <div class="metric-card"><span>最值钱标准词条</span><strong id="bestStandard">—</strong><small id="bestStandardNote">随角色 / 共鸣链 / 套装变化</small></div>
     </div>
     <h3>5 只当前声骸独立评分</h3>
     <div id="echoScoreCards" class="score-grid"></div>
@@ -118,7 +118,7 @@
   <div id="rollControls" hidden></div>
   <div id="boundaryCards" hidden></div>
 </main>
-<script src="app.js?v=20260916-4"></script>
-<script src="/wuwa/profile-save-v2.js?v=20260916-4"></script>
+<script src="app.js?v=20260916-5"></script>
+<script src="/wuwa/profile-save-v2.js?v=20260916-5"></script>
 </body>
 </html>
