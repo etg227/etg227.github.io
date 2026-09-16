@@ -1,32 +1,36 @@
 {
-  "source": "库街区《鸣潮》WIKI角色技能/共鸣链文本；Prydwen当前角色页仅作交叉检查",
+  "source": "角色输出构成：经作者明确许可复用 GQin404/WuwaEchoTool（截至陆·赫斯）；角色技能、共鸣链与新角色机制：库街区《鸣潮》WIKI / 当前资料交叉校验",
   "updated_at": "2026-09-16",
+  "legacy_data_boundary": "陆·赫斯",
   "characters": {
     "赞妮": {
       "verified": true,
       "scaler": "atk",
       "element": "spectro",
       "element_label": "衍射",
-      "summary": "开大进入焚日模式后，破晓、黎明、夜幕与炽光斩等核心斩击均视为重击伤害；终结解放并不视为重击。",
-      "type_weights": {"heavy": 0.56, "liberation": 0.31, "skill": 0.08, "basic": 0.05},
+      "data_source": "WuwaEchoTool + 库街区/Prydwen机制校验",
+      "summary": "焚日模式下主要攻击均为重击类型；按 WuwaEchoTool 的成熟输出模型，重击约占标准输出的 76%。",
+      "type_weights": {"heavy": 0.76, "liberation": 0.12, "basic": 0.03, "skill": 0.01, "other": 0.09},
       "type_notes": {
-        "heavy": "核心：焚日模式的主要斩击均视为重击伤害",
-        "liberation": "有效：进入焚日与终结解放均造成共鸣解放伤害",
-        "skill": "少量：入场后的防御协议/针对行动属于共鸣技能",
-        "basic": "少量：爆发前有普通攻击铺垫"
+        "heavy": "核心：焚日模式的主要斩击均视为重击伤害；旧评分工具标准输出模型权重约 76%",
+        "liberation": "有效：进入焚日与终结解放属于共鸣解放伤害，标准模型约 12%",
+        "basic": "少量：爆发前普通攻击铺垫，标准模型约 3%",
+        "skill": "少量：针对行动/强制反击等部分动作，标准模型约 1%",
+        "other": "光噪等其他伤害约 9%，不吃普通四类伤害副词条"
       },
       "innate": [
         {"kind": "elementDmg", "value": 12, "apply": "combat", "scope": "burst", "label": "固有技能：变奏后衍射伤害加成 +12%，持续14秒"}
       ],
       "chains": [
-        {"level": 1, "effects": [{"kind": "elementDmg", "value": 50, "apply": "combat", "scope": "burst"}], "label": "1链：针对行动/强制反击后，衍射伤害加成 +50%，持续14秒（自动计入爆发态）"},
-        {"level": 2, "effects": [{"kind": "critRate", "value": 20, "apply": "panel"}], "label": "2链：暴击率 +20%（属于常驻面板属性，读取“当前面板”时不重复叠加）；并提高针对行动/强制反击倍率"},
-        {"level": 3, "effects": [], "label": "3链：消耗炽焰提高终结共鸣解放倍率；主要改变伤害构成，不直接增加面板词条"},
-        {"level": 4, "effects": [{"kind": "atkPct", "value": 20, "apply": "combat", "scope": "rotation"}], "label": "4链：变奏后全队攻击提升20%，持续30秒（自动计入战斗态）"},
-        {"level": 5, "effects": [], "label": "5链：进入焚日的共鸣解放倍率提高120%"},
-        {"level": 6, "effects": [], "label": "6链：焚日模式重击斩击倍率提高，并额外恢复炽焰；进一步强化重击构成"}
+        {"level": 1, "effects": [{"kind": "elementDmg", "value": 50, "apply": "combat", "scope": "burst"}], "label": "1链：针对行动/强制反击后，衍射伤害加成 +50%，持续14秒"},
+        {"level": 2, "effects": [{"kind": "critRate", "value": 20, "apply": "combat", "scope": "rotation"}], "label": "2链：暴击率 +20%；该增益不按角色静态面板重复输入，由计算器加入战斗态"},
+        {"level": 3, "effects": [], "label": "3链：焚日状态下每消耗1点炽焰提高终结解放倍率，最多提高1200%倍率；改变伤害构成"},
+        {"level": 4, "effects": [{"kind": "atkPct", "value": 20, "apply": "combat", "scope": "rotation"}], "label": "4链：变奏后全队攻击提升20%，持续30秒"},
+        {"level": 5, "effects": [], "label": "5链：共鸣解放·再燃倍率提高120%"},
+        {"level": 6, "effects": [], "label": "6链：焚日模式重击斩击倍率提高，并额外恢复炽焰；会进一步提高重击构成"}
       ],
-      "model_note": "伤害类型按角色技能实际“视为”标签归类。赞妮焚日模式核心斩击计作重击伤害；共鸣链中的常驻面板属性不重复叠加，临时战斗增益自动加入。倍率改写型共鸣链会显示机制说明，并随着后续角色组件模型逐步精确到单技能。",
+      "model_note": "赞妮的四类输出权重采用获作者许可的 WuwaEchoTool 数据；共鸣链与战斗态增益按当前机制重新校验。2链+20%暴击属于计算战斗态时自动加入的增益。",
+      "legacy_reference": "https://github.com/GQin404/WuwaEchoTool",
       "source_url": "https://wiki.kurobbs.com/mc/home",
       "crosscheck_url": "https://www.prydwen.gg/wuthering-waves/characters/zani"
     }
