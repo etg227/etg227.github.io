@@ -1,0 +1,35 @@
+{
+  "updated_at": "2026-09-17",
+  "note": "3.7 preview/test-server profiles. Values may change before release; kept separate from released-character database.",
+  "characters": {
+    "心": {
+      "verified": false,
+      "preview": true,
+      "scaler": "atk",
+      "type_weights": {"basic": 0.12, "heavy": 0.06, "skill": 0.70, "liberation": 0.07, "other": 0.05},
+      "innate": [],
+      "chains": [
+        {"level": 4, "effects": [{"kind": "globalDmg", "value": 20, "apply": "combat", "source": "S4-preview"}]},
+        {"level": 6, "effects": [{"kind": "skillDmg", "value": 40, "apply": "combat", "source": "S6-preview"}]}
+      ],
+      "source_kind": "3.7 preview/test data",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "notes": "共鸣技能为主要伤害标签；输出占比为前瞻模型，正式上线后应重新校验。"
+    },
+    "锁暝": {
+      "verified": false,
+      "preview": true,
+      "scaler": "atk",
+      "type_weights": {"basic": 0.75, "heavy": 0.02, "skill": 0.08, "liberation": 0.10, "other": 0.05},
+      "innate": [],
+      "chains": [
+        {"level": 2, "effects": [{"kind": "critDmg", "value": 40, "apply": "combat", "source": "S2-preview"}]},
+        {"level": 4, "effects": [{"kind": "atkPct", "value": 20, "apply": "combat", "source": "S4-preview"}]},
+        {"level": 6, "effects": [{"kind": "critDmg", "value": 80, "apply": "combat", "source": "S6-preview-state"}]}
+      ],
+      "source_kind": "3.7 preview/test data",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "notes": "普攻为主要伤害标签；输出占比与6链状态为前瞻模型，正式上线后应重新校验。"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 (()=>{
 'use strict';
-if(window.__wuwaEchoBaselineSyncV2Loaded)return;
-window.__wuwaEchoBaselineSyncV2Loaded=true;
+if(window.__wuwaEchoBaselineSyncV1Loaded)return;
+window.__wuwaEchoBaselineSyncV1Loaded=true;
 
 const $=id=>document.getElementById(id);
 const num=id=>Number($(id)?.value||0);
@@ -12,7 +12,6 @@ let baseline=null;
 let suspendedUntil=0;
 let internalWrite=false;
 let captureTimer=0;
-let loadWatchTimer=0;
 
 function emptyAgg(){return{atkPct:0,flatAtk:0,hpPct:0,flatHp:0,defPct:0,flatDef:0,critRate:0,critDmg:0,energyRegen:0}}
 function add(a,type,value){if(Object.prototype.hasOwnProperty.call(a,type))a[type]+=Number(value||0)}
@@ -57,11 +56,6 @@ function derive(){
   };
 }
 function capture(){const b=derive();if(b)baseline=b;return !!b}
-function scheduleCapture(delay=80){
-  clearTimeout(captureTimer);
-  const remaining=Math.max(0,suspendedUntil-Date.now());
-  captureTimer=setTimeout(()=>capture(),Math.max(delay,remaining+30));
-}
 function setVal(id,v){const el=$(id);if(!el)return;el.value=Number(v.toFixed(3)).toString()}
 function syncPanelToEchoes(){
   if(Date.now()<suspendedUntil)return;
@@ -80,54 +74,34 @@ function syncPanelToEchoes(){
 function suspend(ms=900){
   baseline=null;
   suspendedUntil=Date.now()+ms;
-  scheduleCapture(ms+30);
-}
-function finishSavedLoad(){
-  suspendedUntil=0;
   clearTimeout(captureTimer);
-  captureTimer=setTimeout(()=>capture(),30);
-}
-function watchSavedLoad(){
-  clearInterval(loadWatchTimer);
-  const started=Date.now();
-  loadWatchTimer=setInterval(()=>{
-    const text=$('wuwaSaveStatus')?.textContent?.trim()||'';
-    if(text.startsWith('已载入 ')||text.includes('载入失败')){
-      clearInterval(loadWatchTimer);loadWatchTimer=0;
-      finishSavedLoad();
-      return;
-    }
-    if(Date.now()-started>3000){
-      clearInterval(loadWatchTimer);loadWatchTimer=0;
-      finishSavedLoad();
-    }
-  },25);
+  captureTimer=setTimeout(()=>capture(),ms+30);
 }
 function bind(){
   document.addEventListener('input',e=>{
     if(internalWrite)return;
     if(PANEL_IDS.has(e.target?.id)){
       baseline=null;
-      scheduleCapture(80);
+      clearTimeout(captureTimer);
+      captureTimer=setTimeout(()=>capture(),80);
     }
   },true);
   document.addEventListener('change',e=>{
     if(e.target?.closest?.('#equippedEchoes')){
-      if(Date.now()<suspendedUntil)return;
       if(!baseline){capture();return}
       syncPanelToEchoes();
     }
   },true);
   document.addEventListener('click',e=>{
-    if(e.target?.closest?.('#wuwaLoadSaved')){suspend(3000);watchSavedLoad();return}
-    if(e.target?.closest?.('#resetStatsBtn')){suspend(160);return}
-    if(e.target?.closest?.('.character-card')){suspend(260);return}
+    if(e.target?.closest?.('#wuwaLoadSaved')){suspend(1200);return}
+    if(e.target?.closest?.('#resetStatsBtn')){suspend(120);return}
+    if(e.target?.closest?.('.character-card')){suspend(220);return}
   },true);
   const host=$('characterPick');
-  if(host)new MutationObserver(()=>suspend(220)).observe(host,{childList:true,subtree:true});
+  if(host)new MutationObserver(()=>suspend(180)).observe(host,{childList:true,subtree:true});
   const echoes=$('equippedEchoes');
-  if(echoes)new MutationObserver(()=>{if(!baseline)scheduleCapture(60)}).observe(echoes,{childList:true,subtree:true});
+  if(echoes)new MutationObserver(()=>{if(!baseline&&Date.now()>=suspendedUntil){clearTimeout(captureTimer);captureTimer=setTimeout(()=>capture(),60)}}).observe(echoes,{childList:true,subtree:true});
 }
-function init(){bind();scheduleCapture(700)}
+function init(){bind();setTimeout(()=>capture(),700)}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();

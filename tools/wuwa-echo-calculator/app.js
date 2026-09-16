@@ -1,496 +1,67 @@
 (()=>{'use strict';
-const $=id=>document.getElementById(id);
-const num=id=>Number($(id)?.value||0);
-const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
-const clone=o=>JSON.parse(JSON.stringify(o));
-const pct=x=>`${x>=0?'+':''}${x.toFixed(2)}%`;
+const $=id=>document.getElementById(id), num=id=>Number($(id)?.value||0), clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-
-const TYPE_LABELS={
-  critRate:'暴击率',critDmg:'暴击伤害',atkPct:'攻击力%',flatAtk:'固定攻击',
-  hpPct:'生命值%',flatHp:'固定生命',defPct:'防御力%',flatDef:'固定防御',
-  energyRegen:'共鸣效率',basicDmg:'普攻伤害',heavyDmg:'重击伤害',
-  skillDmg:'共鸣技能伤害',liberationDmg:'共鸣解放伤害',
-  elementDmg:'属性伤害',healing:'治疗效果'
-};
+const pct=x=>`${x>=0?'+':''}${x.toFixed(2)}%`, clone=o=>JSON.parse(JSON.stringify(o));
+const LABEL={critRate:'暴击率',critDmg:'暴击伤害',atkPct:'攻击力%',flatAtk:'固定攻击',hpPct:'生命值%',flatHp:'固定生命',defPct:'防御力%',flatDef:'固定防御',energyRegen:'共鸣效率',basicDmg:'普攻伤害',heavyDmg:'重击伤害',skillDmg:'共鸣技能伤害',liberationDmg:'共鸣解放伤害',elementDmg:'属性伤害',globalDmg:'全伤害'};
 const DAMAGE_KEY={basic:'basicDmg',heavy:'heavyDmg',skill:'skillDmg',liberation:'liberationDmg'};
-const DAMAGE_LABEL={basic:'普攻',heavy:'重击',skill:'共鸣技能',liberation:'共鸣解放',other:'其他'};
-
 const SUB_TYPES=['','critRate','critDmg','atkPct','flatAtk','hpPct','flatHp','defPct','flatDef','energyRegen','basicDmg','heavyDmg','skillDmg','liberationDmg'];
-const SUB_ROLLS={
-  critRate:[6.3,6.9,7.5,8.1,8.7,9.3,9.9,10.5],
-  critDmg:[12.6,13.8,15.0,16.2,17.4,18.6,19.8,21.0],
-  atkPct:[6.4,7.1,7.9,8.6,9.4,10.1,10.9,11.6],
-  hpPct:[6.4,7.1,7.9,8.6,9.4,10.1,10.9,11.6],
-  basicDmg:[6.4,7.1,7.9,8.6,9.4,10.1,10.9,11.6],
-  heavyDmg:[6.4,7.1,7.9,8.6,9.4,10.1,10.9,11.6],
-  skillDmg:[6.4,7.1,7.9,8.6,9.4,10.1,10.9,11.6],
-  liberationDmg:[6.4,7.1,7.9,8.6,9.4,10.1,10.9,11.6],
-  defPct:[8.1,9.0,10.0,10.9,11.8,12.8,13.8,14.7],
-  energyRegen:[6.8,7.6,8.4,9.2,10.0,10.8,11.6,12.4],
-  flatHp:[320,360,390,430,470,510,540,580],
-  flatAtk:[30,40,50,60],
-  flatDef:[40,50,60,70]
-};
-const STANDARD_ROLL={
-  critRate:8.4,critDmg:16.8,atkPct:9,hpPct:9,defPct:11.8,
-  flatAtk:50,flatHp:470,flatDef:60,energyRegen:10,
-  basicDmg:9,heavyDmg:9,skillDmg:9,liberationDmg:9
-};
-
-const MAIN_PRIMARY={
-  4:[['','— 选择主词条 —'],['critRate','暴击率 22%'],['critDmg','暴击伤害 44%'],['atkPct','攻击力 33%'],['hpPct','生命值 33%'],['defPct','防御力 41.8%'],['healing','治疗效果 26.4%']],
-  3:[['','— 选择主词条 —'],['elementDmg','对应属性伤害 30%'],['energyRegen','共鸣效率 32%'],['atkPct','攻击力 30%'],['hpPct','生命值 30%'],['defPct','防御力 38%']],
-  1:[['','— 选择主词条 —'],['atkPct','攻击力 18%'],['hpPct','生命值 22.8%'],['defPct','防御力 18%']]
-};
-const MAIN_VALUE={
-  4:{critRate:22,critDmg:44,atkPct:33,hpPct:33,defPct:41.8,healing:26.4},
-  3:{elementDmg:30,energyRegen:32,atkPct:30,hpPct:30,defPct:38},
-  1:{atkPct:18,hpPct:22.8,defPct:18}
-};
-const FIXED_MAIN={4:{type:'flatAtk',value:150},3:{type:'flatAtk',value:100},1:{type:'flatHp',value:2280}};
-
-const SONATAS={
-  none:{label:'不计套装效果',static:[],combat:[],note:'不额外加入合鸣套装效果。'},
-  elem2:{
-    label:'属性合鸣 · 2件（对应属性伤害 +10%）',
-    static:[{kind:'elementDmg',value:10}],
-    combat:[],
-    note:'凝夜白霜 / 熔山裂谷 / 彻空冥雷 / 啸谷长风 / 浮星祛暗 / 沉日劫明 通用 2 件效果：对应属性伤害 +10%。'
-  },
-  elem5:{
-    label:'属性合鸣 · 5件（按满触发）',
-    static:[{kind:'elementDmg',value:10}],
-    combat:[{kind:'elementDmg',value:30}],
-    note:'2 件静态属性伤害 +10%；5 件按满层/满触发计算，战斗态再 +30% 对应属性伤害（各属性套满触发数值一致）。'
-  },
-  lingering2:{
-    label:'不绝余音 · 2件（攻击 +10%）',
-    static:[{kind:'atkPct',value:10}],
-    combat:[],
-    note:'静态：攻击力 +10%。'
-  },
-  lingering5:{
-    label:'不绝余音 · 5件（按满层）',
-    static:[{kind:'atkPct',value:10}],
-    combat:[{kind:'atkPct',value:20}],
-    note:'2 件攻击 +10%；5 件在场每 1.5 秒攻击 +5%、最多 4 层，按满层战斗态再 +20%。'
-  },
-  moonlit2:{
-    label:'轻云出月 · 2件（共鸣效率 +10%）',
-    static:[{kind:'energyRegen',value:10}],
-    combat:[],
-    note:'共鸣效率 +10%。ER 为阈值属性，不折算为伤害，仅作记录。'
-  },
-  rejuv5:{
-    label:'隐世回光 · 5件（治疗触发攻击）',
-    static:[],
-    combat:[{kind:'atkPct',value:15}],
-    note:'5 件：治疗队友时全队攻击 +15%，按已触发计算；2 件治疗加成不参与伤害评分。'
-  },
-  eternal2:{
-    label:'此间永驻之光 · 2件',
-    static:[{kind:'elementDmg',value:10}],
-    combat:[],
-    note:'静态：衍射伤害 +10%。'
-  },
-  eternal5:{
-    label:'此间永驻之光 · 5件（按满触发）',
-    static:[{kind:'elementDmg',value:10}],
-    combat:[{kind:'critRate',value:20},{kind:'elementDmg',value:15}],
-    note:'静态衍射 +10%；战斗态按已施加光噪并攻击10层光噪目标计算：暴击 +20%、衍射 +15%。'
-  }
-};
-const MAIN_ECHO_EFFECTS={
-  none:{label:'不计首位声骸效果',static:[],combat:[],note:'不额外加入首位声骸被动。'},
-  glory:{
-    label:'荣光节使（首位）',
-    static:[{kind:'elementDmg',value:12},{kind:'heavyDmg',value:12}],
-    combat:[],
-    note:'首位装配：衍射伤害 +12%、重击伤害 +12%。'
-  }
-};
-
-const FALLBACK_NAMES=['景燃','清宵','穗穗','秧秧·玄翎','洛瑟菈','达妮娅','绯雪','西格莉卡','陆·赫斯','爱弥斯','莫宁','琳奈','千咲','仇远','嘉贝莉娜','尤诺','奥古斯塔','弗洛洛','露帕','卡提希娅','夏空','赞妮','坎特蕾拉','布兰特','菲比','洛可可','珂莱塔','椿','守岸人','相里要','折枝','长离','今汐','吟霖','忌炎','秧秧','散华','渊武','秋水','莫特斐','丹瑾','桃祈','维里奈','凌阳','卡卡罗','鉴心','安可','漂泊者'];
-let roster=FALLBACK_NAMES.map((name,i)=>({id:`fallback-${i}`,name,image:''}));
-let mechanics={characters:{}};
-let selectedCharacter=null;
-let gearTouched=false;
-
-const blankLine=()=>({type:'',value:0});
-const blankEcho=(cost=4)=>({cost,mainType:'',sub:[blankLine(),blankLine(),blankLine(),blankLine(),blankLine()]});
-let M={echoes:[blankEcho(4),blankEcho(3),blankEcho(3),blankEcho(1),blankEcho(1)],candidate:blankEcho(4)};
-
-function optionHtml(items,value){
-  return items.map(([v,l])=>`<option value="${esc(v)}" ${String(v)===String(value)?'selected':''}>${esc(l)}</option>`).join('');
-}
-function subTypeOptions(value){
-  return SUB_TYPES.map(t=>`<option value="${t}" ${t===value?'selected':''}>${t?esc(TYPE_LABELS[t]+(t.startsWith('flat')?'':' %')):'— 无 —'}</option>`).join('');
-}
-function rollOptions(type,current){
-  const vals=SUB_ROLLS[type]||[];
-  if(!type)return '<option value="0">—</option>';
-  const n=Number(current),chosen=vals.includes(n)?n:(vals[Math.floor((vals.length-1)/2)]||0);
-  return vals.map(v=>`<option value="${v}" ${v===chosen?'selected':''}>${v}${type.startsWith('flat')?'':'%'}</option>`).join('');
-}
-function mainPrimaryOptions(cost,current){return optionHtml(MAIN_PRIMARY[cost]||MAIN_PRIMARY[4],current)}
-function mainValue(cost,type){return MAIN_VALUE[cost]?.[type]||0}
-
-async function loadData(){
-  const jobs=[
-    fetch('/wuwa/data/characters.json',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject()),
-    fetch('/wuwa/data/character-mechanics.json',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject())
-  ];
-  const [r,m]=await Promise.allSettled(jobs);
-  if(r.status==='fulfilled'){
-    const arr=Array.isArray(r.value)?r.value:r.value.characters;
-    if(Array.isArray(arr)&&arr.length){
-      roster=arr.filter(x=>x?.name).map((x,i)=>({id:String(x.id||i),name:String(x.name).trim(),image:x.image||''}));
-    }
-  }
-  if(m.status==='fulfilled'&&m.value?.characters)mechanics=m.value;
-  if($('rosterSource')){
-    const modeled=roster.filter(c=>mechanics.characters?.[c.name]).length;
-    $('rosterSource').textContent=`角色库 · ${roster.length} 名（${modeled} 名已建模）`;
-  }
-  renderCharacters();
-}
-function avatar(c){
-  if(c?.image)return `<span class="portrait"><img src="${esc(c.image)}" alt="${esc(c.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.textContent='${esc((c.name||'?').slice(0,1))}'"></span>`;
-  return `<span class="portrait placeholder">${esc((c?.name||'?').slice(0,1))}</span>`;
-}
-function renderCharacters(filter=''){
-  const q=filter.trim().toLowerCase();
-  $('characterGrid').innerHTML=roster.filter(c=>!q||c.name.toLowerCase().includes(q)).map(c=>`<button class="character-card" data-char-id="${esc(c.id)}" type="button">${avatar(c)}<span>${esc(c.name)}</span>${mechanics.characters?.[c.name]?'':'<em class="nomodel">未建模</em>'}</button>`).join('');
-}
-function currentProfile(){return selectedCharacter?mechanics.characters?.[selectedCharacter.name]||null:null}
-
-function signatureInfo(){return currentProfile()?.signature_weapon||null}
-function mountGearConfig(){
-  if($('gearAutoConfig'))return;const host=document.querySelector('.intro-panel .profile-grid');if(!host)return;
-  const wrap=document.createElement('div');wrap.id='gearAutoConfig';wrap.className='gear-auto-config';
-  wrap.innerHTML=`<div class="gear-auto-grid"><label>武器被动<select id="weaponMode"><option value="none">不计专武被动</option></select></label><label>声骸合鸣套装<select id="sonataMode">${Object.entries(SONATAS).map(([k,v])=>`<option value="${k}">${esc(v.label)}</option>`).join('')}</select></label><label>首位声骸效果<select id="mainEchoEffect">${Object.entries(MAIN_ECHO_EFFECTS).map(([k,v])=>`<option value="${k}">${esc(v.label)}</option>`).join('')}</select></label></div>`;host.insertAdjacentElement('afterend',wrap);
-  const st=document.createElement('style');st.id='gear-auto-style';st.textContent=`.gear-auto-config{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--panel2)}.gear-auto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.gear-auto-grid label{font-size:11px;color:var(--muted);display:grid;gap:5px}.gear-auto-grid select{width:100%}.echo-mini-grade{font-size:11px;font-weight:900;border:1px solid var(--line);border-radius:999px;padding:2px 7px;margin-left:auto;color:var(--accent)}@media(max-width:760px){.gear-auto-grid{grid-template-columns:1fr}}`;document.head.appendChild(st);
-  ['weaponMode','sonataMode','mainEchoEffect'].forEach(id=>$(id).addEventListener('change',()=>{gearTouched=true;calculate()}));
-}
-function refreshWeaponOptions(profile,applyDefault=true){const el=$('weaponMode');if(!el)return;const sig=profile?.signature_weapon;el.innerHTML='<option value="none">不计专武被动</option>'+(sig?.name?`<option value="signature">${esc(sig.name)}（专武）</option>`:'');el.value=(applyDefault&&sig?.verified)?'signature':'none'}
-function applyProfileDefaults(profile){refreshWeaponOptions(profile,true);if($('sonataMode'))$('sonataMode').value=(profile?.defaults?.sonata&&SONATAS[profile.defaults.sonata])?profile.defaults.sonata:'none';if($('mainEchoEffect'))$('mainEchoEffect').value=(profile?.defaults?.main_echo&&MAIN_ECHO_EFFECTS[profile.defaults.main_echo])?profile.defaults.main_echo:'none'}
-function clearCharacterData(){M={echoes:[blankEcho(4),blankEcho(3),blankEcho(3),blankEcho(1),blankEcho(1)],candidate:blankEcho(4)};gearTouched=false;if($('chainLevel'))$('chainLevel').value='0';['totalAtk','totalHp','totalDef','critRate','critDmg','energyRegen'].forEach(id=>{if($(id))$(id).value=''});['elementDmg','globalDmg','globalAmp','nonEchoAtkPct','nonEchoHpPct','nonEchoDefPct'].forEach(id=>{if($(id))$(id).value='0'});if($('replaceSlot'))$('replaceSlot').value='0';if($('candidateCost'))$('candidateCost').value='4';echoCards();candidateRows();['overallGain','candidateScore','critFactor','bestStandard'].forEach(id=>{if($(id))$(id).textContent='—'});if($('critState'))$('critState').textContent='—';if($('lineMarginals'))$('lineMarginals').innerHTML='';if($('standardBars'))$('standardBars').innerHTML=''}
-
-function selectCharacter(c){
-  selectedCharacter=c;
-  $('characterPick').innerHTML=`${avatar(c)}<span class="pick-copy"><b id="characterName">${esc(c.name)}</b><small id="rosterSource">角色机制自动匹配</small></span>`;
-  $('characterBrowser').hidden=true;
-  const p=currentProfile();
-  if(p?.scaler){$('scaler').value=p.scaler;$('scaler').disabled=true}else $('scaler').disabled=false;
-  applyProfileDefaults(p);
-  renderMechanics();
-  calculate();
-}
-function chainEffects(profile,chain){
-  const out=[];
-  (profile?.innate||[]).forEach(e=>{if(e.apply!=='panel')out.push({...e,source:'innate'})});
-  (profile?.chains||[]).filter(x=>x.level<=chain).forEach(x=>(x.effects||[]).forEach(e=>{if(e.apply!=='panel')out.push({...e,source:`S${x.level}`})}));
-  return out;
-}
-function gearEffects(){const s=SONATAS[$('sonataMode')?.value]||SONATAS.none;const e=MAIN_ECHO_EFFECTS[$('mainEchoEffect')?.value]||MAIN_ECHO_EFFECTS.none;const w=($('weaponMode')?.value==='signature')?(signatureInfo()?.effects||[]):[];return [...(s.static||[]).map(x=>({...x,source:'sonata-static'})),...(s.combat||[]).map(x=>({...x,source:'sonata-combat'})),...(e.static||[]).map(x=>({...x,source:'main-echo-static'})),...(e.combat||[]).map(x=>({...x,source:'main-echo-combat'})),...w]}
-function allAutoEffects(profile,chain){return [...chainEffects(profile,chain),...gearEffects()]}
-
-function renderMechanics(){
-  const el=$('characterModelStatus');if(!el)return;
-  if(!selectedCharacter){el.innerHTML='<strong>角色机制：</strong>请选择角色。';return}
-  const p=currentProfile();
-  if(p?.verified){
-    const mix=Object.entries(normalizedWeights(p)).filter(([,w])=>w>=.005).map(([k,w])=>`${DAMAGE_LABEL[k]||k} ${(w*100).toFixed(0)}%`).join(' · ');
-    el.innerHTML=`<strong>角色机制：</strong>${esc(selectedCharacter.name)} 已建模，主倍率 ${esc(($('scaler')?.value||'atk').toUpperCase())}。伤害构成：${esc(mix||'—')}。`;
-  }else{
-    el.innerHTML=`<strong>角色机制：</strong>${esc(selectedCharacter.name)} 尚未建模，按通用口径计算（不含类型伤害权重与专武/套装默认值）。评分依然基于你填写的实际面板。`;
-  }
-}
-
-function renderMainRows(e,root){
-  const fixed=FIXED_MAIN[e.cost];
-  root.innerHTML=`
-    <div class="echo-row main-primary"><select class="echo-type">${mainPrimaryOptions(e.cost,e.mainType)}</select><select class="echo-value" disabled><option>${e.mainType?mainValue(e.cost,e.mainType):0}${e.mainType&&!e.mainType.startsWith('flat')?'%':''}</option></select></div>
-    <div class="echo-row fixed-main"><select class="echo-type" disabled><option>${esc(TYPE_LABELS[fixed.type])}</option></select><select class="echo-value" disabled><option>${fixed.value}</option></select></div>`;
-}
-function renderSubRows(lines,root){
-  root.innerHTML=lines.map((r,i)=>`<div class="echo-row" data-i="${i}"><select class="echo-type">${subTypeOptions(r.type)}</select><select class="echo-value">${rollOptions(r.type,r.value)}</select></div>`).join('');
-}
-function echoCards(){
-  $('equippedEchoes').innerHTML=M.echoes.map((e,i)=>`
-    <div class="echo-card" data-echo="${i}">
-      <div class="echo-card-head"><b>声骸 ${i+1}</b><select class="cost-select echo-cost"><option value="4" ${e.cost===4?'selected':''}>4 COST</option><option value="3" ${e.cost===3?'selected':''}>3 COST</option><option value="1" ${e.cost===1?'selected':''}>1 COST</option></select></div>
-      <div class="echo-section-label">主词条</div><div class="main-rows"></div>
-      <div class="echo-section-label">副词条</div><div class="sub-rows"></div>
-      <div class="echo-mini-score"><span>边际评分</span><strong id="miniScore${i}">—</strong><span class="echo-mini-grade" id="miniGrade${i}">D</span></div>
-    </div>`).join('');
-  document.querySelectorAll('.echo-card').forEach(card=>{
-    const e=M.echoes[Number(card.dataset.echo)];
-    renderMainRows(e,card.querySelector('.main-rows'));
-    renderSubRows(e.sub,card.querySelector('.sub-rows'));
-  });
-}
-function candidateRows(){
-  renderMainRows(M.candidate,$('candidateMainRows'));
-  renderSubRows(M.candidate.sub,$('candidateSubRows'));
-}
-function syncRowValue(row){
-  const t=row.querySelector('.echo-type')?.value||'',v=row.querySelector('.echo-value');
-  if(!v)return;
-  v.innerHTML=rollOptions(t,Number(v.value||0));
-}
-function pullEchoes(){
-  document.querySelectorAll('.echo-card').forEach(card=>{
-    const i=Number(card.dataset.echo),e=M.echoes[i];
-    e.cost=Number(card.querySelector('.echo-cost').value);
-    e.mainType=card.querySelector('.main-primary .echo-type').value;
-    e.sub=[...card.querySelectorAll('.sub-rows .echo-row')].map(row=>({
-      type:row.querySelector('.echo-type').value,
-      value:Number(row.querySelector('.echo-value').value||0)
-    }));
-  });
-  M.candidate.cost=Number($('candidateCost').value||4);
-  M.candidate.mainType=document.querySelector('#candidateMainRows .main-primary .echo-type')?.value||'';
-  M.candidate.sub=[...$('candidateSubRows').querySelectorAll('.echo-row')].map(row=>({
-    type:row.querySelector('.echo-type').value,
-    value:Number(row.querySelector('.echo-value').value||0)
-  }));
-}
-
-function echoLines(e){
-  const fixed=FIXED_MAIN[e.cost],out=[];
-  if(e.mainType)out.push({type:e.mainType,value:mainValue(e.cost,e.mainType),main:true});
-  out.push({...fixed,main:true});
-  (e.sub||[]).forEach(x=>{if(x.type&&Number(x.value))out.push({...x,main:false})});
-  return out;
-}
-function aggregate(echoes,extra=[]){
-  const a={atkPct:0,flatAtk:0,hpPct:0,flatHp:0,defPct:0,flatDef:0,critRate:0,critDmg:0,energyRegen:0,elementDmg:0,basicDmg:0,heavyDmg:0,skillDmg:0,liberationDmg:0};
-  [...echoes.flatMap(echoLines),...extra].forEach(x=>{if(a[x.type]!==undefined)a[x.type]+=Number(x.value||0)});
-  return a;
-}
-function panelState(){
-  return{
-    atk:num('totalAtk'),hp:num('totalHp'),def:num('totalDef'),
-    critRate:num('critRate'),critDmg:num('critDmg'),energyRegen:num('energyRegen'),
-    extraElementDmg:num('elementDmg'),globalDmg:num('globalDmg'),globalAmp:num('globalAmp'),
-    nonEchoAtkPct:num('nonEchoAtkPct'),nonEchoHpPct:num('nonEchoHpPct'),nonEchoDefPct:num('nonEchoDefPct')
-  };
-}
-function makeContext(){
-  const panel=panelState(),curAgg=aggregate(M.echoes),profile=currentProfile(),chain=Number($('chainLevel').value||0);
-  const baseEff={
-    atk:Math.max(1,(panel.atk-curAgg.flatAtk)/Math.max(.01,1+(curAgg.atkPct+panel.nonEchoAtkPct)/100)),
-    hp:Math.max(1,(panel.hp-curAgg.flatHp)/Math.max(.01,1+(curAgg.hpPct+panel.nonEchoHpPct)/100)),
-    def:Math.max(1,(panel.def-curAgg.flatDef)/Math.max(.01,1+(curAgg.defPct+panel.nonEchoDefPct)/100))
-  };
-  const nonEcho={
-    critRate:panel.critRate-curAgg.critRate,
-    critDmg:panel.critDmg-curAgg.critDmg,
-    energyRegen:panel.energyRegen-curAgg.energyRegen,
-    extraElementDmg:panel.extraElementDmg
-  };
-  return{panel,curAgg,profile,chain,baseEff,nonEcho};
-}
-function autoBucket(ctx){
-  const auto={atkPct:0,hpPct:0,defPct:0,critRate:0,critDmg:0,elementDmg:0,globalDmg:0,globalAmp:0,basicDmg:0,heavyDmg:0,skillDmg:0,liberationDmg:0};
-  allAutoEffects(ctx.profile,ctx.chain).forEach(e=>{if(auto[e.kind]!==undefined)auto[e.kind]+=Number(e.value||0)});
-  return auto;
-}
-function modelFromAggregate(ctx,a){
-  const auto=autoBucket(ctx);
-  return{
-    atk:ctx.baseEff.atk*(1+(a.atkPct+auto.atkPct+ctx.panel.nonEchoAtkPct)/100)+a.flatAtk,
-    hp:ctx.baseEff.hp*(1+(a.hpPct+auto.hpPct+ctx.panel.nonEchoHpPct)/100)+a.flatHp,
-    def:ctx.baseEff.def*(1+(a.defPct+auto.defPct+ctx.panel.nonEchoDefPct)/100)+a.flatDef,
-    critRate:ctx.nonEcho.critRate+a.critRate+auto.critRate,
-    critDmg:ctx.nonEcho.critDmg+a.critDmg+auto.critDmg,
-    energyRegen:ctx.nonEcho.energyRegen+a.energyRegen,
-    elementDmg:ctx.nonEcho.extraElementDmg+a.elementDmg+auto.elementDmg,
-    globalDmg:ctx.panel.globalDmg+auto.globalDmg,
-    globalAmp:ctx.panel.globalAmp+auto.globalAmp,
-    typeDmg:{
-      basic:a.basicDmg+auto.basicDmg,
-      heavy:a.heavyDmg+auto.heavyDmg,
-      skill:a.skillDmg+auto.skillDmg,
-      liberation:a.liberationDmg+auto.liberationDmg
-    }
-  };
-}
-function normalizedWeights(profile){
-  const chain=Number($('chainLevel')?.value||0);
-  const w=profile?.verified?(profile.chain_type_weights?.[String(chain)]||profile.type_weights):null;
-  if(!w)return{other:1};
-  const sum=Object.values(w).reduce((a,b)=>a+Number(b||0),0)||1;
-  return Object.fromEntries(Object.entries(w).map(([k,v])=>[k,Number(v||0)/sum]));
-}
-function factorFromAgg(ctx,a){
-  const s=modelFromAggregate(ctx,a),scaler=$('scaler').value,stat=Math.max(1e-6,s[scaler]);
-  const cr=clamp(s.critRate/100,0,1),cd=Math.max(1,s.critDmg/100),crit=1+cr*(cd-1),amp=Math.max(1e-6,1+s.globalAmp/100);
-  const weights=normalizedWeights(ctx.profile);
-  let dmgMix=0;
-  for(const [k,w] of Object.entries(weights)){
-    const typeBonus=k==='other'?0:Number(s.typeDmg[k]||0);
-    dmgMix+=w*Math.max(1e-6,1+(s.globalDmg+s.elementDmg+typeBonus)/100);
-  }
-  return stat*crit*amp*dmgMix;
-}
-function factorSet(ctx,echoes,extra=[]){return factorFromAgg(ctx,aggregate(echoes,extra))}
-function compareSets(ctx,a,b){return(factorSet(ctx,b)/factorSet(ctx,a)-1)*100}
-function gainExtra(ctx,type,value){
-  const base=factorSet(ctx,M.echoes),next=factorSet(ctx,M.echoes,[{type,value}]);
-  return(next/base-1)*100;
-}
-function relevantTypeStats(ctx){
-  if(!ctx.profile?.verified)return[];
-  return Object.entries(normalizedWeights(ctx.profile))
-    .filter(([k,w])=>k!=='other'&&w>=.025)
-    .map(([k])=>DAMAGE_KEY[k]).filter(Boolean);
-}
-function standardCandidates(ctx){
-  const scaler=$('scaler').value,pctType=scaler==='atk'?'atkPct':scaler==='hp'?'hpPct':'defPct',flatType=scaler==='atk'?'flatAtk':scaler==='hp'?'flatHp':'flatDef';
-  const rows=[['critRate',STANDARD_ROLL.critRate],['critDmg',STANDARD_ROLL.critDmg],[pctType,STANDARD_ROLL[pctType]],[flatType,STANDARD_ROLL[flatType]]];
-  relevantTypeStats(ctx).forEach(t=>rows.push([t,STANDARD_ROLL[t]]));
-  return rows.map(([type,value])=>({
-    type,value,label:`${TYPE_LABELS[type]} ${value}${type.startsWith('flat')?'':'%'}`,
-    gain:gainExtra(ctx,type,value)
-  })).sort((a,b)=>b.gain-a.gain);
-}
-function scoreEcho(ctx,echo,echoes,index,subOnly=true){
-  const lines=(subOnly?echo.sub:echoLines(echo)).filter(x=>x.type&&Number(x.value));
-  if(!lines.length)return{score:0,equiv:0};
-  const standards=standardCandidates(ctx),ref=Math.max(.000001,(standards[0]?.gain||0)/100);
-  let equiv=0;
-  for(let li=0;li<lines.length;li++){
-    const line=lines[li],reduced=clone(echoes),target=reduced[index];
-    if(subOnly){
-      const originalIndex=(echo.sub||[]).indexOf(line);
-      if(originalIndex>=0)target.sub[originalIndex]={type:'',value:0};
-    }
-    const full=factorSet(ctx,echoes),without=factorSet(ctx,reduced),g=Math.max(-.999999,full/without-1);
-    equiv+=Math.log1p(g)/Math.log1p(ref);
-  }
-  return{score:equiv/5*100,equiv};
-}
-function grade(s){
-  if(s>=100)return'SSS';
-  if(s>=90)return'SS';
-  if(s>=80)return'S';
-  if(s>=65)return'A';
-  if(s>=50)return'B';
-  if(s>=35)return'C';
-  return'D';
-}
-function bars(root,rows){
-  const mx=Math.max(.01,...rows.map(x=>Math.abs(x.gain)));
-  root.innerHTML=rows.map(x=>`<div class="bar-row ${x.gain<0?'negative':''}"><div class="bar-label">${esc(x.label)}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,Math.abs(x.gain)/mx*100)}%"></div></div><div class="bar-value">${pct(x.gain)}</div></div>`).join('')||'<div class="micro">暂无数据。</div>';
-}
-function calculate(){
-  pullEchoes();
-  const ctx=makeContext(),slot=Number($('replaceSlot').value||0),next=clone(M.echoes);
-  next[slot]=clone(M.candidate);
-
-  const gain=compareSets(ctx,M.echoes,next);
-  $('overallGain').textContent=pct(gain);
-
-  const candidateScore=scoreEcho(ctx,M.candidate,next,slot,true);
-  $('candidateScore').textContent=candidateScore.score.toFixed(1);
-  let cg=$('candidateScore').closest('.metric-card')?.querySelector('.candidate-grade-core');
-  if(!cg){
-    cg=document.createElement('span');cg.className='echo-mini-grade candidate-grade-core';
-    $('candidateScore').closest('.metric-card')?.appendChild(cg);
-  }
-  if(cg)cg.textContent=`评级 ${grade(candidateScore.score)}`;
-
-  const currentStats=modelFromAggregate(ctx,aggregate(M.echoes));
-  const cr=clamp(currentStats.critRate/100,0,1),cd=Math.max(1,currentStats.critDmg/100),crit=1+cr*(cd-1);
-  $('critFactor').textContent=crit.toFixed(3);
-  $('critState').textContent=`战斗态 ${currentStats.critRate.toFixed(1)} / ${currentStats.critDmg.toFixed(1)}`;
-
-  const standards=standardCandidates(ctx);
-  $('bestStandard').textContent=standards[0]?TYPE_LABELS[standards[0].type]||standards[0].label:'—';
-  $('bestStandardNote').textContent=standards[0]
-    ?`平均档 ${standards[0].value}${standards[0].type.startsWith('flat')?'':'%'} · 边际提升 ${pct(standards[0].gain)}${ctx.profile?.verified?' · 已考虑角色机制':' · 通用口径（角色未建模）'}`
-    :'填写角色与当前面板后生成推荐';
-  bars($('standardBars'),standards.map(x=>({label:x.label,gain:x.gain})));
-
-  const lineRows=[];
-  M.candidate.sub.forEach((line,j)=>{
-    if(!line.type||!Number(line.value))return;
-    const reduced=clone(next);
-    reduced[slot].sub[j]={type:'',value:0};
-    lineRows.push({
-      label:`${TYPE_LABELS[line.type]} ${line.value}${line.type.startsWith('flat')?'':'%'}`,
-      gain:(factorSet(ctx,next)/factorSet(ctx,reduced)-1)*100
-    });
-  });
-  bars($('lineMarginals'),lineRows);
-  M.echoes.forEach((e,i)=>{const sc=scoreEcho(ctx,e,M.echoes,i,true);if($('miniScore'+i))$('miniScore'+i).textContent=sc.score.toFixed(1);if($('miniGrade'+i))$('miniGrade'+i).textContent=grade(sc.score);});
-}
-
-function rerenderEchoCard(card,e){
-  renderMainRows(e,card.querySelector('.main-rows'));
-  renderSubRows(e.sub,card.querySelector('.sub-rows'));
-}
+const ROLLS={critRate:[6.3,6.9,7.5,8.1,8.7,9.3,9.9,10.5],critDmg:[12.6,13.8,15,16.2,17.4,18.6,19.8,21],atkPct:[6.4,7.1,7.9,8.6,9.4,10.1,10.9,11.6],hpPct:[6.4,7.1,7.9,8.6,9.4,10.1,10.9,11.6],basicDmg:[6.4,7.1,7.9,8.6,9.4,10.1,10.9,11.6],heavyDmg:[6.4,7.1,7.9,8.6,9.4,10.1,10.9,11.6],skillDmg:[6.4,7.1,7.9,8.6,9.4,10.1,10.9,11.6],liberationDmg:[6.4,7.1,7.9,8.6,9.4,10.1,10.9,11.6],defPct:[8.1,9,10,10.9,11.8,12.8,13.8,14.7],energyRegen:[6.8,7.6,8.4,9.2,10,10.8,11.6,12.4],flatHp:[320,360,390,430,470,510,540,580],flatAtk:[30,40,50,60],flatDef:[40,50,60,70]};
+const STD={critRate:8.4,critDmg:16.8,atkPct:9,hpPct:9,defPct:11.8,flatAtk:50,flatHp:470,flatDef:60,energyRegen:10,basicDmg:9,heavyDmg:9,skillDmg:9,liberationDmg:9};
+const MAIN_PRIMARY={4:[['','— 选择主词条 —'],['critRate','暴击率 22%'],['critDmg','暴击伤害 44%'],['atkPct','攻击力 33%'],['hpPct','生命值 33%'],['defPct','防御力 41.8%']],3:[['','— 选择主词条 —'],['elementDmg','对应属性伤害 30%'],['energyRegen','共鸣效率 32%'],['atkPct','攻击力 30%'],['hpPct','生命值 30%'],['defPct','防御力 38%']],1:[['','— 选择主词条 —'],['atkPct','攻击力 18%'],['hpPct','生命值 22.8%'],['defPct','防御力 18%']]};
+const MAIN_VALUE={4:{critRate:22,critDmg:44,atkPct:33,hpPct:33,defPct:41.8},3:{elementDmg:30,energyRegen:32,atkPct:30,hpPct:30,defPct:38},1:{atkPct:18,hpPct:22.8,defPct:18}}, FIXED_MAIN={4:{type:'flatAtk',value:150},3:{type:'flatAtk',value:100},1:{type:'flatHp',value:2280}};
+const IMAGE_OVERRIDES={'今汐':'https://raw.githubusercontent.com/xinghuan22/WutheringWavesPic/main/1304/1304_1777616673463.webp'};
+const MAIN_ECHO={none:{label:'不计首位声骸效果',effects:[]},glory:{label:'荣光节使（首位）',effects:[{kind:'elementDmg',value:12},{kind:'heavyDmg',value:12}]}};
+const FALLBACK=['景燃','清宵','穗穗','秧秧·玄翎','洛瑟菈','达妮娅','绯雪','西格莉卡','陆·赫斯','爱弥斯','莫宁','琳奈','千咲','仇远','嘉贝莉娜','尤诺','奥古斯塔','弗洛洛','露帕','卡提希娅','夏空','赞妮','坎特蕾拉','布兰特','菲比','洛可可','珂莱塔','椿','守岸人','相里要','折枝','长离','今汐','吟霖','忌炎','秧秧','散华','渊武','秋水','莫特斐','丹瑾','桃祈','维里奈','凌阳','卡卡罗','鉴心','安可'];
+let roster=FALLBACK.map((name,i)=>({id:`f-${i}`,name,image:''})), mechanics={characters:{}}, sonatas={sets:[]}, selectedCharacter=null;
+const blank=()=>({type:'',value:0}), blankEcho=(cost=4)=>({cost,mainType:'',sub:[blank(),blank(),blank(),blank(),blank()]});
+let M={echoes:[blankEcho(3),blankEcho(4),blankEcho(3),blankEcho(1),blankEcho(1)],candidate:blankEcho(4)};
+function avg(a){return a?.length?a.reduce((x,y)=>x+y,0)/a.length:0}
+function options(items,value){return items.map(([v,l])=>`<option value="${esc(v)}" ${String(v)===String(value)?'selected':''}>${esc(l)}</option>`).join('')}
+function subOpts(v){return SUB_TYPES.map(t=>`<option value="${t}" ${t===v?'selected':''}>${t?esc(LABEL[t]+(t.startsWith('flat')?'':' %')):'— 无 —'}</option>`).join('')}
+function rollOpts(t,cur){const a=ROLLS[t]||[];if(!t)return'<option value="0">—</option>';const n=Number(cur),v=a.includes(n)?n:(a[Math.floor((a.length-1)/2)]||0);return a.map(x=>`<option value="${x}" ${x===v?'selected':''}>${x}${t.startsWith('flat')?'':'%'}</option>`).join('')}
+function avatar(c){const src=IMAGE_OVERRIDES[c?.name]||c?.image||'';return src?`<span class="portrait"><img src="${esc(src)}" alt="${esc(c.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.textContent='${esc((c.name||'?')[0])}'"></span>`:`<span class="portrait placeholder">${esc((c?.name||'?')[0])}</span>`}
+function profile(){return selectedCharacter?mechanics.characters?.[selectedCharacter.name]||null:null}
+async function loadData(){const urls=['/wuwa/data/characters.json','/wuwa/data/character-mechanics.json','/wuwa/data/character-mechanics-extra.json','/wuwa/data/sonata-effects.json'];const r=await Promise.allSettled(urls.map(u=>fetch(u,{cache:'no-store'}).then(x=>x.ok?x.json():Promise.reject())));if(r[0].status==='fulfilled'){const a=Array.isArray(r[0].value)?r[0].value:r[0].value.characters;if(Array.isArray(a))roster=a.filter(x=>x?.name).map((x,i)=>({id:String(x.id||i),name:String(x.name).trim(),image:x.image||''}))}if(r[1].status==='fulfilled'&&r[1].value?.characters)mechanics=r[1].value;if(r[2].status==='fulfilled'&&r[2].value?.characters)mechanics.characters={...(mechanics.characters||{}),...r[2].value.characters};if(r[3].status==='fulfilled'&&Array.isArray(r[3].value?.sets))sonatas=r[3].value;renderCharacters();refreshGearOptions()}
+function renderCharacters(q=''){q=q.trim().toLowerCase();$('characterGrid').innerHTML=roster.filter(c=>!q||c.name.toLowerCase().includes(q)).map(c=>`<button class="character-card" data-char-id="${esc(c.id)}" type="button">${avatar(c)}<span>${esc(c.name)}</span>${mechanics.characters?.[c.name]?'':'<em class="nomodel">未建模</em>'}</button>`).join('')}
+function renderMain(e,root){const f=FIXED_MAIN[e.cost];root.innerHTML=`<div class="echo-row main-primary"><select class="echo-type">${options(MAIN_PRIMARY[e.cost]||MAIN_PRIMARY[4],e.mainType)}</select><select class="echo-value" disabled><option>${e.mainType?(MAIN_VALUE[e.cost]?.[e.mainType]||0):0}${e.mainType&&!e.mainType.startsWith('flat')?'%':''}</option></select></div><div class="echo-row fixed-main"><select class="echo-type" disabled><option>${esc(LABEL[f.type])}</option></select><select class="echo-value" disabled><option>${f.value}</option></select></div>`}
+function renderSubs(lines,root){root.innerHTML=lines.map((x,i)=>`<div class="echo-row" data-i="${i}"><select class="echo-type">${subOpts(x.type)}</select><select class="echo-value">${rollOpts(x.type,x.value)}</select></div>`).join('')}
+function echoCards(){const host=$('equippedEchoes');host.innerHTML=M.echoes.map((e,i)=>`<div class="echo-card" data-echo="${i}"><div class="echo-card-head"><b>声骸 ${i+1}</b><select class="cost-select echo-cost"><option value="4" ${e.cost===4?'selected':''}>4 COST</option><option value="3" ${e.cost===3?'selected':''}>3 COST</option><option value="1" ${e.cost===1?'selected':''}>1 COST</option></select></div><div class="echo-section-label">主词条</div><div class="main-rows"></div><div class="echo-section-label">副词条</div><div class="sub-rows"></div><div class="echo-mini-score"><span>边际评分</span><strong id="miniScore${i}">—</strong><span class="echo-mini-grade" id="miniGrade${i}">D</span></div></div>`).join('');host.querySelectorAll('.echo-card').forEach(c=>{const e=M.echoes[+c.dataset.echo];renderMain(e,c.querySelector('.main-rows'));renderSubs(e.sub,c.querySelector('.sub-rows'))})}
+function candidateRows(){renderMain(M.candidate,$('candidateMainRows'));renderSubs(M.candidate.sub,$('candidateSubRows'))}
+function pullEchoes(){document.querySelectorAll('.echo-card').forEach(c=>{const e=M.echoes[+c.dataset.echo];e.cost=+c.querySelector('.echo-cost').value;e.mainType=c.querySelector('.main-primary .echo-type').value;e.sub=[...c.querySelectorAll('.sub-rows .echo-row')].map(r=>({type:r.querySelector('.echo-type').value,value:+r.querySelector('.echo-value').value||0}))});M.candidate.cost=+$('candidateCost').value||4;M.candidate.mainType=document.querySelector('#candidateMainRows .main-primary .echo-type')?.value||'';M.candidate.sub=[...$('candidateSubRows').querySelectorAll('.sub-rows .echo-row, #candidateSubRows > .echo-row')].map(r=>({type:r.querySelector('.echo-type').value,value:+r.querySelector('.echo-value').value||0}))}
+function clearCharacterData(){M={echoes:[blankEcho(3),blankEcho(4),blankEcho(3),blankEcho(1),blankEcho(1)],candidate:blankEcho(4)};$('chainLevel').value='0';['totalAtk','totalHp','totalDef','critRate','critDmg','energyRegen'].forEach(id=>$(id).value='');['elementDmg','globalDmg','globalAmp','nonEchoAtkPct','nonEchoHpPct','nonEchoDefPct'].forEach(id=>{if($(id))$(id).value='0'});$('replaceSlot').value='0';$('candidateCost').value='4';echoCards();candidateRows();resetResults()}
+function resetResults(){['overallGain','candidateScore','critFactor','bestStandard'].forEach(id=>$(id).textContent='—');$('critState').textContent='—';$('bestStandardNote').textContent='填写角色与当前面板后生成推荐';$('lineMarginals').innerHTML='';$('standardBars').innerHTML=''}
+function selectCharacter(c){if(!c)return;const changed=selectedCharacter?.name!==c.name;if(changed)clearCharacterData();selectedCharacter=c;$('characterPick').innerHTML=`${avatar(c)}<span class="pick-copy"><b id="characterName">${esc(c.name)}</b><small>角色数据已匹配</small></span>`;$('characterBrowser').hidden=true;const p=profile();if(p?.scaler){$('scaler').value=p.scaler;$('scaler').disabled=true}else $('scaler').disabled=false;applyDefaults(p);calculate()}
+const ALIAS={eternal5:'此间永驻之光',eternal2:'此间永驻之光',elem5:'',elem2:'',lingering5:'不绝余音',lingering2:'不绝余音',moonlit2:'轻云出月',rejuv5:'隐世回光'};
+function mountGear(){if($('gearAutoConfig'))return;const host=document.querySelector('.intro-panel .profile-grid');const d=document.createElement('div');d.id='gearAutoConfig';d.className='gear-auto-config';d.innerHTML=`<div class="gear-auto-grid"><label>武器被动<select id="weaponMode"><option value="none">不计专武被动</option></select></label><label>套装结构<select id="sonataBuildMode"><option value="none">不计套装效果</option><option value="five">完整5件套</option><option value="threeTwo">3+2 混搭</option><option value="one">1件特效</option></select></label><label>主套装<select id="sonataMain"><option value="">— 选择套装 —</option></select></label><label id="sonataSecondaryWrap" hidden>2件副套<select id="sonataSecondary"><option value="">— 选择2件套 —</option></select></label><label>首位声骸效果<select id="mainEchoEffect">${Object.entries(MAIN_ECHO).map(([k,v])=>`<option value="${k}">${esc(v.label)}</option>`).join('')}</select></label></div>`;host.insertAdjacentElement('afterend',d);['weaponMode','sonataBuildMode','sonataMain','sonataSecondary','mainEchoEffect'].forEach(id=>$(id)?.addEventListener('change',()=>{refreshGearOptions(id==='sonataBuildMode');calculate()}))}
+function setHas(s,p){return Array.isArray(s?.[`p${p}`])&&s[`p${p}`].length>0}
+function refreshGearOptions(modeChanged=false){if(!$('sonataMain'))return;const mode=$('sonataBuildMode').value,old=$('sonataMain').value,old2=$('sonataSecondary').value;let arr=sonatas.sets||[];if(mode==='five')arr=arr.filter(s=>setHas(s,5));else if(mode==='threeTwo')arr=arr.filter(s=>setHas(s,3));else if(mode==='one')arr=arr.filter(s=>setHas(s,1));else arr=[];$('sonataMain').innerHTML='<option value="">— 选择套装 —</option>'+arr.map(s=>`<option value="${esc(s.name)}">${esc(s.name)}</option>`).join('');if(!modeChanged&&arr.some(s=>s.name===old))$('sonataMain').value=old;const p2=(sonatas.sets||[]).filter(s=>setHas(s,2));$('sonataSecondary').innerHTML='<option value="">— 选择2件套 —</option>'+p2.map(s=>`<option value="${esc(s.name)}">${esc(s.name)}</option>`).join('');if(!modeChanged&&p2.some(s=>s.name===old2))$('sonataSecondary').value=old2;$('sonataSecondaryWrap').hidden=mode!=='threeTwo'}
+function applyDefaults(p){const w=$('weaponMode');w.innerHTML='<option value="none">不计专武被动</option>'+(p?.signature_weapon?.name?`<option value="signature">${esc(p.signature_weapon.name)}（专武）</option>`:'');w.value=p?.signature_weapon?.verified?'signature':'none';$('sonataBuildMode').value='none';refreshGearOptions(true);$('mainEchoEffect').value='none';const raw=p?.defaults?.sonata||'',name=ALIAS[raw]||raw;if(name){const s=(sonatas.sets||[]).find(x=>x.name===name);if(s){$('sonataBuildMode').value=setHas(s,5)?'five':setHas(s,3)?'threeTwo':setHas(s,1)?'one':'none';refreshGearOptions(true);$('sonataMain').value=name}}if(p?.defaults?.main_echo&&MAIN_ECHO[p.defaults.main_echo])$('mainEchoEffect').value=p.defaults.main_echo}
+function echoLines(e){const out=[],f=FIXED_MAIN[e.cost];if(e.mainType)out.push({type:e.mainType,value:MAIN_VALUE[e.cost]?.[e.mainType]||0});out.push({...f});e.sub.forEach(x=>{if(x.type&&x.value)out.push(x)});return out}
+function aggregate(echoes,extra=[]){const a={atkPct:0,flatAtk:0,hpPct:0,flatHp:0,defPct:0,flatDef:0,critRate:0,critDmg:0,energyRegen:0,elementDmg:0,basicDmg:0,heavyDmg:0,skillDmg:0,liberationDmg:0};[...echoes.flatMap(echoLines),...extra].forEach(x=>{const k=x.type||x.kind;if(k in a)a[k]+=+x.value||0});return a}
+function panel(){return{atk:num('totalAtk'),hp:num('totalHp'),def:num('totalDef'),critRate:num('critRate'),critDmg:num('critDmg'),energyRegen:num('energyRegen'),extraElementDmg:num('elementDmg'),globalDmg:num('globalDmg'),globalAmp:num('globalAmp'),nonEchoAtkPct:num('nonEchoAtkPct'),nonEchoHpPct:num('nonEchoHpPct'),nonEchoDefPct:num('nonEchoDefPct')}}
+function context(){const p=panel(),a=aggregate(M.echoes),pr=profile(),chain=+$('chainLevel').value||0;return{panel:p,curAgg:a,profile:pr,chain,baseEff:{atk:Math.max(1,(p.atk-a.flatAtk)/Math.max(.01,1+(a.atkPct+p.nonEchoAtkPct)/100)),hp:Math.max(1,(p.hp-a.flatHp)/Math.max(.01,1+(a.hpPct+p.nonEchoHpPct)/100)),def:Math.max(1,(p.def-a.flatDef)/Math.max(.01,1+(a.defPct+p.nonEchoDefPct)/100))},nonEcho:{critRate:p.critRate-a.critRate,critDmg:p.critDmg-a.critDmg,energyRegen:p.energyRegen-a.energyRegen,extraElementDmg:p.extraElementDmg}}}
+function chainEffects(pr,lv){const out=[];(pr?.innate||[]).forEach(e=>{if(e.apply!=='panel')out.push(e)});(pr?.chains||[]).filter(x=>x.level<=lv).forEach(x=>(x.effects||[]).forEach(e=>{if(e.apply!=='panel')out.push(e)}));return out}
+function setByName(n){return(sonatas.sets||[]).find(s=>s.name===n)}
+function sonataEffects(ctx){const mode=$('sonataBuildMode')?.value||'none',main=setByName($('sonataMain')?.value),sec=setByName($('sonataSecondary')?.value),out=[];const add=(s,p)=>{(s?.[`p${p}`]||[]).forEach(e=>{if(e.condition==='er250'){const er=ctx.nonEcho.energyRegen+ctx.curAgg.energyRegen+(s.p2||[]).filter(z=>z.kind==='energyRegen').reduce((n,z)=>n+z.value,0);if(er<250)return}out.push(e)})};if(mode==='five'){add(main,2);add(main,5)}else if(mode==='threeTwo'){add(main,3);add(sec,2)}else if(mode==='one')add(main,1);return out}
+function autoEffects(ctx){const out=[...chainEffects(ctx.profile,ctx.chain),...sonataEffects(ctx),...(MAIN_ECHO[$('mainEchoEffect')?.value]?.effects||[])];if($('weaponMode')?.value==='signature')out.push(...(ctx.profile?.signature_weapon?.effects||[]));return out}
+function bucket(ctx){const a={atkPct:0,hpPct:0,defPct:0,critRate:0,critDmg:0,energyRegen:0,elementDmg:0,globalDmg:0,globalAmp:0,basicDmg:0,heavyDmg:0,skillDmg:0,liberationDmg:0};autoEffects(ctx).forEach(e=>{const k=e.kind||e.type;if(k in a)a[k]+=+e.value||0});return a}
+function model(ctx,a){const z=bucket(ctx);return{atk:ctx.baseEff.atk*(1+(a.atkPct+z.atkPct+ctx.panel.nonEchoAtkPct)/100)+a.flatAtk,hp:ctx.baseEff.hp*(1+(a.hpPct+z.hpPct+ctx.panel.nonEchoHpPct)/100)+a.flatHp,def:ctx.baseEff.def*(1+(a.defPct+z.defPct+ctx.panel.nonEchoDefPct)/100)+a.flatDef,critRate:ctx.nonEcho.critRate+a.critRate+z.critRate,critDmg:ctx.nonEcho.critDmg+a.critDmg+z.critDmg,energyRegen:ctx.nonEcho.energyRegen+a.energyRegen+z.energyRegen,elementDmg:ctx.nonEcho.extraElementDmg+a.elementDmg+z.elementDmg,globalDmg:ctx.panel.globalDmg+z.globalDmg,globalAmp:ctx.panel.globalAmp+z.globalAmp,typeDmg:{basic:a.basicDmg+z.basicDmg,heavy:a.heavyDmg+z.heavyDmg,skill:a.skillDmg+z.skillDmg,liberation:a.liberationDmg+z.liberationDmg}}}
+function weights(pr){const lv=+$('chainLevel').value||0,w=pr?.chain_type_weights?.[String(lv)]||pr?.type_weights;if(!w)return{other:1};const sum=Object.values(w).reduce((n,v)=>n+(+v||0),0)||1;return Object.fromEntries(Object.entries(w).map(([k,v])=>[k,(+v||0)/sum]))}
+function factorAgg(ctx,a){const s=model(ctx,a),stat=Math.max(1e-6,s[$('scaler').value]),cr=clamp(s.critRate/100,0,1),cd=Math.max(1,s.critDmg/100),crit=1+cr*(cd-1),amp=Math.max(1e-6,1+s.globalAmp/100);let dm=0;for(const[k,w]of Object.entries(weights(ctx.profile))){const t=k==='other'?0:+s.typeDmg[k]||0;dm+=w*Math.max(1e-6,1+(s.globalDmg+s.elementDmg+t)/100)}return stat*crit*amp*dm}
+function factorSet(ctx,echoes,extra=[]){return factorAgg(ctx,aggregate(echoes,extra))}
+function gainExtra(ctx,type,value){const b=factorSet(ctx,M.echoes);return(factorSet(ctx,M.echoes,[{type,value}])/b-1)*100}
+function relevant(ctx){return Object.entries(weights(ctx.profile)).filter(([k,w])=>k!=='other'&&w>=.025).map(([k])=>DAMAGE_KEY[k]).filter(Boolean)}
+function standards(ctx){const sc=$('scaler').value,p=sc==='atk'?'atkPct':sc==='hp'?'hpPct':'defPct',f=sc==='atk'?'flatAtk':sc==='hp'?'flatHp':'flatDef';const types=['critRate','critDmg',p,f,...relevant(ctx)];return [...new Set(types)].map(type=>({type,value:STD[type],gain:gainExtra(ctx,type,STD[type])})).sort((a,b)=>b.gain-a.gain)}
+function grade(s){return s>=100?'SSS':s>=90?'SS':s>=80?'S':s>=65?'A':s>=50?'B':s>=35?'C':'D'}
+function scoreEcho(ctx,e,echoes,index){const lines=e.sub.filter(x=>x.type&&x.value);if(!lines.length)return 0;const ref=Math.max(.000001,(standards(ctx)[0]?.gain||0)/100);let eq=0;for(let j=0;j<lines.length;j++){const reduced=clone(echoes);reduced[index].sub[j]={type:'',value:0};const g=Math.max(-.999999,factorSet(ctx,echoes)/factorSet(ctx,reduced)-1);eq+=Math.log1p(g)/Math.log1p(ref)}return eq/5*100}
+function renderBars(root,rows,numeric=true){const mx=Math.max(.000001,...rows.map(x=>Math.max(0,x.gain)));root.innerHTML=rows.map(x=>`<div class="bar-row"><div class="bar-label">${esc(x.label)}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,Math.max(0,x.gain)/mx*100)}%"></div></div><div class="bar-value">${numeric?pct(x.gain):esc(x.tag||'')}</div></div>`).join('')||'<div class="micro">暂无数据。</div>'}
+function lineGainProxy(line,pure){const r=pure.get(line.type)||0,st=STD[line.type]||avg(ROLLS[line.type])||1;return r*(line.value/st)}
+function actionable(ctx,std){const pure=new Map(std.map(x=>[x.type,x.gain])),out=[];for(const x of std){const max=Math.max(...(ROLLS[x.type]||[0])),av=avg(ROLLS[x.type])||x.value,st=STD[x.type]||av;let best=null;for(let i=0;i<M.echoes.length;i++){const e=M.echoes[i],have=e.sub.find(l=>l.type===x.type);if(have){const rem=Math.max(0,max-have.value);if(rem>1e-6){const g=x.gain*(rem/st);if(!best||g>best.gain)best={type:x.type,gain:g,slot:i,mode:'upgrade'}}}else{const lines=e.sub.filter(l=>l.type&&l.value);if(!lines.length)continue;const weakest=lines.map(l=>({l,cost:lineGainProxy(l,pure)})).sort((a,b)=>a.cost-b.cost)[0];const g=x.gain*(av/st)-weakest.cost;if(g>1e-6&&(!best||g>best.gain))best={type:x.type,gain:g,slot:i,mode:'replace'}}}if(best)out.push(best)}return out.sort((a,b)=>b.gain-a.gain)}
+function calculate(){pullEchoes();const ctx=context();if(!(ctx.panel.atk||ctx.panel.hp||ctx.panel.def)){resetResults();return}const slot=+$('replaceSlot').value||0,next=clone(M.echoes);next[slot]=clone(M.candidate);const gain=(factorSet(ctx,next)/factorSet(ctx,M.echoes)-1)*100;$('overallGain').textContent=pct(gain);const cs=scoreEcho(ctx,M.candidate,next,slot);$('candidateScore').textContent=cs.toFixed(1);let g=$('candidateGrade');if(g)g.textContent=`评级 ${grade(cs)}`;const s=model(ctx,aggregate(M.echoes)),cr=clamp(s.critRate/100,0,1),cd=Math.max(1,s.critDmg/100);$('critFactor').textContent=(1+cr*(cd-1)).toFixed(3);$('critState').textContent=`战斗态 ${s.critRate.toFixed(1)} / ${s.critDmg.toFixed(1)}`;const std=standards(ctx),act=actionable(ctx,std);if(act.length){const t=act[0];$('bestStandard').textContent=LABEL[t.type];$('bestStandardNote').textContent=`当前可实现边际提升最高 · 声骸 ${t.slot+1}${t.mode==='upgrade'?'仍有提档空间':'可通过替换弱词条改善'}`;renderBars($('standardBars'),act.map(x=>({label:LABEL[x.type],gain:x.gain,tag:x.mode==='upgrade'?'可提档':'可替换'})),false)}else{$('bestStandard').textContent='暂无可实现升级';$('bestStandardNote').textContent='当前已录入词条没有可继续提升的合法空间';$('standardBars').innerHTML='<div class="micro">当前词条已饱和或没有正收益替换项。</div>'}const lr=[];M.candidate.sub.forEach((l,j)=>{if(!l.type||!l.value)return;const r=clone(next);r[slot].sub[j]={type:'',value:0};lr.push({label:LABEL[l.type],gain:(factorSet(ctx,next)/factorSet(ctx,r)-1)*100})});renderBars($('lineMarginals'),lr,true);M.echoes.forEach((e,i)=>{const s=scoreEcho(ctx,e,M.echoes,i);$('miniScore'+i).textContent=s.toFixed(1);$('miniGrade'+i).textContent=grade(s)})}
 function bind(){
-  $('characterPick').addEventListener('click',()=>{$('characterBrowser').hidden=false;$('characterSearch').focus()});
-  $('closeCharacterBrowser').addEventListener('click',()=>{$('characterBrowser').hidden=true});
-  $('characterSearch').addEventListener('input',e=>renderCharacters(e.target.value));
-  $('characterGrid').addEventListener('click',e=>{
-    const b=e.target.closest('[data-char-id]');if(!b)return;
-    const c=roster.find(x=>x.id===b.dataset.charId);if(c)selectCharacter(c);
-  });
-  $('chainLevel').addEventListener('change',()=>{renderMechanics();calculate()});
-  $('scaler').addEventListener('change',calculate);
-  ['totalAtk','totalHp','totalDef','critRate','critDmg','energyRegen','elementDmg','globalDmg','globalAmp','nonEchoAtkPct','nonEchoHpPct','nonEchoDefPct'].forEach(id=>$(id)?.addEventListener('input',calculate));
-  $('resetStatsBtn').addEventListener('click',()=>{
-    Object.entries({totalAtk:2300,totalHp:21000,totalDef:1500,critRate:75,critDmg:250,energyRegen:125,elementDmg:0,globalDmg:0,globalAmp:0,nonEchoAtkPct:0,nonEchoHpPct:0,nonEchoDefPct:0}).forEach(([k,v])=>{if($(k))$(k).value=v});
-    calculate();
-  });
-  $('equippedEchoes').addEventListener('change',e=>{
-    const card=e.target.closest('.echo-card');if(!card)return;
-    const i=Number(card.dataset.echo),echo=M.echoes[i];
-    if(e.target.classList.contains('echo-cost')){
-      pullEchoes();echo.cost=Number(e.target.value);echo.mainType='';rerenderEchoCard(card,echo);calculate();return;
-    }
-    if(e.target.closest('.main-primary')&&e.target.classList.contains('echo-type')){
-      echo.mainType=e.target.value;renderMainRows(echo,card.querySelector('.main-rows'));calculate();return;
-    }
-    if(e.target.closest('.sub-rows')&&e.target.classList.contains('echo-type')){
-      syncRowValue(e.target.closest('.echo-row'));calculate();return;
-    }
-    calculate();
-  });
-  $('candidateCost').addEventListener('change',()=>{
-    pullEchoes();M.candidate.cost=Number($('candidateCost').value);M.candidate.mainType='';candidateRows();calculate();
-  });
-  $('candidateMainRows').addEventListener('change',e=>{
-    if(e.target.classList.contains('echo-type')){
-      M.candidate.mainType=e.target.value;renderMainRows(M.candidate,$('candidateMainRows'));calculate();
-    }
-  });
-  $('candidateSubRows').addEventListener('change',e=>{
-    if(e.target.classList.contains('echo-type'))syncRowValue(e.target.closest('.echo-row'));
-    calculate();
-  });
-  $('replaceSlot').addEventListener('change',calculate);
-  $('calculateBtn').addEventListener('click',calculate);
-}
-function tuneLabels(){
-  const el=$('elementDmg')?.closest('label');
-  if(el&&el.firstChild)el.firstChild.textContent='其他静态属性伤害 %';
-  const p=$('elementDmg')?.closest('details')?.querySelector('summary');
-  if(p)p.textContent='其他伤害加成（可选）';
-}
-function init(){
-  tuneLabels();
-  echoCards();
-  candidateRows();
-  mountGearConfig();
-  renderMechanics();
-  bind();
-  loadData().finally(()=>{calculate()});
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+$('characterPick').onclick=()=>{$('characterBrowser').hidden=false;$('characterSearch').focus()};$('closeCharacterBrowser').onclick=()=>{$('characterBrowser').hidden=true};$('characterSearch').oninput=e=>renderCharacters(e.target.value);$('characterGrid').onclick=e=>{const b=e.target.closest('[data-char-id]');if(!b)return;selectCharacter(roster.find(x=>x.id===b.dataset.charId))};$('chainLevel').onchange=calculate;$('scaler').onchange=calculate;['totalAtk','totalHp','totalDef','critRate','critDmg','energyRegen','elementDmg','globalDmg','globalAmp','nonEchoAtkPct','nonEchoHpPct','nonEchoDefPct'].forEach(id=>$(id)?.addEventListener('input',calculate));
+$('equippedEchoes').addEventListener('change',e=>{const c=e.target.closest('.echo-card');if(!c)return;const i=+c.dataset.echo,ec=M.echoes[i];if(e.target.classList.contains('echo-cost')){pullEchoes();ec.cost=+e.target.value;ec.mainType='';renderMain(ec,c.querySelector('.main-rows'));renderSubs(ec.sub,c.querySelector('.sub-rows'));calculate();return}if(e.target.closest('.main-primary')&&e.target.classList.contains('echo-type')){ec.mainType=e.target.value;renderMain(ec,c.querySelector('.main-rows'));calculate();return}if(e.target.closest('.sub-rows')&&e.target.classList.contains('echo-type')){const r=e.target.closest('.echo-row'),v=r.querySelector('.echo-value');v.innerHTML=rollOpts(e.target.value,+v.value||0)}calculate()});
+$('candidateCost').onchange=()=>{pullEchoes();M.candidate.cost=+$('candidateCost').value;M.candidate.mainType='';candidateRows();calculate()};$('candidateMainRows').addEventListener('change',e=>{if(e.target.classList.contains('echo-type')){M.candidate.mainType=e.target.value;renderMain(M.candidate,$('candidateMainRows'))}calculate()});$('candidateSubRows').addEventListener('change',e=>{if(e.target.classList.contains('echo-type')){const r=e.target.closest('.echo-row'),v=r.querySelector('.echo-value');v.innerHTML=rollOpts(e.target.value,+v.value||0)}calculate()});$('replaceSlot').onchange=calculate;$('calculateBtn').onclick=calculate;$('resetStatsBtn').onclick=()=>{Object.entries({totalAtk:2300,totalHp:21000,totalDef:1500,critRate:75,critDmg:250,energyRegen:125,elementDmg:0,globalDmg:0,globalAmp:0,nonEchoAtkPct:0,nonEchoHpPct:0,nonEchoDefPct:0}).forEach(([k,v])=>$(k).value=v);calculate()}}
+function init(){echoCards();candidateRows();mountGear();bind();loadData().finally(calculate)}
+window.WuwaEchoV2={calculate,clearCharacterData,selectCharacter,refreshGearOptions};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
