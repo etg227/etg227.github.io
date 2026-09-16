@@ -3,8 +3,8 @@
 if(window.__wuwaProfileSaveV3Loaded)return;
 window.__wuwaProfileSaveV3Loaded=true;
 
-const STORAGE_KEY='wuwaEchoBuildProfilesV3';
-const LEGACY_KEY='wuwaEchoBuildProfilesV2';
+const STORAGE_KEY='wuwaEchoBuildProfilesV4';
+const LEGACY_KEYS=['wuwaEchoBuildProfilesV3','wuwaEchoBuildProfilesV2'];
 const $=id=>document.getElementById(id);
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 const fire=(el,type='change')=>el&&el.dispatchEvent(new Event(type,{bubbles:true}));
@@ -14,8 +14,7 @@ function readStore(key=STORAGE_KEY){try{return JSON.parse(localStorage.getItem(k
 function store(){
   const cur=readStore();
   if(Object.keys(cur).length)return cur;
-  const legacy=readStore(LEGACY_KEY);
-  if(Object.keys(legacy).length){localStorage.setItem(STORAGE_KEY,JSON.stringify(legacy));return legacy}
+  for(const key of LEGACY_KEYS){const legacy=readStore(key);if(Object.keys(legacy).length){localStorage.setItem(STORAGE_KEY,JSON.stringify(legacy));return legacy}}
   return {};
 }
 function write(v){localStorage.setItem(STORAGE_KEY,JSON.stringify(v))}
@@ -35,13 +34,14 @@ function snapshot(){
   const stats={};
   ['totalAtk','totalHp','totalDef','critRate','critDmg','energyRegen','elementDmg','globalDmg','globalAmp'].forEach(id=>stats[id]=Number($(id)?.value||0));
   return{
-    version:3,
+    version:4,
     characterName:name,
     chainLevel:Number($('chainLevel')?.value||0),
     scaler:$('scaler')?.value||'atk',
     gear:{
       sonataMode:$('sonataMode')?.value||'none',
-      mainEchoEffect:$('mainEchoEffect')?.value||'none'
+      mainEchoEffect:$('mainEchoEffect')?.value||'none',
+      weaponMode:$('weaponMode')?.value||'none'
     },
     stats,
     echoes:[...document.querySelectorAll('.echo-card')].map(readEcho),
@@ -91,6 +91,7 @@ async function loadProfile(name){
   if(p.gear){
     if($('sonataMode')&&p.gear.sonataMode){$('sonataMode').value=p.gear.sonataMode;fire($('sonataMode'))}
     if($('mainEchoEffect')&&p.gear.mainEchoEffect){$('mainEchoEffect').value=p.gear.mainEchoEffect;fire($('mainEchoEffect'))}
+    if($('weaponMode')&&p.gear.weaponMode){$('weaponMode').value=p.gear.weaponMode;fire($('weaponMode'))}
   }
   Object.entries(p.stats||{}).forEach(([id,v])=>{const el=$(id);if(el){el.value=String(v);fire(el,'input')}});
   const cards=[...document.querySelectorAll('.echo-card')];

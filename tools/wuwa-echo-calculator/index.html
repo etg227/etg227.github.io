@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="鸣潮单角色声骸边际收益、角色机制、共鸣链与单件评分计算器。" />
   <title>鸣潮声骸边际评分器</title>
-  <link rel="stylesheet" href="styles.css?v=20260916-5" />
+  <link rel="stylesheet" href="styles.css?v=20260916-8" />
   <style>
     .profile-grid{grid-template-columns:1.35fr .55fr .65fr}
     .current-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -71,16 +71,7 @@
       </div>
     </details>
   </section>
-
-  <section class="panel">
-    <div class="panel-title-row"><div><span class="step">03</span><h2>角色伤害构成 / 共鸣链</h2></div><span class="hint">自动读取机制库</span></div>
-    <div id="mechanicSummary" class="micro">选择角色后显示。</div>
-    <div id="mechanicTags" class="mechanic-tags"></div>
-    <div id="chainSummary" class="chain-list"></div>
-    <div id="mechanicSource" class="mechanic-source"></div>
-  </section>
-
-  <section class="panel full">
+<section class="panel full">
     <div class="panel-title-row"><div><span class="step">04</span><h2>当前 5 只声骸</h2></div><span class="hint">每只独立评分 · 固定档位下拉</span></div>
     <div id="equippedEchoes" class="equipped-grid"></div>
   </section>
@@ -106,19 +97,17 @@
       <div class="metric-card"><span>当前期望暴击乘区</span><strong id="critFactor">—</strong><small id="critState">—</small></div>
       <div class="metric-card"><span>最值钱标准词条</span><strong id="bestStandard">—</strong><small id="bestStandardNote">随角色 / 共鸣链 / 套装变化</small></div>
     </div>
-    <h3>5 只当前声骸独立评分</h3>
-    <div id="echoScoreCards" class="score-grid"></div>
     <div class="results-grid">
       <div><h3>候选每条副词条边际贡献</h3><div id="lineMarginals" class="bars"></div></div>
       <div><h3>标准词条当前收益</h3><div id="standardBars" class="bars"></div></div>
     </div>
-    <div class="score-note" id="scoreMethodNote"></div>
   </section>
 
+  <div id="mechanicSummary" hidden></div><div id="mechanicTags" hidden></div><div id="chainSummary" hidden></div><div id="mechanicSource" hidden></div><div id="characterModelStatus" hidden></div><div id="echoScoreCards" hidden></div><div id="scoreMethodNote" hidden></div>
   <div id="rollControls" hidden></div>
   <div id="boundaryCards" hidden></div>
 </main>
-<script src="app.js?v=20260916-5"></script>
-<script src="/wuwa/profile-save-v2.js?v=20260916-5"></script>
+<script src="app.js?v=20260916-8"></script>
+<script src="/wuwa/profile-save-v2.js?v=20260916-8"></script>
 </body>
 </html>

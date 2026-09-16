@@ -1,1 +1,3182 @@
-{"source":"GQin404/WuwaEchoTool 3.1.42（作者明确授权复用）+ 库街区机制校验","updated_at":"2026-09-16","legacy_data_boundary":"陆·赫斯","legacy_import_count":50,"legacy_scoring_rules":{"0":{"label":"通用","attack01":1,"attack02":1,"crit":1,"critDamage":1,"property":1,"health01":1,"health02":1,"defense01":1,"defense02":1,"defenseLimit":40,"efficiency01":1,"efficiency02":0,"unike":1,"treat":0},"1":{"label":"攻击主C","attack01":1,"attack02":0.1,"crit":1.8,"critDamage":0.9,"property":1,"health01":0,"health02":0,"defense01":0,"defense02":0,"defenseLimit":40,"efficiency01":0.5,"efficiency02":0,"unike":1,"treat":0},"2":{"label":"辅助/副C","attack01":1,"attack02":0.1,"crit":1.8,"critDamage":0.9,"property":1,"health01":0,"health02":0,"defense01":0,"defense02":0,"defenseLimit":40,"efficiency01":1,"efficiency02":0.3,"unike":1,"treat":0},"3":{"label":"攻击治疗","attack01":1.2,"attack02":0.12,"crit":0,"critDamage":0,"property":1,"health01":0.9,"health02":0.009,"defense01":0.5,"defense02":0.06,"defenseLimit":80,"efficiency01":1,"efficiency02":0.5,"unike":0,"treat":2},"4":{"label":"生命治疗","attack01":0,"attack02":0,"crit":0,"critDamage":0,"property":1,"health01":1.2,"health02":0.012,"defense01":0.8,"defense02":0.06,"defenseLimit":80,"efficiency01":1,"efficiency02":0.5,"unike":0,"treat":2},"5":{"label":"防御输出","attack01":0,"attack02":0,"crit":1.8,"critDamage":0.9,"property":1,"health01":0,"health02":0,"defense01":1.2,"defense02":0.09,"defenseLimit":40,"efficiency01":1,"efficiency02":0.3,"unike":1,"treat":0},"6":{"label":"生命/共鸣效率辅助","attack01":0,"attack02":0,"crit":0,"critDamage":0.1,"property":0.1,"health01":1,"health02":0.01,"defense01":0.8,"defense02":0.06,"defenseLimit":100,"efficiency01":1.1,"efficiency02":0.55,"unike":0.1,"treat":2},"7":{"label":"攻击/共鸣效率混合","attack01":0.5,"attack02":0.05,"crit":1.8,"critDamage":0.9,"property":1,"health01":0,"health02":0,"defense01":0,"defense02":0,"defenseLimit":180,"efficiency01":1,"efficiency02":0,"unike":1,"treat":0},"8":{"label":"生命输出","attack01":0,"attack02":0,"crit":2,"critDamage":1,"property":1,"health01":1,"health02":0.007,"defense01":0,"defense02":0,"defenseLimit":40,"efficiency01":0.5,"efficiency02":0,"unike":1,"treat":0},"9":{"label":"无共鸣能量攻击输出","attack01":1,"attack02":0.1,"crit":1.8,"critDamage":0.9,"property":1,"health01":0,"health02":0,"defense01":0,"defense02":0,"defenseLimit":1000,"efficiency01":0,"efficiency02":0,"unike":1,"treat":0},"10":{"label":"防御治疗","attack01":0,"attack02":0,"crit":0,"critDamage":0,"property":0.1,"health01":0.9,"health02":0.009,"defense01":1.4,"defense02":0.1,"defenseLimit":160,"efficiency01":1.4,"efficiency02":0.7,"unike":0.1,"treat":2}},"characters":{"今汐":{"verified":true,"scaler":"atk","type_weights":{"basic":0.02,"skill":0.72,"heavy":0,"liberation":0.2,"other":0.06},"legacy_role":{"id":1,"gid":1304,"source_name":"今汐","star":5,"rule_id":1,"maxscore":490},"model_stage":"legacy-output-imported"},"长离":{"verified":true,"scaler":"atk","type_weights":{"basic":0.01,"skill":0.59,"heavy":0,"liberation":0.27,"other":0.13},"legacy_role":{"id":2,"gid":1205,"source_name":"长离","star":5,"rule_id":1,"maxscore":482.3},"model_stage":"legacy-output-imported"},"忌炎":{"verified":true,"scaler":"atk","type_weights":{"basic":0.02,"skill":0.11,"heavy":0.68,"liberation":0,"other":0.19},"legacy_role":{"id":3,"gid":1404,"source_name":"忌炎","star":5,"rule_id":1,"maxscore":487.6},"model_stage":"legacy-output-imported"},"安可":{"verified":true,"scaler":"atk","type_weights":{"basic":0.59,"skill":0.12,"heavy":0.02,"liberation":0.05,"other":0.22},"legacy_role":{"id":4,"gid":1203,"source_name":"安可","star":5,"rule_id":1,"maxscore":482.4},"model_stage":"legacy-output-imported"},"漂泊者-男-湮灭":{"verified":true,"scaler":"atk","type_weights":{"basic":0.2,"skill":0.25,"heavy":0.05,"liberation":0.3,"other":0.2},"legacy_role":{"id":5,"gid":1605,"source_name":"暗主-男","star":5,"rule_id":1,"maxscore":473},"model_stage":"legacy-output-imported"},"漂泊者-男-衍射":{"verified":true,"scaler":"atk","type_weights":{"basic":0.11,"skill":0.21,"heavy":0.31,"liberation":0.23,"other":0.14},"legacy_role":{"id":6,"gid":1501,"source_name":"光主-男","star":5,"rule_id":1,"maxscore":473.4},"model_stage":"legacy-output-imported"},"维里奈":{"verified":false,"scaler":"atk","type_weights":{"basic":0,"skill":0,"heavy":0,"liberation":0,"other":0},"legacy_role":{"id":7,"gid":1503,"source_name":"维里奈","star":5,"rule_id":3,"maxscore":442.9},"model_stage":"legacy-output-imported","score_scope":"support-legacy-rule-imported"},"吟霖":{"verified":true,"scaler":"atk","type_weights":{"basic":0.08,"skill":0.37,"heavy":0.2,"liberation":0.21,"other":0.14},"legacy_role":{"id":8,"gid":1302,"source_name":"吟霖","star":5,"rule_id":1,"maxscore":474.7},"model_stage":"legacy-output-imported"},"鉴心":{"verified":true,"scaler":"atk","type_weights":{"basic":0.24,"skill":0.06,"heavy":0.31,"liberation":0.27,"other":0.12},"legacy_role":{"id":9,"gid":1405,"source_name":"鉴心","star":5,"rule_id":2,"maxscore":491.8},"model_stage":"legacy-output-imported"},"卡卡罗":{"verified":true,"scaler":"atk","type_weights":{"basic":0.2,"skill":0.05,"heavy":0.03,"liberation":0.52,"other":0.2},"legacy_role":{"id":10,"gid":1301,"source_name":"卡卡罗","star":5,"rule_id":1,"maxscore":478.3},"model_stage":"legacy-output-imported"},"凌阳":{"verified":true,"scaler":"atk","type_weights":{"basic":0.4,"skill":0.3,"heavy":0.04,"liberation":0.04,"other":0.22},"legacy_role":{"id":11,"gid":1104,"source_name":"雪豹","star":5,"rule_id":1,"maxscore":475.2},"model_stage":"legacy-output-imported"},"莫特斐":{"verified":true,"scaler":"atk","type_weights":{"basic":0.15,"skill":0.31,"heavy":0,"liberation":0.48,"other":0.06},"legacy_role":{"id":12,"gid":1204,"source_name":"莫特斐","star":4,"rule_id":2,"maxscore":496},"model_stage":"legacy-output-imported"},"白芷":{"verified":false,"scaler":"hp","type_weights":{"basic":0,"skill":0,"heavy":0,"liberation":0,"other":0},"legacy_role":{"id":13,"gid":1103,"source_name":"白芷","star":4,"rule_id":4,"maxscore":437.3},"model_stage":"legacy-output-imported","score_scope":"support-legacy-rule-imported"},"渊武":{"verified":true,"scaler":"def","type_weights":{"basic":0.05,"skill":0.45,"heavy":0,"liberation":0.46,"other":0.04},"legacy_role":{"id":14,"gid":1303,"source_name":"渊武","star":4,"rule_id":5,"maxscore":497.1},"model_stage":"legacy-output-imported"},"秧秧":{"verified":true,"scaler":"atk","type_weights":{"basic":0.05,"skill":0.22,"heavy":0.28,"liberation":0.4,"other":0.05},"legacy_role":{"id":15,"gid":1402,"source_name":"秧秧","star":4,"rule_id":2,"maxscore":493},"model_stage":"legacy-output-imported"},"赤霞":{"verified":true,"scaler":"atk","type_weights":{"basic":0.06,"skill":0.46,"heavy":0,"liberation":0.35,"other":0.13},"legacy_role":{"id":16,"gid":1202,"source_name":"赤霞","star":4,"rule_id":1,"maxscore":476.6},"model_stage":"legacy-output-imported"},"丹瑾":{"verified":true,"scaler":"atk","type_weights":{"basic":0.08,"skill":0.22,"heavy":0.32,"liberation":0.2,"other":0.18},"legacy_role":{"id":17,"gid":1602,"source_name":"丹瑾","star":4,"rule_id":1,"maxscore":472.4},"model_stage":"legacy-output-imported"},"秋水":{"verified":true,"scaler":"atk","type_weights":{"basic":0.25,"skill":0.33,"heavy":0,"liberation":0.22,"other":0.2},"legacy_role":{"id":18,"gid":1403,"source_name":"秋水","star":4,"rule_id":1,"maxscore":472.8},"model_stage":"legacy-output-imported"},"散华":{"verified":true,"scaler":"atk","type_weights":{"basic":0.02,"skill":0.3,"heavy":0.3,"liberation":0.32,"other":0.06},"legacy_role":{"id":19,"gid":1102,"source_name":"散华","star":4,"rule_id":1,"maxscore":472.4},"model_stage":"legacy-output-imported"},"桃祈":{"verified":true,"scaler":"def","type_weights":{"basic":0.08,"skill":0.38,"heavy":0,"liberation":0.5,"other":0.04},"legacy_role":{"id":20,"gid":1601,"source_name":"桃祁","star":4,"rule_id":5,"maxscore":500},"model_stage":"legacy-output-imported"},"漂泊者-女-衍射":{"verified":true,"scaler":"atk","type_weights":{"basic":0.11,"skill":0.21,"heavy":0.31,"liberation":0.23,"other":0.14},"legacy_role":{"id":21,"gid":1502,"source_name":"光主-女","star":5,"rule_id":1,"maxscore":473.4},"model_stage":"legacy-output-imported"},"漂泊者-女-湮灭":{"verified":true,"scaler":"atk","type_weights":{"basic":0.2,"skill":0.25,"heavy":0.05,"liberation":0.3,"other":0.2},"legacy_role":{"id":22,"gid":1604,"source_name":"暗主-女","star":5,"rule_id":1,"maxscore":473},"model_stage":"legacy-output-imported"},"折枝":{"verified":true,"scaler":"atk","type_weights":{"basic":0.54,"skill":0.21,"heavy":0.18,"liberation":0,"other":0.07},"legacy_role":{"id":23,"gid":1105,"source_name":"折枝","star":5,"rule_id":1,"maxscore":479.5},"model_stage":"legacy-output-imported"},"相里要":{"verified":true,"scaler":"atk","type_weights":{"basic":0.13,"skill":0.07,"heavy":0.05,"liberation":0.62,"other":0.13},"legacy_role":{"id":24,"gid":1305,"source_name":"相里要","star":5,"rule_id":1,"maxscore":484.2},"model_stage":"legacy-output-imported"},"守岸人":{"verified":false,"scaler":"hp","type_weights":{"basic":0,"skill":0,"heavy":0,"liberation":0.97,"other":0},"legacy_role":{"id":25,"gid":1505,"source_name":"守岸人","star":5,"rule_id":6,"maxscore":398.5},"model_stage":"legacy-output-imported","score_scope":"support-legacy-rule-imported"},"釉瑚":{"verified":true,"scaler":"atk","type_weights":{"basic":0.11,"skill":0.33,"heavy":0.08,"liberation":0.29,"other":0.19},"legacy_role":{"id":26,"gid":1106,"source_name":"釉瑚","star":4,"rule_id":2,"maxscore":492.4},"model_stage":"legacy-output-imported"},"椿":{"verified":true,"scaler":"atk","type_weights":{"basic":0.66,"skill":0,"heavy":0.02,"liberation":0.22,"other":0.1},"legacy_role":{"id":27,"gid":1603,"source_name":"椿","star":5,"rule_id":1,"maxscore":486.3},"model_stage":"legacy-output-imported"},"灯灯":{"verified":true,"scaler":"atk","type_weights":{"basic":0.64,"skill":0.08,"heavy":0,"liberation":0.2,"other":0.08},"legacy_role":{"id":28,"gid":1504,"source_name":"灯灯","star":4,"rule_id":1,"maxscore":485.2},"model_stage":"legacy-output-imported"},"珂莱塔":{"verified":true,"scaler":"atk","type_weights":{"basic":0.11,"skill":0.75,"heavy":0,"liberation":0,"other":0.14},"legacy_role":{"id":29,"gid":1107,"source_name":"珂莱塔","star":5,"rule_id":1,"maxscore":491.5},"model_stage":"legacy-output-imported"},"洛可可":{"verified":true,"scaler":"atk","type_weights":{"basic":0.03,"skill":0.12,"heavy":0.68,"liberation":0,"other":0.17},"legacy_role":{"id":30,"gid":1606,"source_name":"洛可可","star":5,"rule_id":1,"maxscore":487.5},"model_stage":"legacy-output-imported"},"赞妮":{"verified":true,"scaler":"atk","type_weights":{"basic":0.03,"skill":0.01,"heavy":0.76,"liberation":0.12,"other":0.09},"legacy_role":{"id":31,"gid":1507,"source_name":"赞妮","star":5,"rule_id":1,"maxscore":492},"model_stage":"character-specialized","element":"spectro","element_label":"衍射","defaults":{"sonata":"eternal5","main_echo":"glory"},"summary":"焚日模式核心输出按重击类型；WuwaEchoTool 标准模型重击约占76%。","type_notes":{"heavy":"核心：焚日模式主要斩击视为重击伤害","liberation":"有效：标准模型约12%","basic":"少量：约3%","skill":"少量：约1%","other":"其他伤害约9%"},"innate":[{"kind":"elementDmg","value":12,"apply":"combat","scope":"burst","label":"固有技能：变奏后衍射伤害+12%，持续14秒"}],"chains":[{"level":1,"effects":[{"kind":"elementDmg","value":50,"apply":"combat","scope":"burst"}],"label":"1链：针对行动/强制反击后衍射伤害+50%，持续14秒"},{"level":2,"effects":[{"kind":"critRate","value":20,"apply":"combat","scope":"rotation"}],"label":"2链：战斗态暴击率+20%"},{"level":3,"effects":[],"label":"3链：提高终结解放倍率，改变伤害构成"},{"level":4,"effects":[{"kind":"atkPct","value":20,"apply":"combat","scope":"rotation"}],"label":"4链：变奏后攻击提升20%，持续30秒"},{"level":5,"effects":[],"label":"5链：提高共鸣解放·再燃倍率"},{"level":6,"effects":[],"label":"6链：进一步强化焚日模式重击构成"}],"special_mechanics_complete":true,"legacy_reference":"https://github.com/GQin404/WuwaEchoTool","source_url":"https://wiki.kurobbs.com/mc/home"},"菲比":{"verified":true,"scaler":"atk","type_weights":{"basic":0.09,"skill":0.04,"heavy":0.54,"liberation":0.12,"other":0.21},"legacy_role":{"id":32,"gid":1506,"source_name":"菲比","star":5,"rule_id":1,"maxscore":479},"model_stage":"legacy-output-imported"},"布兰特":{"verified":true,"scaler":"atk","type_weights":{"basic":0.62,"skill":0.12,"heavy":0,"liberation":0.12,"other":0.14},"legacy_role":{"id":33,"gid":1206,"source_name":"布兰特","star":5,"rule_id":7,"maxscore":454.9},"model_stage":"legacy-output-imported"},"坎特蕾拉":{"verified":true,"scaler":"atk","type_weights":{"basic":0.79,"skill":0.06,"heavy":0.06,"liberation":0,"other":0.09},"legacy_role":{"id":34,"gid":1607,"source_name":"坎特雷拉","star":5,"rule_id":1,"maxscore":493.9},"model_stage":"legacy-output-imported"},"漂泊者-女-气动":{"verified":true,"scaler":"atk","type_weights":{"basic":0.08,"skill":0.62,"heavy":0,"liberation":0.17,"other":0.13},"legacy_role":{"id":35,"gid":1408,"source_name":"风主女","star":5,"rule_id":1,"maxscore":483.9},"model_stage":"legacy-output-imported"},"漂泊者-男-气动":{"verified":true,"scaler":"atk","type_weights":{"basic":0.08,"skill":0.62,"heavy":0,"liberation":0.17,"other":0.13},"legacy_role":{"id":36,"gid":1406,"source_name":"风主男","star":5,"rule_id":1,"maxscore":483.9},"model_stage":"legacy-output-imported"},"夏空":{"verified":true,"scaler":"atk","type_weights":{"basic":0.15,"skill":0.06,"heavy":0.23,"liberation":0.47,"other":0.09},"legacy_role":{"id":37,"gid":1407,"source_name":"夏空","star":5,"rule_id":2,"maxscore":495.4},"model_stage":"legacy-output-imported"},"卡提希娅":{"verified":true,"scaler":"hp","type_weights":{"basic":0.654,"skill":0.103,"heavy":0.029,"liberation":0.188,"other":0.025},"legacy_role":{"id":38,"gid":1409,"source_name":"卡提希娅","star":5,"rule_id":8,"maxscore":488.9},"model_stage":"legacy-output-imported"},"露帕":{"verified":true,"scaler":"atk","type_weights":{"basic":0.102,"skill":0.182,"heavy":0.066,"liberation":0.637,"other":0.013},"legacy_role":{"id":39,"gid":1207,"source_name":"露帕","star":5,"rule_id":2,"maxscore":503.5},"model_stage":"legacy-output-imported"},"弗洛洛":{"verified":true,"scaler":"atk","type_weights":{"basic":0.083,"skill":0.403,"heavy":0,"liberation":0.048,"other":0.465},"legacy_role":{"id":40,"gid":1608,"source_name":"弗洛洛","star":5,"rule_id":9,"maxscore":470.7},"model_stage":"legacy-output-imported"},"奥古斯塔":{"verified":true,"scaler":"atk","type_weights":{"basic":0.073,"skill":0.17,"heavy":0.729,"liberation":0,"other":0.028},"legacy_role":{"id":41,"gid":1306,"source_name":"奥古斯塔","star":5,"rule_id":1,"maxscore":490.3},"model_stage":"legacy-output-imported"},"尤诺":{"verified":true,"scaler":"atk","type_weights":{"basic":0.22,"skill":0.15,"heavy":0,"liberation":0.596,"other":0.034},"legacy_role":{"id":42,"gid":1410,"source_name":"尤诺","star":5,"rule_id":2,"maxscore":501.2},"model_stage":"legacy-output-imported"},"嘉贝莉娜":{"verified":true,"scaler":"atk","type_weights":{"basic":0,"skill":0,"heavy":0.385,"liberation":0,"other":0.615},"legacy_role":{"id":43,"gid":1208,"source_name":"嘉贝莉娜","star":5,"rule_id":1,"maxscore":475.2},"model_stage":"legacy-output-imported"},"仇远":{"verified":true,"scaler":"atk","type_weights":{"basic":0,"skill":0,"heavy":0.56,"liberation":0,"other":0.44},"legacy_role":{"id":44,"gid":1411,"source_name":"仇远","star":5,"rule_id":2,"maxscore":499.3},"model_stage":"legacy-output-imported"},"千咲":{"verified":true,"scaler":"atk","type_weights":{"basic":0.075,"skill":0.042,"heavy":0,"liberation":0.75,"other":0.133},"legacy_role":{"id":45,"gid":1508,"source_name":"千咲","star":5,"rule_id":2,"maxscore":510.3},"model_stage":"legacy-output-imported"},"卜灵":{"verified":false,"scaler":"atk","type_weights":{"basic":0,"skill":0,"heavy":0,"liberation":0,"other":0},"legacy_role":{"id":46,"gid":1307,"source_name":"卜灵","star":4,"rule_id":3,"maxscore":453},"model_stage":"legacy-output-imported","score_scope":"support-legacy-rule-imported"},"琳奈":{"verified":true,"scaler":"atk","type_weights":{"basic":0.61,"skill":0.03,"heavy":0,"liberation":0.15,"other":0.21},"legacy_role":{"id":47,"gid":1509,"source_name":"琳奈","star":5,"rule_id":2,"maxscore":502},"model_stage":"legacy-output-imported"},"莫宁":{"verified":false,"scaler":"def","type_weights":{"basic":0.12,"skill":0.45,"heavy":0.08,"liberation":0.28,"other":0.07},"legacy_role":{"id":48,"gid":1209,"source_name":"莫宁","star":5,"rule_id":10,"maxscore":486.5},"model_stage":"legacy-output-imported","score_scope":"support-legacy-rule-imported"},"爱弥斯":{"verified":true,"scaler":"atk","type_weights":{"basic":0.1,"skill":0.17,"heavy":0.05,"liberation":0.63,"other":0.05},"legacy_role":{"id":49,"gid":0,"source_name":"爱弥斯","star":5,"rule_id":1,"maxscore":500.8},"model_stage":"legacy-output-imported"},"陆·赫斯":{"verified":true,"scaler":"atk","type_weights":{"basic":0.62,"skill":0.12,"heavy":0.03,"liberation":0.15,"other":0.08},"legacy_role":{"id":50,"gid":0,"source_name":"陆·赫斯","star":5,"rule_id":1,"maxscore":494.6},"model_stage":"legacy-output-imported"}}}
+{
+  "source": "WuwaEchoTool (legacy <= 陆·赫斯) + MingEchoAssistant current profiles + Kuro Wiki catalogue; signature names/effects cross-checked with liangshi-calc",
+  "updated_at": "2026-09-16",
+  "legacy_data_boundary": "陆·赫斯",
+  "characters": {
+    "景燃": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.4,
+        "heavy": 0.05,
+        "skill": 0.5,
+        "liberation": 0.05,
+        "other": 0.0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "MingEchoAssistant",
+      "source_url": "https://wiki.kurobbs.com/mc/home"
+    },
+    "绯雪": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.15,
+        "heavy": 0.35,
+        "skill": 0.3,
+        "liberation": 0.2,
+        "other": 0.0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "MingEchoAssistant",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "灼霜",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "莫宁": {
+      "verified": true,
+      "scaler": "def",
+      "type_weights": {
+        "basic": 0.12,
+        "skill": 0.45,
+        "heavy": 0.08,
+        "liberation": 0.28,
+        "other": 0.07
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "宙算仪轨",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "清宵": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.25,
+        "heavy": 0.15,
+        "skill": 0.35,
+        "liberation": 0.25,
+        "other": 0.0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "MingEchoAssistant",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "云琅",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "穗穗": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.15,
+        "heavy": 0.08,
+        "skill": 0.4,
+        "liberation": 0.37,
+        "other": 0.0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "MingEchoAssistant",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "栖霞饮露",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "秧秧·玄翎": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.05,
+        "heavy": 0.05,
+        "skill": 0.35,
+        "liberation": 0.55,
+        "other": 0.0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "MingEchoAssistant",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "天之苍苍",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "漂泊者-女-导电": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.1,
+        "heavy": 0.05,
+        "skill": 0.5,
+        "liberation": 0.25,
+        "other": 0.09999999999999998
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "MingEchoAssistant",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "血誓盟约",
+        "effects": [
+          {
+            "kind": "skillDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          },
+          {
+            "kind": "globalDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "漂泊者-男-导电": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.1,
+        "heavy": 0.05,
+        "skill": 0.5,
+        "liberation": 0.25,
+        "other": 0.09999999999999998
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "MingEchoAssistant",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "血誓盟约",
+        "effects": [
+          {
+            "kind": "skillDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          },
+          {
+            "kind": "globalDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "洛瑟菈": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.15,
+        "heavy": 0.1,
+        "skill": 0.4,
+        "liberation": 0.35,
+        "other": 0.0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "MingEchoAssistant",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "存帧",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "露西": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.12,
+        "heavy": 0.08,
+        "skill": 0.61,
+        "liberation": 0.18,
+        "other": 0.010000000000000009
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "MingEchoAssistant",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "蜃影",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "丽贝卡": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.15,
+        "heavy": 0.1,
+        "skill": 0.6,
+        "liberation": 0.15,
+        "other": 0.0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "MingEchoAssistant",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "碎骨",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "达妮娅": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.5,
+        "heavy": 0.3,
+        "skill": 0.15,
+        "liberation": 0.05,
+        "other": 0.0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "MingEchoAssistant",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "赝作的矮星",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "西格莉卡": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.25,
+        "heavy": 0.15,
+        "skill": 0.45,
+        "liberation": 0.15,
+        "other": 0.0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "MingEchoAssistant",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "昭日译注",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "陆·赫斯": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.62,
+        "skill": 0.12,
+        "heavy": 0.03,
+        "liberation": 0.15,
+        "other": 0.08
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "白昼之脊",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "爱弥斯": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.1,
+        "skill": 0.17,
+        "heavy": 0.05,
+        "liberation": 0.63,
+        "other": 0.05
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "永远的启明星",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "琳奈": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.61,
+        "skill": 0.03,
+        "heavy": 0,
+        "liberation": 0.15,
+        "other": 0.21
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "溢彩荧辉",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "千咲": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.075,
+        "skill": 0.042,
+        "heavy": 0,
+        "liberation": 0.75,
+        "other": 0.133
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.075,
+          "skill": 0.042,
+          "heavy": 0,
+          "liberation": 0.75,
+          "other": 0.023
+        },
+        "2": {
+          "basic": 0.075,
+          "skill": 0.042,
+          "heavy": 0,
+          "liberation": 0.75,
+          "other": 0.023
+        },
+        "3": {
+          "basic": 0.067,
+          "skill": 0.037,
+          "heavy": 0,
+          "liberation": 0.776,
+          "other": 0.02
+        },
+        "4": {
+          "basic": 0.067,
+          "skill": 0.037,
+          "heavy": 0,
+          "liberation": 0.776,
+          "other": 0.02
+        },
+        "5": {
+          "basic": 0.067,
+          "skill": 0.037,
+          "heavy": 0,
+          "liberation": 0.776,
+          "other": 0.02
+        },
+        "6": {
+          "basic": 0.067,
+          "skill": 0.037,
+          "heavy": 0,
+          "liberation": 0.776,
+          "other": 0.02
+        }
+      },
+      "signature_weapon": {
+        "name": "昙切",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "仇远": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0,
+        "skill": 0,
+        "heavy": 0.56,
+        "liberation": 0,
+        "other": 0.44
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0.56,
+          "liberation": 0,
+          "other": 0.44
+        },
+        "2": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0.56,
+          "liberation": 0,
+          "other": 0.44
+        },
+        "3": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0.66,
+          "liberation": 0,
+          "other": 0.34
+        },
+        "4": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0.66,
+          "liberation": 0,
+          "other": 0.34
+        },
+        "5": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0.66,
+          "liberation": 0,
+          "other": 0.34
+        },
+        "6": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0.56,
+          "liberation": 0,
+          "other": 0.44
+        }
+      },
+      "signature_weapon": {
+        "name": "裁竹",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "嘉贝莉娜": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0,
+        "skill": 0,
+        "heavy": 0.385,
+        "liberation": 0,
+        "other": 0.615
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0.385,
+          "liberation": 0,
+          "other": 0.615
+        },
+        "2": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0.385,
+          "liberation": 0,
+          "other": 0.615
+        },
+        "3": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0.31,
+          "liberation": 0,
+          "other": 0.69
+        },
+        "4": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0.31,
+          "liberation": 0,
+          "other": 0.69
+        },
+        "5": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0.33,
+          "liberation": 0,
+          "other": 0.67
+        },
+        "6": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0.365,
+          "liberation": 0,
+          "other": 0.635
+        }
+      },
+      "signature_weapon": {
+        "name": "光影双生",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "尤诺": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.22,
+        "skill": 0.15,
+        "heavy": 0,
+        "liberation": 0.596,
+        "other": 0.034
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.22,
+          "skill": 0.15,
+          "heavy": 0,
+          "liberation": 0.596,
+          "other": 0.034
+        },
+        "2": {
+          "basic": 0.22,
+          "skill": 0.15,
+          "heavy": 0,
+          "liberation": 0.596,
+          "other": 0.034
+        },
+        "3": {
+          "basic": 0.22,
+          "skill": 0.15,
+          "heavy": 0,
+          "liberation": 0.596,
+          "other": 0.034
+        },
+        "4": {
+          "basic": 0.22,
+          "skill": 0.15,
+          "heavy": 0,
+          "liberation": 0.596,
+          "other": 0.034
+        },
+        "5": {
+          "basic": 0.22,
+          "skill": 0.15,
+          "heavy": 0,
+          "liberation": 0.596,
+          "other": 0.034
+        },
+        "6": {
+          "basic": 0.21,
+          "skill": 0.07,
+          "heavy": 0,
+          "liberation": 0.7,
+          "other": 0.02
+        }
+      },
+      "signature_weapon": {
+        "name": "万物持存的注释",
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "奥古斯塔": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.073,
+        "skill": 0.17,
+        "heavy": 0.729,
+        "liberation": 0,
+        "other": 0.028
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "驭冕铸雷之权",
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "弗洛洛": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.083,
+        "skill": 0.403,
+        "heavy": 0,
+        "liberation": 0.048,
+        "other": 0.465
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "幽冥的忘忧章",
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          },
+          {
+            "kind": "basicDmg",
+            "value": 32.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "露帕": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.102,
+        "skill": 0.182,
+        "heavy": 0.066,
+        "liberation": 0.637,
+        "other": 0.013
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "焰痕",
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "夏空": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.15,
+        "skill": 0.06,
+        "heavy": 0.23,
+        "liberation": 0.47,
+        "other": 0.09
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.15,
+          "skill": 0.06,
+          "heavy": 0.23,
+          "liberation": 0.47,
+          "other": 0.09
+        },
+        "2": {
+          "basic": 0.15,
+          "skill": 0.06,
+          "heavy": 0.23,
+          "liberation": 0.47,
+          "other": 0.09
+        },
+        "3": {
+          "basic": 0.14,
+          "skill": 0.1,
+          "heavy": 0.22,
+          "liberation": 0.46,
+          "other": 0.08
+        },
+        "4": {
+          "basic": 0.07,
+          "skill": 0.05,
+          "heavy": 0.23,
+          "liberation": 0.62,
+          "other": 0.03
+        },
+        "5": {
+          "basic": 0.06,
+          "skill": 0.04,
+          "heavy": 0.22,
+          "liberation": 0.66,
+          "other": 0.02
+        },
+        "6": {
+          "basic": 0.05,
+          "skill": 0.03,
+          "heavy": 0.18,
+          "liberation": 0.72,
+          "other": 0.02
+        }
+      },
+      "signature_weapon": {
+        "name": "林间的咏叹调",
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "卡提希娅": {
+      "verified": true,
+      "scaler": "hp",
+      "type_weights": {
+        "basic": 0.654,
+        "skill": 0.103,
+        "heavy": 0.029,
+        "liberation": 0.188,
+        "other": 0.025
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "不屈命定之冠",
+        "effects": [
+          {
+            "kind": "hpPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "赞妮": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "heavy": 0.76,
+        "liberation": 0.12,
+        "basic": 0.03,
+        "skill": 0.01,
+        "other": 0.09
+      },
+      "innate": [
+        {
+          "kind": "elementDmg",
+          "value": 12,
+          "apply": "combat",
+          "scope": "burst"
+        }
+      ],
+      "chains": [
+        {
+          "level": 1,
+          "effects": [
+            {
+              "kind": "elementDmg",
+              "value": 50,
+              "apply": "combat",
+              "scope": "burst"
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "effects": [
+            {
+              "kind": "critRate",
+              "value": 20,
+              "apply": "combat",
+              "scope": "rotation"
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "effects": []
+        },
+        {
+          "level": 4,
+          "effects": [
+            {
+              "kind": "atkPct",
+              "value": 20,
+              "apply": "combat",
+              "scope": "rotation"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "effects": []
+        },
+        {
+          "level": 6,
+          "effects": []
+        }
+      ],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.03,
+          "skill": 0.01,
+          "heavy": 0.76,
+          "liberation": 0.12,
+          "other": 0.09
+        },
+        "2": {
+          "basic": 0.03,
+          "skill": 0,
+          "heavy": 0.75,
+          "liberation": 0.12,
+          "other": 0.1
+        },
+        "3": {
+          "basic": 0.02,
+          "skill": 0,
+          "heavy": 0.72,
+          "liberation": 0.18,
+          "other": 0.09
+        },
+        "4": {
+          "basic": 0.02,
+          "skill": 0,
+          "heavy": 0.72,
+          "liberation": 0.18,
+          "other": 0.09
+        },
+        "5": {
+          "basic": 0.02,
+          "skill": 0,
+          "heavy": 0.71,
+          "liberation": 0.19,
+          "other": 0.09
+        },
+        "6": {
+          "basic": 0.01,
+          "skill": 0,
+          "heavy": 0.9,
+          "liberation": 0.06,
+          "other": 0.03
+        }
+      },
+      "signature_weapon": {
+        "name": "焰光裁定",
+        "verified": true,
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ]
+      },
+      "defaults": {
+        "sonata": "eternal5",
+        "main_echo": "glory",
+        "weapon": "signature"
+      }
+    },
+    "坎特蕾拉": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.79,
+        "skill": 0.06,
+        "heavy": 0.06,
+        "liberation": 0,
+        "other": 0.09
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.87,
+          "skill": 0.04,
+          "heavy": 0.04,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "2": {
+          "basic": 0.9,
+          "skill": 0.03,
+          "heavy": 0.03,
+          "liberation": 0,
+          "other": 0.04
+        },
+        "3": {
+          "basic": 0.92,
+          "skill": 0.02,
+          "heavy": 0.02,
+          "liberation": 0,
+          "other": 0.04
+        },
+        "4": {
+          "basic": 0.92,
+          "skill": 0.02,
+          "heavy": 0.02,
+          "liberation": 0,
+          "other": 0.04
+        },
+        "5": {
+          "basic": 0.92,
+          "skill": 0.02,
+          "heavy": 0.02,
+          "liberation": 0,
+          "other": 0.04
+        },
+        "6": {
+          "basic": 0.96,
+          "skill": 0.01,
+          "heavy": 0.01,
+          "liberation": 0,
+          "other": 0.02
+        }
+      },
+      "signature_weapon": {
+        "name": "海的呢喃",
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "菲比": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.09,
+        "skill": 0.04,
+        "heavy": 0.54,
+        "liberation": 0.12,
+        "other": 0.21
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.06,
+          "skill": 0.02,
+          "heavy": 0.53,
+          "liberation": 0.18,
+          "other": 0.2
+        },
+        "2": {
+          "basic": 0.04,
+          "skill": 0.01,
+          "heavy": 0.5,
+          "liberation": 0.15,
+          "other": 0.3
+        },
+        "3": {
+          "basic": 0.02,
+          "skill": 0,
+          "heavy": 0.65,
+          "liberation": 0.09,
+          "other": 0.24
+        },
+        "4": {
+          "basic": 0.02,
+          "skill": 0,
+          "heavy": 0.65,
+          "liberation": 0.09,
+          "other": 0.24
+        },
+        "5": {
+          "basic": 0.02,
+          "skill": 0,
+          "heavy": 0.65,
+          "liberation": 0.09,
+          "other": 0.24
+        },
+        "6": {
+          "basic": 0.02,
+          "skill": 0,
+          "heavy": 0.65,
+          "liberation": 0.09,
+          "other": 0.24
+        }
+      },
+      "signature_weapon": {
+        "name": "和光回唱",
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "布兰特": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.62,
+        "skill": 0.12,
+        "heavy": 0,
+        "liberation": 0.12,
+        "other": 0.14
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.62,
+          "skill": 0.12,
+          "heavy": 0,
+          "liberation": 0.12,
+          "other": 0.14
+        },
+        "2": {
+          "basic": 0.6,
+          "skill": 0.11,
+          "heavy": 0,
+          "liberation": 0.11,
+          "other": 0.18
+        },
+        "3": {
+          "basic": 0.66,
+          "skill": 0.09,
+          "heavy": 0,
+          "liberation": 0.09,
+          "other": 0.16
+        },
+        "4": {
+          "basic": 0.66,
+          "skill": 0.09,
+          "heavy": 0,
+          "liberation": 0.09,
+          "other": 0.16
+        },
+        "5": {
+          "basic": 0.66,
+          "skill": 0.09,
+          "heavy": 0,
+          "liberation": 0.09,
+          "other": 0.16
+        },
+        "6": {
+          "basic": 0.76,
+          "skill": 0.05,
+          "heavy": 0,
+          "liberation": 0.07,
+          "other": 0.12
+        }
+      },
+      "signature_weapon": {
+        "name": "不灭航路",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "洛可可": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.03,
+        "skill": 0.12,
+        "heavy": 0.68,
+        "liberation": 0,
+        "other": 0.17
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0,
+          "skill": 0.14,
+          "heavy": 0.68,
+          "liberation": 0,
+          "other": 0.18
+        },
+        "2": {
+          "basic": 0,
+          "skill": 0.14,
+          "heavy": 0.68,
+          "liberation": 0,
+          "other": 0.18
+        },
+        "3": {
+          "basic": 0,
+          "skill": 0.14,
+          "heavy": 0.68,
+          "liberation": 0,
+          "other": 0.18
+        },
+        "4": {
+          "basic": 0,
+          "skill": 0.11,
+          "heavy": 0.74,
+          "liberation": 0,
+          "other": 0.15
+        },
+        "5": {
+          "basic": 0,
+          "skill": 0.08,
+          "heavy": 0.8,
+          "liberation": 0,
+          "other": 0.12
+        },
+        "6": {
+          "basic": 0,
+          "skill": 0.04,
+          "heavy": 0.9,
+          "liberation": 0,
+          "other": 0.06
+        }
+      },
+      "signature_weapon": {
+        "name": "悲喜剧",
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          },
+          {
+            "kind": "heavyDmg",
+            "value": 48.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "珂莱塔": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.11,
+        "skill": 0.75,
+        "heavy": 0,
+        "liberation": 0,
+        "other": 0.14
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "死与舞",
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "椿": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.66,
+        "skill": 0,
+        "heavy": 0.02,
+        "liberation": 0.22,
+        "other": 0.1
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "裁春",
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "守岸人": {
+      "verified": true,
+      "scaler": "hp",
+      "type_weights": {
+        "basic": 0,
+        "skill": 0,
+        "heavy": 0,
+        "liberation": 0.97,
+        "other": 0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0,
+          "liberation": 0.97,
+          "other": 0
+        },
+        "2": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0,
+          "liberation": 0.97,
+          "other": 0
+        },
+        "3": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0,
+          "liberation": 0.97,
+          "other": 0
+        },
+        "4": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0,
+          "liberation": 0.97,
+          "other": 0
+        },
+        "5": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0,
+          "liberation": 0.97,
+          "other": 0
+        },
+        "6": {
+          "basic": 0,
+          "skill": 0,
+          "heavy": 0,
+          "liberation": 0.97,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "星序协响",
+        "effects": [
+          {
+            "kind": "hpPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "相里要": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.13,
+        "skill": 0.07,
+        "heavy": 0.05,
+        "liberation": 0.62,
+        "other": 0.13
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.11,
+          "skill": 0.05,
+          "heavy": 0.03,
+          "liberation": 0.7,
+          "other": 0.11
+        },
+        "2": {
+          "basic": 0.11,
+          "skill": 0.05,
+          "heavy": 0.03,
+          "liberation": 0.7,
+          "other": 0.11
+        },
+        "3": {
+          "basic": 0.9,
+          "skill": 0.04,
+          "heavy": 0.02,
+          "liberation": 0.76,
+          "other": 0.09
+        },
+        "4": {
+          "basic": 0.9,
+          "skill": 0.04,
+          "heavy": 0.02,
+          "liberation": 0.76,
+          "other": 0.09
+        },
+        "5": {
+          "basic": 0.07,
+          "skill": 0.03,
+          "heavy": 0.01,
+          "liberation": 0.82,
+          "other": 0.07
+        },
+        "6": {
+          "basic": 0.05,
+          "skill": 0.02,
+          "heavy": 0.01,
+          "liberation": 0.87,
+          "other": 0.05
+        }
+      },
+      "signature_weapon": {
+        "name": "诸方玄枢",
+        "effects": [
+          {
+            "kind": "globalDmg",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          },
+          {
+            "kind": "liberationDmg",
+            "value": 48.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "折枝": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.54,
+        "skill": 0.21,
+        "heavy": 0.18,
+        "liberation": 0,
+        "other": 0.07
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.54,
+          "skill": 0.21,
+          "heavy": 0.18,
+          "liberation": 0,
+          "other": 0.07
+        },
+        "2": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "3": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "5": {
+          "basic": 0.69,
+          "skill": 0.16,
+          "heavy": 0.14,
+          "liberation": 0,
+          "other": 0.01
+        },
+        "6": {
+          "basic": 0.76,
+          "skill": 0.14,
+          "heavy": 0.1,
+          "liberation": 0,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "琼枝冰绡",
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "长离": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.01,
+        "skill": 0.59,
+        "heavy": 0,
+        "liberation": 0.27,
+        "other": 0.13
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "赫奕流明",
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "今汐": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.02,
+        "skill": 0.72,
+        "heavy": 0,
+        "liberation": 0.2,
+        "other": 0.06
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0,
+          "skill": 0.79,
+          "heavy": 0,
+          "liberation": 0.2,
+          "other": 0.01
+        },
+        "2": {
+          "basic": 0,
+          "skill": 0.81,
+          "heavy": 0,
+          "liberation": 0.18,
+          "other": 0.01
+        },
+        "3": {
+          "basic": 0,
+          "skill": 0.81,
+          "heavy": 0,
+          "liberation": 0.18,
+          "other": 0.01
+        },
+        "4": {
+          "basic": 0,
+          "skill": 0.81,
+          "heavy": 0,
+          "liberation": 0.18,
+          "other": 0.01
+        },
+        "5": {
+          "basic": 0,
+          "skill": 0.68,
+          "heavy": 0,
+          "liberation": 0.32,
+          "other": 0
+        },
+        "6": {
+          "basic": 0,
+          "skill": 0.84,
+          "heavy": 0,
+          "liberation": 0.16,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "时和岁稔",
+        "effects": [
+          {
+            "kind": "globalDmg",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "吟霖": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.08,
+        "skill": 0.37,
+        "heavy": 0.2,
+        "liberation": 0.21,
+        "other": 0.14
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.08,
+          "skill": 0.53,
+          "heavy": 0.17,
+          "liberation": 0.2,
+          "other": 0.12
+        },
+        "2": {
+          "basic": 0.08,
+          "skill": 0.53,
+          "heavy": 0.17,
+          "liberation": 0.2,
+          "other": 0.12
+        },
+        "3": {
+          "basic": 0.07,
+          "skill": 0.51,
+          "heavy": 0.23,
+          "liberation": 0.18,
+          "other": 0.11
+        },
+        "4": {
+          "basic": 0.07,
+          "skill": 0.51,
+          "heavy": 0.23,
+          "liberation": 0.18,
+          "other": 0.11
+        },
+        "5": {
+          "basic": 0.02,
+          "skill": 0.51,
+          "heavy": 0.2,
+          "liberation": 0.24,
+          "other": 0.03
+        },
+        "6": {
+          "basic": 0,
+          "skill": 0.64,
+          "heavy": 0.16,
+          "liberation": 0.2,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "掣傀之手",
+        "effects": [
+          {
+            "kind": "globalDmg",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "忌炎": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.02,
+        "skill": 0.11,
+        "heavy": 0.68,
+        "liberation": 0,
+        "other": 0.19
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.01,
+          "skill": 0.15,
+          "heavy": 0.68,
+          "liberation": 0,
+          "other": 0.16
+        },
+        "2": {
+          "basic": 0.01,
+          "skill": 0.15,
+          "heavy": 0.68,
+          "liberation": 0,
+          "other": 0.16
+        },
+        "3": {
+          "basic": 0.01,
+          "skill": 0.15,
+          "heavy": 0.68,
+          "liberation": 0,
+          "other": 0.16
+        },
+        "4": {
+          "basic": 0.01,
+          "skill": 0.15,
+          "heavy": 0.68,
+          "liberation": 0,
+          "other": 0.16
+        },
+        "5": {
+          "basic": 0.01,
+          "skill": 0.15,
+          "heavy": 0.68,
+          "liberation": 0,
+          "other": 0.16
+        },
+        "6": {
+          "basic": 0.01,
+          "skill": 0.07,
+          "heavy": 0.81,
+          "liberation": 0,
+          "other": 0.11
+        }
+      },
+      "signature_weapon": {
+        "name": "苍鳞千嶂",
+        "effects": [
+          {
+            "kind": "globalDmg",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "漂泊者-女-气动": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.08,
+        "skill": 0.62,
+        "heavy": 0,
+        "liberation": 0.17,
+        "other": 0.13
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.15,
+          "skill": 0.06,
+          "heavy": 0.23,
+          "liberation": 0.47,
+          "other": 0.09
+        },
+        "2": {
+          "basic": 0.15,
+          "skill": 0.06,
+          "heavy": 0.23,
+          "liberation": 0.47,
+          "other": 0.09
+        },
+        "3": {
+          "basic": 0.14,
+          "skill": 0.1,
+          "heavy": 0.22,
+          "liberation": 0.46,
+          "other": 0.08
+        },
+        "4": {
+          "basic": 0.07,
+          "skill": 0.05,
+          "heavy": 0.23,
+          "liberation": 0.62,
+          "other": 0.03
+        },
+        "5": {
+          "basic": 0.06,
+          "skill": 0.04,
+          "heavy": 0.22,
+          "liberation": 0.66,
+          "other": 0.02
+        },
+        "6": {
+          "basic": 0.05,
+          "skill": 0.03,
+          "heavy": 0.18,
+          "liberation": 0.72,
+          "other": 0.02
+        }
+      },
+      "signature_weapon": {
+        "name": "血誓盟约",
+        "effects": [
+          {
+            "kind": "skillDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          },
+          {
+            "kind": "globalDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "漂泊者-男-气动": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.08,
+        "skill": 0.62,
+        "heavy": 0,
+        "liberation": 0.17,
+        "other": 0.13
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.15,
+          "skill": 0.06,
+          "heavy": 0.23,
+          "liberation": 0.47,
+          "other": 0.09
+        },
+        "2": {
+          "basic": 0.15,
+          "skill": 0.06,
+          "heavy": 0.23,
+          "liberation": 0.47,
+          "other": 0.09
+        },
+        "3": {
+          "basic": 0.14,
+          "skill": 0.1,
+          "heavy": 0.22,
+          "liberation": 0.46,
+          "other": 0.08
+        },
+        "4": {
+          "basic": 0.07,
+          "skill": 0.05,
+          "heavy": 0.23,
+          "liberation": 0.62,
+          "other": 0.03
+        },
+        "5": {
+          "basic": 0.06,
+          "skill": 0.04,
+          "heavy": 0.22,
+          "liberation": 0.66,
+          "other": 0.02
+        },
+        "6": {
+          "basic": 0.05,
+          "skill": 0.03,
+          "heavy": 0.18,
+          "liberation": 0.72,
+          "other": 0.02
+        }
+      },
+      "signature_weapon": {
+        "name": "血誓盟约",
+        "effects": [
+          {
+            "kind": "skillDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          },
+          {
+            "kind": "globalDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "鉴心": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.24,
+        "skill": 0.06,
+        "heavy": 0.31,
+        "liberation": 0.27,
+        "other": 0.12
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.2,
+          "skill": 0.05,
+          "heavy": 0.03,
+          "liberation": 0.52,
+          "other": 0.2
+        },
+        "2": {
+          "basic": 0.19,
+          "skill": 0.08,
+          "heavy": 0.02,
+          "liberation": 0.52,
+          "other": 0.19
+        },
+        "3": {
+          "basic": 0.19,
+          "skill": 0.08,
+          "heavy": 0.02,
+          "liberation": 0.52,
+          "other": 0.19
+        },
+        "4": {
+          "basic": 0.19,
+          "skill": 0.08,
+          "heavy": 0.02,
+          "liberation": 0.52,
+          "other": 0.19
+        },
+        "5": {
+          "basic": 0.18,
+          "skill": 0.08,
+          "heavy": 0.01,
+          "liberation": 0.52,
+          "other": 0.21
+        },
+        "6": {
+          "basic": 0.12,
+          "skill": 0.08,
+          "heavy": 0.01,
+          "liberation": 0.6,
+          "other": 0.19
+        }
+      },
+      "signature_weapon": {
+        "name": "常驻四星",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "卡卡罗": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.2,
+        "skill": 0.05,
+        "heavy": 0.03,
+        "liberation": 0.52,
+        "other": 0.2
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.2,
+          "skill": 0.05,
+          "heavy": 0.03,
+          "liberation": 0.52,
+          "other": 0.2
+        },
+        "2": {
+          "basic": 0.19,
+          "skill": 0.08,
+          "heavy": 0.02,
+          "liberation": 0.52,
+          "other": 0.19
+        },
+        "3": {
+          "basic": 0.19,
+          "skill": 0.08,
+          "heavy": 0.02,
+          "liberation": 0.52,
+          "other": 0.19
+        },
+        "4": {
+          "basic": 0.19,
+          "skill": 0.08,
+          "heavy": 0.02,
+          "liberation": 0.52,
+          "other": 0.19
+        },
+        "5": {
+          "basic": 0.18,
+          "skill": 0.08,
+          "heavy": 0.01,
+          "liberation": 0.52,
+          "other": 0.21
+        },
+        "6": {
+          "basic": 0.12,
+          "skill": 0.08,
+          "heavy": 0.01,
+          "liberation": 0.6,
+          "other": 0.19
+        }
+      }
+    },
+    "安可": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.59,
+        "skill": 0.12,
+        "heavy": 0.02,
+        "liberation": 0.05,
+        "other": 0.22
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.59,
+          "skill": 0.12,
+          "heavy": 0.02,
+          "liberation": 0.05,
+          "other": 0.22
+        },
+        "2": {
+          "basic": 0.59,
+          "skill": 0.12,
+          "heavy": 0.02,
+          "liberation": 0.05,
+          "other": 0.22
+        },
+        "3": {
+          "basic": 0.59,
+          "skill": 0.08,
+          "heavy": 0.08,
+          "liberation": 0.05,
+          "other": 0.2
+        },
+        "4": {
+          "basic": 0.59,
+          "skill": 0.08,
+          "heavy": 0.08,
+          "liberation": 0.05,
+          "other": 0.2
+        },
+        "5": {
+          "basic": 0.59,
+          "skill": 0.1,
+          "heavy": 0.08,
+          "liberation": 0.05,
+          "other": 0.18
+        },
+        "6": {
+          "basic": 0.59,
+          "skill": 0.1,
+          "heavy": 0.08,
+          "liberation": 0.05,
+          "other": 0.18
+        }
+      },
+      "signature_weapon": {
+        "name": "掣傀之手",
+        "effects": [
+          {
+            "kind": "globalDmg",
+            "value": 12.0,
+            "apply": "combat",
+            "source": "weapon-static"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "维里奈": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0,
+        "skill": 0,
+        "heavy": 0,
+        "liberation": 0,
+        "other": 0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.08,
+          "skill": 0.53,
+          "heavy": 0.17,
+          "liberation": 0.2,
+          "other": 0.12
+        },
+        "2": {
+          "basic": 0.08,
+          "skill": 0.53,
+          "heavy": 0.17,
+          "liberation": 0.2,
+          "other": 0.12
+        },
+        "3": {
+          "basic": 0.07,
+          "skill": 0.51,
+          "heavy": 0.23,
+          "liberation": 0.18,
+          "other": 0.11
+        },
+        "4": {
+          "basic": 0.07,
+          "skill": 0.51,
+          "heavy": 0.23,
+          "liberation": 0.18,
+          "other": 0.11
+        },
+        "5": {
+          "basic": 0.02,
+          "skill": 0.51,
+          "heavy": 0.2,
+          "liberation": 0.24,
+          "other": 0.03
+        },
+        "6": {
+          "basic": 0,
+          "skill": 0.64,
+          "heavy": 0.16,
+          "liberation": 0.2,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "奇幻变奏",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "凌阳": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.4,
+        "skill": 0.3,
+        "heavy": 0.04,
+        "liberation": 0.04,
+        "other": 0.22
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.4,
+          "skill": 0.3,
+          "heavy": 0.04,
+          "liberation": 0.04,
+          "other": 0.22
+        },
+        "2": {
+          "basic": 0.4,
+          "skill": 0.3,
+          "heavy": 0.04,
+          "liberation": 0.04,
+          "other": 0.22
+        },
+        "3": {
+          "basic": 0.4,
+          "skill": 0.3,
+          "heavy": 0.04,
+          "liberation": 0.04,
+          "other": 0.22
+        },
+        "4": {
+          "basic": 0.4,
+          "skill": 0.3,
+          "heavy": 0.04,
+          "liberation": 0.04,
+          "other": 0.22
+        },
+        "5": {
+          "basic": 0.52,
+          "skill": 0.24,
+          "heavy": 0.02,
+          "liberation": 0.04,
+          "other": 0.18
+        },
+        "6": {
+          "basic": 0.63,
+          "skill": 0.19,
+          "heavy": 0,
+          "liberation": 0,
+          "other": 0.18
+        }
+      },
+      "signature_weapon": {
+        "name": "擎渊怒涛",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "漂泊者-男-衍射": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.11,
+        "skill": 0.21,
+        "heavy": 0.31,
+        "liberation": 0.23,
+        "other": 0.14
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.08,
+          "skill": 0.53,
+          "heavy": 0.17,
+          "liberation": 0.2,
+          "other": 0.12
+        },
+        "2": {
+          "basic": 0.08,
+          "skill": 0.53,
+          "heavy": 0.17,
+          "liberation": 0.2,
+          "other": 0.12
+        },
+        "3": {
+          "basic": 0.07,
+          "skill": 0.51,
+          "heavy": 0.23,
+          "liberation": 0.18,
+          "other": 0.11
+        },
+        "4": {
+          "basic": 0.07,
+          "skill": 0.51,
+          "heavy": 0.23,
+          "liberation": 0.18,
+          "other": 0.11
+        },
+        "5": {
+          "basic": 0.02,
+          "skill": 0.51,
+          "heavy": 0.2,
+          "liberation": 0.24,
+          "other": 0.03
+        },
+        "6": {
+          "basic": 0,
+          "skill": 0.64,
+          "heavy": 0.16,
+          "liberation": 0.2,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "血誓盟约",
+        "effects": [
+          {
+            "kind": "skillDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          },
+          {
+            "kind": "globalDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "漂泊者-女-衍射": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.11,
+        "skill": 0.21,
+        "heavy": 0.31,
+        "liberation": 0.23,
+        "other": 0.14
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.54,
+          "skill": 0.21,
+          "heavy": 0.18,
+          "liberation": 0,
+          "other": 0.07
+        },
+        "2": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "3": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "5": {
+          "basic": 0.69,
+          "skill": 0.16,
+          "heavy": 0.14,
+          "liberation": 0,
+          "other": 0.01
+        },
+        "6": {
+          "basic": 0.76,
+          "skill": 0.14,
+          "heavy": 0.1,
+          "liberation": 0,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "血誓盟约",
+        "effects": [
+          {
+            "kind": "skillDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          },
+          {
+            "kind": "globalDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "漂泊者-男-湮灭": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.2,
+        "skill": 0.25,
+        "heavy": 0.05,
+        "liberation": 0.3,
+        "other": 0.2
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.08,
+          "skill": 0.53,
+          "heavy": 0.17,
+          "liberation": 0.2,
+          "other": 0.12
+        },
+        "2": {
+          "basic": 0.08,
+          "skill": 0.53,
+          "heavy": 0.17,
+          "liberation": 0.2,
+          "other": 0.12
+        },
+        "3": {
+          "basic": 0.07,
+          "skill": 0.51,
+          "heavy": 0.23,
+          "liberation": 0.18,
+          "other": 0.11
+        },
+        "4": {
+          "basic": 0.07,
+          "skill": 0.51,
+          "heavy": 0.23,
+          "liberation": 0.18,
+          "other": 0.11
+        },
+        "5": {
+          "basic": 0.02,
+          "skill": 0.51,
+          "heavy": 0.2,
+          "liberation": 0.24,
+          "other": 0.03
+        },
+        "6": {
+          "basic": 0,
+          "skill": 0.64,
+          "heavy": 0.16,
+          "liberation": 0.2,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "血誓盟约",
+        "effects": [
+          {
+            "kind": "skillDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          },
+          {
+            "kind": "globalDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "漂泊者-女-湮灭": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.2,
+        "skill": 0.25,
+        "heavy": 0.05,
+        "liberation": 0.3,
+        "other": 0.2
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.54,
+          "skill": 0.21,
+          "heavy": 0.18,
+          "liberation": 0,
+          "other": 0.07
+        },
+        "2": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "3": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "5": {
+          "basic": 0.69,
+          "skill": 0.16,
+          "heavy": 0.14,
+          "liberation": 0,
+          "other": 0.01
+        },
+        "6": {
+          "basic": 0.76,
+          "skill": 0.14,
+          "heavy": 0.1,
+          "liberation": 0,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "血誓盟约",
+        "effects": [
+          {
+            "kind": "skillDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          },
+          {
+            "kind": "globalDmg",
+            "value": 10.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "卜灵": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0,
+        "skill": 0,
+        "heavy": 0,
+        "liberation": 0,
+        "other": 0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "奇幻变奏",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "灯灯": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.64,
+        "skill": 0.08,
+        "heavy": 0,
+        "liberation": 0.2,
+        "other": 0.08
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.1,
+          "skill": 0.76,
+          "heavy": 0,
+          "liberation": 0,
+          "other": 0.14
+        },
+        "2": {
+          "basic": 0.09,
+          "skill": 0.78,
+          "heavy": 0,
+          "liberation": 0,
+          "other": 0.13
+        },
+        "3": {
+          "basic": 0.05,
+          "skill": 0.76,
+          "heavy": 0,
+          "liberation": 0,
+          "other": 0.19
+        },
+        "4": {
+          "basic": 0.05,
+          "skill": 0.76,
+          "heavy": 0,
+          "liberation": 0,
+          "other": 0.19
+        },
+        "5": {
+          "basic": 0.04,
+          "skill": 0.77,
+          "heavy": 0,
+          "liberation": 0,
+          "other": 0.19
+        },
+        "6": {
+          "basic": 0.02,
+          "skill": 0.86,
+          "heavy": 0,
+          "liberation": 0,
+          "other": 0.12
+        }
+      },
+      "signature_weapon": {
+        "name": "常驻四星",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "秧秧": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.05,
+        "skill": 0.22,
+        "heavy": 0.28,
+        "liberation": 0.4,
+        "other": 0.05
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.54,
+          "skill": 0.21,
+          "heavy": 0.18,
+          "liberation": 0,
+          "other": 0.07
+        },
+        "2": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "3": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "5": {
+          "basic": 0.69,
+          "skill": 0.16,
+          "heavy": 0.14,
+          "liberation": 0,
+          "other": 0.01
+        },
+        "6": {
+          "basic": 0.76,
+          "skill": 0.14,
+          "heavy": 0.1,
+          "liberation": 0,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "常驻四星",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "釉瑚": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.11,
+        "skill": 0.33,
+        "heavy": 0.08,
+        "liberation": 0.29,
+        "other": 0.19
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.66,
+          "skill": 0,
+          "heavy": 0.02,
+          "liberation": 0.22,
+          "other": 0.1
+        },
+        "2": {
+          "basic": 0.72,
+          "skill": 0,
+          "heavy": 0.01,
+          "liberation": 0.19,
+          "other": 0.08
+        },
+        "3": {
+          "basic": 0.67,
+          "skill": 0,
+          "heavy": 0,
+          "liberation": 0.28,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.7,
+          "skill": 0,
+          "heavy": 0,
+          "liberation": 0.26,
+          "other": 0.04
+        },
+        "5": {
+          "basic": 0.66,
+          "skill": 0,
+          "heavy": 0,
+          "liberation": 0.24,
+          "other": 0.1
+        },
+        "6": {
+          "basic": 0.8,
+          "skill": 0,
+          "heavy": 0,
+          "liberation": 0.16,
+          "other": 0.04
+        }
+      }
+    },
+    "白芷": {
+      "verified": true,
+      "scaler": "hp",
+      "type_weights": {
+        "basic": 0,
+        "skill": 0,
+        "heavy": 0,
+        "liberation": 0,
+        "other": 0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.54,
+          "skill": 0.21,
+          "heavy": 0.18,
+          "liberation": 0,
+          "other": 0.07
+        },
+        "2": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "3": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "5": {
+          "basic": 0.69,
+          "skill": 0.16,
+          "heavy": 0.14,
+          "liberation": 0,
+          "other": 0.01
+        },
+        "6": {
+          "basic": 0.76,
+          "skill": 0.14,
+          "heavy": 0.1,
+          "liberation": 0,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "奇幻变奏",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "炽霞": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.06,
+        "skill": 0.46,
+        "heavy": 0,
+        "liberation": 0.35,
+        "other": 0.13
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.54,
+          "skill": 0.21,
+          "heavy": 0.18,
+          "liberation": 0,
+          "other": 0.07
+        },
+        "2": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "3": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "5": {
+          "basic": 0.69,
+          "skill": 0.16,
+          "heavy": 0.14,
+          "liberation": 0,
+          "other": 0.01
+        },
+        "6": {
+          "basic": 0.76,
+          "skill": 0.14,
+          "heavy": 0.1,
+          "liberation": 0,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "停驻之烟",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "散华": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.02,
+        "skill": 0.3,
+        "heavy": 0.3,
+        "liberation": 0.32,
+        "other": 0.06
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.54,
+          "skill": 0.21,
+          "heavy": 0.18,
+          "liberation": 0,
+          "other": 0.07
+        },
+        "2": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "3": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "5": {
+          "basic": 0.69,
+          "skill": 0.16,
+          "heavy": 0.14,
+          "liberation": 0,
+          "other": 0.01
+        },
+        "6": {
+          "basic": 0.76,
+          "skill": 0.14,
+          "heavy": 0.1,
+          "liberation": 0,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "千古洑流",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "秋水": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.25,
+        "skill": 0.33,
+        "heavy": 0,
+        "liberation": 0.22,
+        "other": 0.2
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.54,
+          "skill": 0.21,
+          "heavy": 0.18,
+          "liberation": 0,
+          "other": 0.07
+        },
+        "2": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "3": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "5": {
+          "basic": 0.69,
+          "skill": 0.16,
+          "heavy": 0.14,
+          "liberation": 0,
+          "other": 0.01
+        },
+        "6": {
+          "basic": 0.76,
+          "skill": 0.14,
+          "heavy": 0.1,
+          "liberation": 0,
+          "other": 0
+        }
+      }
+    },
+    "丹瑾": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.08,
+        "skill": 0.22,
+        "heavy": 0.32,
+        "liberation": 0.2,
+        "other": 0.18
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.54,
+          "skill": 0.21,
+          "heavy": 0.18,
+          "liberation": 0,
+          "other": 0.07
+        },
+        "2": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "3": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "5": {
+          "basic": 0.69,
+          "skill": 0.16,
+          "heavy": 0.14,
+          "liberation": 0,
+          "other": 0.01
+        },
+        "6": {
+          "basic": 0.76,
+          "skill": 0.14,
+          "heavy": 0.1,
+          "liberation": 0,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "千古洑流",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "莫特斐": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.15,
+        "skill": 0.31,
+        "heavy": 0,
+        "liberation": 0.48,
+        "other": 0.06
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.54,
+          "skill": 0.21,
+          "heavy": 0.18,
+          "liberation": 0,
+          "other": 0.07
+        },
+        "2": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "3": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "5": {
+          "basic": 0.69,
+          "skill": 0.16,
+          "heavy": 0.14,
+          "liberation": 0,
+          "other": 0.01
+        },
+        "6": {
+          "basic": 0.76,
+          "skill": 0.14,
+          "heavy": 0.1,
+          "liberation": 0,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "停驻之烟",
+        "effects": [],
+        "verified": false
+      }
+    },
+    "渊武": {
+      "verified": true,
+      "scaler": "def",
+      "type_weights": {
+        "basic": 0.05,
+        "skill": 0.45,
+        "heavy": 0,
+        "liberation": 0.46,
+        "other": 0.04
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "WuwaEchoTool",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.54,
+          "skill": 0.21,
+          "heavy": 0.18,
+          "liberation": 0,
+          "other": 0.07
+        },
+        "2": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "3": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.58,
+          "skill": 0.2,
+          "heavy": 0.17,
+          "liberation": 0,
+          "other": 0.05
+        },
+        "5": {
+          "basic": 0.69,
+          "skill": 0.16,
+          "heavy": 0.14,
+          "liberation": 0,
+          "other": 0.01
+        },
+        "6": {
+          "basic": 0.76,
+          "skill": 0.14,
+          "heavy": 0.1,
+          "liberation": 0,
+          "other": 0
+        }
+      },
+      "signature_weapon": {
+        "name": "袍泽之固",
+        "effects": [
+          {
+            "kind": "liberationDmg",
+            "value": 20.0,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      }
+    },
+    "桃祈": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.3,
+        "heavy": 0.15,
+        "skill": 0.4,
+        "liberation": 0.15,
+        "other": 0.0
+      },
+      "innate": [],
+      "chains": [],
+      "source_kind": "MingEchoAssistant",
+      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "signature_weapon": {
+        "name": "异响空灵",
+        "effects": [],
+        "verified": false
+      }
+    }
+  }
+}

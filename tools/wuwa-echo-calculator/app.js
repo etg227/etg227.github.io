@@ -112,7 +112,7 @@ async function loadData(){
       roster=arr.filter(x=>x?.name).map((x,i)=>({id:String(x.id||i),name:String(x.name).trim(),image:x.image||''}));
     }
   }
-  if(m.status==='fulfilled'&&m.value?.characters)mechanics=m.value;
+  if(m.status==='fulfilled'&&m.value?.characters){mechanics=m.value;roster=roster.filter(c=>mechanics.characters?.[c.name]);}
   if($('rosterSource'))$('rosterSource').textContent=`角色库 · ${roster.length} 名`;
   renderCharacters();
 }
@@ -126,51 +126,17 @@ function renderCharacters(filter=''){
 }
 function currentProfile(){return selectedCharacter?mechanics.characters?.[selectedCharacter.name]||null:null}
 
+function signatureInfo(){return currentProfile()?.signature_weapon||null}
 function mountGearConfig(){
-  if($('gearAutoConfig'))return;
-  const host=$('mechanicTags')?.parentElement;
-  if(!host)return;
-  const wrap=document.createElement('div');
-  wrap.id='gearAutoConfig';
-  wrap.className='gear-auto-config';
-  wrap.innerHTML=`
-    <div class="gear-auto-grid">
-      <label>声骸合鸣套装
-        <select id="sonataMode">${Object.entries(SONATAS).map(([k,v])=>`<option value="${k}">${esc(v.label)}</option>`).join('')}</select>
-      </label>
-      <label>首位声骸效果
-        <select id="mainEchoEffect">${Object.entries(MAIN_ECHO_EFFECTS).map(([k,v])=>`<option value="${k}">${esc(v.label)}</option>`).join('')}</select>
-      </label>
-    </div>
-    <div id="gearEffectNote" class="micro"></div>`;
-  $('mechanicTags').insertAdjacentElement('afterend',wrap);
-  const st=document.createElement('style');
-  st.id='gear-auto-style';
-  st.textContent=`
-    .gear-auto-config{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--panel2)}
-    .gear-auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .gear-auto-grid label{font-size:11px;color:var(--muted);display:grid;gap:5px}
-    .gear-auto-grid select{width:100%}
-    #gearEffectNote{margin-top:8px;line-height:1.6}
-    .echo-mini-grade{font-size:11px;font-weight:900;border:1px solid var(--line);border-radius:999px;padding:2px 7px;margin-left:auto;color:var(--accent)}
-    @media(max-width:650px){.gear-auto-grid{grid-template-columns:1fr}}
-  `;
-  document.head.appendChild(st);
-  $('sonataMode').addEventListener('change',()=>{gearTouched=true;renderGearNote();calculate()});
-  $('mainEchoEffect').addEventListener('change',()=>{gearTouched=true;renderGearNote();calculate()});
-  renderGearNote();
+  if($('gearAutoConfig'))return;const host=document.querySelector('.intro-panel .profile-grid');if(!host)return;
+  const wrap=document.createElement('div');wrap.id='gearAutoConfig';wrap.className='gear-auto-config';
+  wrap.innerHTML=`<div class="gear-auto-grid"><label>武器被动<select id="weaponMode"><option value="none">不计专武被动</option></select></label><label>声骸合鸣套装<select id="sonataMode">${Object.entries(SONATAS).map(([k,v])=>`<option value="${k}">${esc(v.label)}</option>`).join('')}</select></label><label>首位声骸效果<select id="mainEchoEffect">${Object.entries(MAIN_ECHO_EFFECTS).map(([k,v])=>`<option value="${k}">${esc(v.label)}</option>`).join('')}</select></label></div>`;host.insertAdjacentElement('afterend',wrap);
+  const st=document.createElement('style');st.id='gear-auto-style';st.textContent=`.gear-auto-config{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--panel2)}.gear-auto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.gear-auto-grid label{font-size:11px;color:var(--muted);display:grid;gap:5px}.gear-auto-grid select{width:100%}.echo-mini-grade{font-size:11px;font-weight:900;border:1px solid var(--line);border-radius:999px;padding:2px 7px;margin-left:auto;color:var(--accent)}@media(max-width:760px){.gear-auto-grid{grid-template-columns:1fr}}`;document.head.appendChild(st);
+  ['weaponMode','sonataMode','mainEchoEffect'].forEach(id=>$(id).addEventListener('change',()=>{gearTouched=true;calculate()}));
 }
-function renderGearNote(){
-  const s=SONATAS[$('sonataMode')?.value]||SONATAS.none;
-  const e=MAIN_ECHO_EFFECTS[$('mainEchoEffect')?.value]||MAIN_ECHO_EFFECTS.none;
-  if($('gearEffectNote'))$('gearEffectNote').textContent=`${s.note} ${e.note}`;
-}
-function applyProfileDefaults(profile){
-  if(!profile?.defaults||gearTouched)return;
-  if($('sonataMode')&&profile.defaults.sonata&&SONATAS[profile.defaults.sonata])$('sonataMode').value=profile.defaults.sonata;
-  if($('mainEchoEffect')&&profile.defaults.main_echo&&MAIN_ECHO_EFFECTS[profile.defaults.main_echo])$('mainEchoEffect').value=profile.defaults.main_echo;
-  renderGearNote();
-}
+function refreshWeaponOptions(profile,applyDefault=true){const el=$('weaponMode');if(!el)return;const sig=profile?.signature_weapon;el.innerHTML='<option value="none">不计专武被动</option>'+(sig?.name?`<option value="signature">${esc(sig.name)}（专武）</option>`:'');el.value=(applyDefault&&sig?.verified)?'signature':'none'}
+function applyProfileDefaults(profile){refreshWeaponOptions(profile,true);if($('sonataMode'))$('sonataMode').value=(profile?.defaults?.sonata&&SONATAS[profile.defaults.sonata])?profile.defaults.sonata:'none';if($('mainEchoEffect'))$('mainEchoEffect').value=(profile?.defaults?.main_echo&&MAIN_ECHO_EFFECTS[profile.defaults.main_echo])?profile.defaults.main_echo:'none'}
+function clearCharacterData(){M={echoes:[blankEcho(4),blankEcho(3),blankEcho(3),blankEcho(1),blankEcho(1)],candidate:blankEcho(4)};gearTouched=false;if($('chainLevel'))$('chainLevel').value='0';['totalAtk','totalHp','totalDef','critRate','critDmg','energyRegen'].forEach(id=>{if($(id))$(id).value=''});['elementDmg','globalDmg','globalAmp'].forEach(id=>{if($(id))$(id).value='0'});if($('replaceSlot'))$('replaceSlot').value='0';if($('candidateCost'))$('candidateCost').value='4';echoCards();candidateRows();['overallGain','candidateScore','critFactor','bestStandard'].forEach(id=>{if($(id))$(id).textContent='—'});if($('critState'))$('critState').textContent='—';if($('lineMarginals'))$('lineMarginals').innerHTML='';if($('standardBars'))$('standardBars').innerHTML=''}
 
 function selectCharacter(c){
   selectedCharacter=c;
@@ -188,40 +154,10 @@ function chainEffects(profile,chain){
   (profile?.chains||[]).filter(x=>x.level<=chain).forEach(x=>(x.effects||[]).forEach(e=>{if(e.apply!=='panel')out.push({...e,source:`S${x.level}`})}));
   return out;
 }
-function gearEffects(){
-  const s=SONATAS[$('sonataMode')?.value]||SONATAS.none;
-  const e=MAIN_ECHO_EFFECTS[$('mainEchoEffect')?.value]||MAIN_ECHO_EFFECTS.none;
-  return [...(s.static||[]).map(x=>({...x,source:'sonata-static'})),
-          ...(s.combat||[]).map(x=>({...x,source:'sonata-combat'})),
-          ...(e.static||[]).map(x=>({...x,source:'main-echo-static'})),
-          ...(e.combat||[]).map(x=>({...x,source:'main-echo-combat'}))];
-}
+function gearEffects(){const s=SONATAS[$('sonataMode')?.value]||SONATAS.none;const e=MAIN_ECHO_EFFECTS[$('mainEchoEffect')?.value]||MAIN_ECHO_EFFECTS.none;const w=($('weaponMode')?.value==='signature')?(signatureInfo()?.effects||[]):[];return [...(s.static||[]).map(x=>({...x,source:'sonata-static'})),...(s.combat||[]).map(x=>({...x,source:'sonata-combat'})),...(e.static||[]).map(x=>({...x,source:'main-echo-static'})),...(e.combat||[]).map(x=>({...x,source:'main-echo-combat'})),...w]}
 function allAutoEffects(profile,chain){return [...chainEffects(profile,chain),...gearEffects()]}
 
-function renderMechanics(){
-  const p=currentProfile(),chain=Number($('chainLevel').value||0);
-  if($('characterModelStatus'))$('characterModelStatus').style.display='none';
-  if(!selectedCharacter){
-    $('mechanicSummary').textContent='选择角色后自动读取有效伤害类型。';
-    $('mechanicTags').innerHTML='';
-    $('chainSummary').innerHTML='';
-    $('mechanicSource').textContent='';
-    return;
-  }
-  if(!p?.verified){
-    $('mechanicSummary').innerHTML=`<strong>${esc(selectedCharacter.name)}</strong> 的机制模型尚未完成。双暴与主要倍率属性仍可计算，四类伤害词条暂不冒然判定。`;
-    $('mechanicTags').innerHTML='<span class="mechanic-tag">机制待补齐</span>';
-    $('chainSummary').innerHTML='<div class="micro">共鸣链暂只记录，不自动猜测数值。</div>';
-    $('mechanicSource').textContent='';
-    return;
-  }
-  $('mechanicSummary').innerHTML=`<strong>${esc(selectedCharacter.name)}</strong> · ${esc(p.summary||'')}`;
-  const weights=p.type_weights||{};
-  $('mechanicTags').innerHTML=Object.entries(weights).filter(([,w])=>w>=.025).sort((a,b)=>b[1]-a[1]).map(([k,w],i)=>`<span class="mechanic-tag ${i===0?'core':''}">${esc(DAMAGE_LABEL[k]||k)} ${(Number(w)*100).toFixed(0)}%</span>`).join('');
-  const unlocked=(p.chains||[]).filter(x=>x.level<=chain);
-  $('chainSummary').innerHTML=unlocked.length?unlocked.map(x=>`<div class="chain-item"><b>${x.level}链</b><span>${esc(x.label)}</span></div>`).join(''):'<div class="micro">0链：没有共鸣链额外修正。</div>';
-  $('mechanicSource').textContent='';
-}
+function renderMechanics(){}
 
 function renderMainRows(e,root){
   const fixed=FIXED_MAIN[e.cost];
@@ -333,7 +269,8 @@ function modelFromAggregate(ctx,a){
   };
 }
 function normalizedWeights(profile){
-  const w=profile?.verified?profile.type_weights:null;
+  const chain=Number($('chainLevel')?.value||0);
+  const w=profile?.verified?(profile.chain_type_weights?.[String(chain)]||profile.type_weights):null;
   if(!w)return{other:1};
   const sum=Object.values(w).reduce((a,b)=>a+Number(b||0),0)||1;
   return Object.fromEntries(Object.entries(w).map(([k,v])=>[k,Number(v||0)/sum]));
@@ -441,20 +378,7 @@ function calculate(){
     });
   });
   bars($('lineMarginals'),lineRows);
-
-  $('echoScoreCards').innerHTML=M.echoes.map((e,i)=>{
-    const s=scoreEcho(ctx,e,M.echoes,i,true);
-    const no=clone(M.echoes);no[i]=blankEcho(e.cost);
-    const contribution=(factorSet(ctx,M.echoes)/factorSet(ctx,no)-1)*100;
-    if($('miniScore'+i))$('miniScore'+i).textContent=s.score.toFixed(1);
-    if($('miniGrade'+i))$('miniGrade'+i).textContent=grade(s.score);
-    return `<div class="score-card"><div class="score-card-head"><div><small>声骸 ${i+1}</small><strong>${s.score.toFixed(1)}</strong></div><span class="grade">${grade(s.score)}</span></div><div class="score-contrib">主/副词条贡献（套装保持） ${pct(contribution)}</div></div>`;
-  }).join('');
-
-  const typeText=Object.entries(currentStats.typeDmg).filter(([,v])=>Math.abs(v)>.01).map(([k,v])=>`${DAMAGE_LABEL[k]} ${v.toFixed(1)}%`).join(' · ');
-  $('scoreMethodNote').innerHTML=ctx.profile?.verified
-    ?`当前战斗态已自动加入共鸣链与声骸效果：暴击 <strong>${currentStats.critRate.toFixed(1)}%</strong>，属性伤害 <strong>${currentStats.elementDmg.toFixed(1)}%</strong>${typeText?`，${esc(typeText)}`:''}。类型伤害按 ${esc(selectedCharacter?.name||'当前角色')} 的输出构成加权。`
-    :'该角色机制尚未完成，因此四类伤害副词条暂不自动判定。';
+  M.echoes.forEach((e,i)=>{const sc=scoreEcho(ctx,e,M.echoes,i,true);if($('miniScore'+i))$('miniScore'+i).textContent=sc.score.toFixed(1);if($('miniGrade'+i))$('miniGrade'+i).textContent=grade(sc.score);});
 }
 
 function rerenderEchoCard(card,e){
@@ -518,7 +442,7 @@ function init(){
   mountGearConfig();
   renderRollControls();
   bind();
-  loadData().finally(()=>{renderMechanics();calculate()});
+  loadData().finally(()=>{calculate()});
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
