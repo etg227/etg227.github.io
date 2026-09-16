@@ -1,0 +1,43 @@
+name: Upgrade WuWa calculator data
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/upgrade_wuwa_calculator.py'
+      - '.github/workflows/upgrade-wuwa-calculator.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generate mechanics and patch UI
+        run: python scripts/upgrade_wuwa_calculator.py
+      - name: Syntax check
+        run: |
+          node --check tools/wuwa-echo-calculator/app.js
+          node --check wuwa/profile-save-v2.js
+          python -m json.tool wuwa/data/character-mechanics.json >/dev/null
+      - name: Commit generated files
+        run: |
+          if git diff --quiet; then
+            echo 'No generated changes.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/wuwa-echo-calculator/index.html tools/wuwa-echo-calculator/app.js wuwa/profile-save-v2.js wuwa/data/character-mechanics.json
+          git commit -m 'Upgrade WuWa calculator character data and UI'
+          git push
