@@ -6,24 +6,48 @@
   <meta name="description" content="鸣潮声骸副词条边际收益、稀释边界与可选高级配队 Buff 计算器。" />
   <title>鸣潮声骸边际收益计算器</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .toggle-line{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%}
+    .switch-ui{width:46px;height:26px;border-radius:999px;background:var(--line);padding:3px;display:flex;align-items:center;transition:.2s ease;flex:0 0 auto}
+    .switch-ui::after{content:"";width:20px;height:20px;border-radius:50%;background:var(--panel);box-shadow:0 1px 4px rgba(0,0,0,.18);transition:.2s ease}
+    #advancedToggle.active .switch-ui{background:var(--accent)}
+    #advancedToggle.active .switch-ui::after{transform:translateX(20px);background:#fff}
+    .advanced-lockable{position:relative;transition:opacity .18s ease,filter .18s ease}
+    body:not(.advanced-enabled) .advanced-lockable{opacity:.58;filter:saturate(.72)}
+    body:not(.advanced-enabled) .advanced-lockable input:disabled,
+    body:not(.advanced-enabled) .advanced-lockable select:disabled,
+    body:not(.advanced-enabled) .advanced-lockable button:disabled{cursor:not-allowed;opacity:.72}
+    .advanced-lock-note{font-size:11px;font-weight:700;color:var(--muted);border:1px solid var(--line);padding:5px 8px;border-radius:999px;white-space:nowrap}
+    .advanced-lock-note::after{content:"关闭 · 仅展示"}
+    body.advanced-enabled .advanced-lock-note{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 40%,var(--line));background:color-mix(in srgb,var(--accent) 8%,var(--panel))}
+    body.advanced-enabled .advanced-lock-note::after{content:"开启 · 纳入计算"}
+    body:not(.advanced-enabled) #coverageSummary:empty::before{content:"高级计算未开启：这里的 Buff 与窗口配置不会参与声骸边际收益。";font-size:12px;color:var(--muted);padding:8px 0;display:block}
+    .advanced-help{display:flex;align-items:flex-start;gap:8px;margin-top:10px;color:var(--muted);font-size:12px;line-height:1.65}
+    @media(max-width:620px){.advanced-lock-note{display:none}}
+  </style>
 </head>
 <body>
 <main class="wrap main-grid">
   <section class="panel intro-panel full">
     <div class="panel-title-row"><div><span class="step">01</span><h2>计算模式</h2></div><span class="status-pill">Reference snapshot · 2026-09-16</span></div>
+    <input id="advancedMode" type="checkbox" hidden>
     <div class="mode-grid">
-      <label class="mode-card active" id="simpleModeCard"><input id="advancedMode" type="checkbox" hidden><strong>普通模式</strong><span>只计算声骸副词条边际收益。无需理解 Buff 覆盖、输出窗口。</span></label>
-      <button class="mode-card" id="advancedToggle" type="button"><strong>高级配队模式</strong><span>需要时再加入队友 Buff、伤害类型与输出窗口覆盖。</span><b id="advancedState">未开启</b></button>
+      <div class="mode-card active" id="simpleModeCard"><strong>声骸边际模式</strong><span>默认模式。只比较当前声骸和候选声骸的副词条边际收益，不加入队伍 Buff 与输出窗口。</span></div>
+      <button class="mode-card" id="advancedToggle" type="button">
+        <div class="toggle-line"><strong>队伍 Buff / 输出窗口</strong><span class="switch-ui" aria-hidden="true"></span></div>
+        <span>关掉时下面的高级区域仍保留展示，但全部禁止输入且不参与计算；打开后才解锁。</span>
+        <b id="advancedState">未开启</b>
+      </button>
     </div>
-    <div class="callout"><strong>默认建议：</strong>如果你只是想判断“这只声骸值不值得换”，保持高级模式关闭即可。高级模式不会在关闭时偷偷参与计算。</div>
+    <div class="callout"><strong>不会误算：</strong>高级开关关闭时，Buff 库和输出窗口即使已有保存内容也会被计算引擎忽略，只计算声骸本身的边际变化。</div>
   </section>
 
   <section class="panel full">
     <div class="panel-title-row"><div><span class="step">02</span><h2>选择角色</h2></div><span class="hint" id="rosterSource">正在读取库街区角色库…</span></div>
     <div class="party-picker">
       <div class="party-slot"><span>主角色</span><button class="character-pick" data-slot="carry" type="button"><span class="portrait placeholder">?</span><span class="pick-name" id="carryName">选择角色</span></button></div>
-      <div class="party-slot advanced-only"><span>队友 2</span><button class="character-pick" data-slot="mate2" type="button"><span class="portrait placeholder">?</span><span class="pick-name" id="mate2Name">选择角色</span></button></div>
-      <div class="party-slot advanced-only"><span>队友 3</span><button class="character-pick" data-slot="mate3" type="button"><span class="portrait placeholder">?</span><span class="pick-name" id="mate3Name">选择角色</span></button></div>
+      <div class="party-slot advanced-lockable"><span>队友 2</span><button class="character-pick" data-slot="mate2" type="button"><span class="portrait placeholder">?</span><span class="pick-name" id="mate2Name">选择角色</span></button></div>
+      <div class="party-slot advanced-lockable"><span>队友 3</span><button class="character-pick" data-slot="mate3" type="button"><span class="portrait placeholder">?</span><span class="pick-name" id="mate3Name">选择角色</span></button></div>
     </div>
     <div class="character-browser" id="characterBrowser" hidden>
       <div class="browser-head"><input id="characterSearch" placeholder="搜索角色名称"><button id="closeCharacterBrowser" type="button">关闭</button></div>
@@ -62,15 +86,15 @@
     </div>
   </section>
 
-  <section class="panel full advanced-section advanced-only">
-    <div class="panel-title-row"><div><span class="step">A1</span><h2>队伍 Buff 库</h2></div><button class="primary mini" id="addBuffBtn">+ 添加 Buff</button></div>
-    <p class="micro">高级模式才参与计算。每个 Buff 单独填写；同一技能有多个效果时拆成多条。</p>
+  <section class="panel full advanced-section advanced-lockable">
+    <div class="panel-title-row"><div><span class="step">A1</span><h2>队伍 Buff 库</h2></div><div class="inline-actions"><span class="advanced-lock-note"></span><button class="primary mini" id="addBuffBtn">+ 添加 Buff</button></div></div>
+    <p class="micro">这里始终保留。高级开关关闭时所有控件锁定、已有 Buff 不参与计算；开启后才允许编辑。</p>
     <div class="table-scroll"><table class="data-table"><thead><tr><th>来源</th><th>名称</th><th>效果</th><th>数值</th><th>目标</th><th></th></tr></thead><tbody id="buffRows"></tbody></table></div>
   </section>
 
-  <section class="panel full advanced-section advanced-only">
-    <div class="panel-title-row"><div><span class="step">A2</span><h2>输出窗口 / Buff 覆盖</h2></div><div class="inline-actions"><button class="mini" id="normalizeSegmentsBtn">归一化 100%</button><button class="primary mini" id="addSegmentBtn">+ 添加窗口</button></div></div>
-    <p class="micro">不知道怎么填就不要开启高级模式。普通模式下工具使用一个默认“全伤害窗口”，不会要求覆盖率。</p>
+  <section class="panel full advanced-section advanced-lockable">
+    <div class="panel-title-row"><div><span class="step">A2</span><h2>输出窗口 / Buff 覆盖</h2></div><div class="inline-actions"><span class="advanced-lock-note"></span><button class="mini" id="normalizeSegmentsBtn">归一化 100%</button><button class="primary mini" id="addSegmentBtn">+ 添加窗口</button></div></div>
+    <p class="micro">不知道怎么使用时保持高级开关关闭即可；配置不会消失，只是锁定并完全排除在计算之外。</p>
     <div id="segmentRows" class="segment-list"></div><div id="coverageSummary" class="coverage-summary"></div>
   </section>
 
@@ -99,8 +123,32 @@
       <li><a href="https://wikiwiki.jp/w-w/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F" target="_blank" rel="noreferrer">鳴潮 Wiki* · ダメージ計算式</a>：ATK、暴击期望、Damage Bonus / Amplify 等口径交叉检查。</li>
       <li><a href="https://www.prydwen.gg/wuthering-waves/guides/echo-stats" target="_blank" rel="noreferrer">Prydwen · Echo Stats</a>：五星声骸副词条范围。</li>
     </ol>
-    <div class="callout warning">非官方理论工具。普通模式只计算声骸自身边际变化；高级模式只有在玩家主动开启后才加入 Buff 与输出窗口。</div>
+    <div class="callout warning">非官方理论工具。高级开关关闭时，Buff 与输出窗口仍可见但会被锁定，并从计算中完全排除。</div>
   </section>
 </main>
 <script src="app.js"></script>
+<script>
+(()=>{
+  const applyLock=()=>{
+    const enabled=document.body.classList.contains('advanced-enabled');
+    document.querySelectorAll('.advanced-lockable').forEach(zone=>{
+      zone.setAttribute('aria-disabled',String(!enabled));
+      zone.querySelectorAll('input,select,button,textarea').forEach(el=>{
+        if(!enabled){
+          if(el.dataset.advancedPrevDisabled===undefined)el.dataset.advancedPrevDisabled=el.disabled?'1':'0';
+          el.disabled=true;
+        }else if(el.dataset.advancedPrevDisabled!==undefined){
+          el.disabled=el.dataset.advancedPrevDisabled==='1';
+          delete el.dataset.advancedPrevDisabled;
+        }
+      });
+    });
+  };
+  const bodyObserver=new MutationObserver(applyLock);
+  bodyObserver.observe(document.body,{attributes:true,attributeFilter:['class']});
+  const contentObserver=new MutationObserver(()=>queueMicrotask(applyLock));
+  contentObserver.observe(document.querySelector('.main-grid'),{childList:true,subtree:true});
+  applyLock();
+})();
+</script>
 </body></html>
