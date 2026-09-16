@@ -1,137 +1,188 @@
 {
-  "source": "WuwaEchoTool (legacy <= 陆·赫斯) + MingEchoAssistant current profiles + Kuro Wiki catalogue; signature names/effects cross-checked with liangshi-calc",
-  "updated_at": "2026-09-16",
-  "legacy_data_boundary": "陆·赫斯",
+  "source": "WuwaEchoTool (legacy <= 陆·赫斯) + community guide research 2026-09 for newer characters; signature names cross-checked with liangshi-calc and current guides",
+  "updated_at": "2026-09-17",
+  "legacy_data_boundary": "陆·赫斯 (WuwaEchoTool); newer characters re-derived from 2026-09 community guides, see per-character sources",
   "characters": {
     "景燃": {
       "verified": true,
-      "scaler": "atk",
+      "scaler": "hp",
       "type_weights": {
-        "basic": 0.4,
-        "heavy": 0.05,
-        "skill": 0.5,
-        "liberation": 0.05,
-        "other": 0.0
+        "basic": 0.08,
+        "heavy": 0.7,
+        "skill": 0.07,
+        "liberation": 0.08,
+        "other": 0.07
       },
       "innate": [],
       "chains": [],
-      "source_kind": "MingEchoAssistant",
-      "source_url": "https://wiki.kurobbs.com/mc/home"
+      "source_kind": "community guides 2026-09 (derived)",
+      "source_url": "https://tieba.baidu.com/p/10891791616",
+      "signature_weapon": {
+        "name": "千重救赎",
+        "effects": [],
+        "verified": false
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://tieba.baidu.com/p/10891791616",
+        "https://niubi.wiki/2026/09/07/140778/",
+        "https://keygold.gg/zh-hant/blog/detail/wuthering-waves-3-6-jingran-build-guide-zh",
+        "https://www.4399.com/pcgame/topic/54100575.html"
+      ],
+      "notes": "生命值倍率热熔护盾主C，荧惑状态下魑魅魍魉协同攻击标签为重击伤害，输出高度集中于重击。"
     },
     "绯雪": {
       "verified": true,
       "scaler": "atk",
       "type_weights": {
-        "basic": 0.15,
-        "heavy": 0.35,
-        "skill": 0.3,
-        "liberation": 0.2,
-        "other": 0.0
+        "basic": 0.04,
+        "heavy": 0.02,
+        "skill": 0.08,
+        "liberation": 0.82,
+        "other": 0.04
       },
       "innate": [],
       "chains": [],
-      "source_kind": "MingEchoAssistant",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "source_kind": "community guides 2026-09 (derived)",
+      "source_url": "https://m.youxibao.com/gonglue/41500.html",
       "signature_weapon": {
         "name": "灼霜",
         "effects": [],
         "verified": false
-      }
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://m.youxibao.com/gonglue/41500.html",
+        "https://www.dvg.cn/danjigl/148777.html",
+        "https://www.taptap.cn/moment/799059061428453775"
+      ],
+      "notes": "霜渐效应冷凝主C，几乎全部伤害的类型标签为共鸣解放伤害，主打解放大额爆发。"
     },
     "莫宁": {
       "verified": true,
       "scaler": "def",
       "type_weights": {
-        "basic": 0.12,
+        "basic": 0.05,
+        "heavy": 0.15,
         "skill": 0.45,
-        "heavy": 0.08,
         "liberation": 0.28,
         "other": 0.07
       },
       "innate": [],
       "chains": [],
-      "source_kind": "WuwaEchoTool",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "source_kind": "community guides 2026-09 (derived)",
+      "source_url": "https://www.gamersky.com/handbook/202601/2075867.shtml",
       "signature_weapon": {
         "name": "宙算仪轨",
         "effects": [],
         "verified": false
-      }
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://www.gamersky.com/handbook/202601/2075867.shtml",
+        "https://news.17173.com/content/01162026/164526379.shtml",
+        "https://www.prydwen.gg/wuthering-waves/characters/mornye",
+        "https://game8.co/games/Wuthering-Waves/archives/568193"
+      ],
+      "notes": "热熔防御倍率奶辅，伤害与治疗吃防御，共鸣效率超出260%转化解放双暴。"
     },
     "清宵": {
       "verified": true,
       "scaler": "atk",
       "type_weights": {
-        "basic": 0.25,
-        "heavy": 0.15,
-        "skill": 0.35,
-        "liberation": 0.25,
-        "other": 0.0
+        "basic": 0.12,
+        "heavy": 0.48,
+        "skill": 0.04,
+        "liberation": 0.3,
+        "other": 0.06
       },
       "innate": [],
       "chains": [],
-      "source_kind": "MingEchoAssistant",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "source_kind": "community guides 2026-09 (derived)",
+      "source_url": "https://www.4399.com/pcgame/topic/53922383.html",
       "signature_weapon": {
         "name": "云琅",
         "effects": [],
         "verified": false
-      }
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://www.4399.com/pcgame/topic/53922383.html",
+        "https://m.18183.com/gonglue/202608/6uajimu5.html",
+        "https://www.prydwen.gg/wuthering-waves/characters/qingxiao",
+        "https://niubi.wiki/2026/08/15/137642/"
+      ],
+      "notes": "气动集谐主C，混伤但以重击>解放>普攻为序，弦刃与天谴须臾超脱走重击标签。"
     },
     "穗穗": {
-      "verified": true,
-      "scaler": "atk",
+      "verified": false,
+      "scaler": "hp",
       "type_weights": {
         "basic": 0.15,
-        "heavy": 0.08,
-        "skill": 0.4,
-        "liberation": 0.37,
-        "other": 0.0
+        "heavy": 0.05,
+        "skill": 0.5,
+        "liberation": 0.1,
+        "other": 0.2
       },
       "innate": [],
       "chains": [],
-      "source_kind": "MingEchoAssistant",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "source_kind": "community guides 2026-09 (estimated)",
+      "source_url": "https://m.ali213.net/news/gl2607/1790139.html",
       "signature_weapon": {
         "name": "栖霞饮露",
         "effects": [],
         "verified": false
-      }
+      },
+      "confidence": "estimated",
+      "sources": [
+        "https://m.ali213.net/news/gl2607/1790139.html",
+        "https://cg.163.com/static/content/6a6724b3d648983a79c672e5",
+        "https://www.prydwen.gg/wuthering-waves/characters/suisui",
+        "https://niubi.wiki/2026/06/17/131882/"
+      ],
+      "notes": "冷凝音感仪纯后台奶辅，治疗与生命挂钩，自身输出极少且以共鸣技能标签为主。"
     },
     "秧秧·玄翎": {
       "verified": true,
       "scaler": "atk",
       "type_weights": {
-        "basic": 0.05,
-        "heavy": 0.05,
-        "skill": 0.35,
-        "liberation": 0.55,
-        "other": 0.0
+        "basic": 0.1,
+        "heavy": 0.6,
+        "skill": 0.07,
+        "liberation": 0.18,
+        "other": 0.05
       },
       "innate": [],
       "chains": [],
-      "source_kind": "MingEchoAssistant",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "source_kind": "community guides 2026-09 (derived)",
+      "source_url": "https://www.sohu.com/a/1048986090_100279258",
       "signature_weapon": {
         "name": "天之苍苍",
         "effects": [],
         "verified": false
-      }
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://www.sohu.com/a/1048986090_100279258",
+        "https://www.taptap.cn/moment/825119152862660977",
+        "https://www.233leyuan.com/post-detail/2074322711773167616"
+      ],
+      "notes": "湮灭迅刀站场重击主C，双姿态消耗流响释放强化重击，重击占比最大。"
     },
     "漂泊者-女-导电": {
       "verified": true,
       "scaler": "atk",
       "type_weights": {
-        "basic": 0.1,
+        "basic": 0.12,
         "heavy": 0.05,
         "skill": 0.5,
         "liberation": 0.25,
-        "other": 0.09999999999999998
+        "other": 0.08
       },
       "innate": [],
       "chains": [],
-      "source_kind": "MingEchoAssistant",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "source_kind": "community guides 2026-09 (derived)",
+      "source_url": "https://www.233leyuan.com/post-detail/2079124330969825280",
       "signature_weapon": {
         "name": "血誓盟约",
         "effects": [
@@ -149,22 +200,29 @@
           }
         ],
         "verified": true
-      }
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://www.233leyuan.com/post-detail/2079124330969825280",
+        "https://game8.jp/meicho/794053",
+        "https://www.bilibili.com/video/BV1pNNJ6uEEV/"
+      ],
+      "notes": "雷主，临界共鸣连段与雷陨追加均为共鸣技能标签，电磁效应叠层+20%技能伤。"
     },
     "漂泊者-男-导电": {
       "verified": true,
       "scaler": "atk",
       "type_weights": {
-        "basic": 0.1,
+        "basic": 0.12,
         "heavy": 0.05,
         "skill": 0.5,
         "liberation": 0.25,
-        "other": 0.09999999999999998
+        "other": 0.08
       },
       "innate": [],
       "chains": [],
-      "source_kind": "MingEchoAssistant",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "source_kind": "community guides 2026-09 (derived)",
+      "source_url": "https://www.233leyuan.com/post-detail/2079124330969825280",
       "signature_weapon": {
         "name": "血誓盟约",
         "effects": [
@@ -182,107 +240,149 @@
           }
         ],
         "verified": true
-      }
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://www.233leyuan.com/post-detail/2079124330969825280",
+        "https://game8.jp/meicho/794053",
+        "https://www.bilibili.com/video/BV1pNNJ6uEEV/"
+      ],
+      "notes": "雷主，临界共鸣连段与雷陨追加均为共鸣技能标签，电磁效应叠层+20%技能伤。"
     },
     "洛瑟菈": {
       "verified": true,
       "scaler": "atk",
       "type_weights": {
-        "basic": 0.15,
-        "heavy": 0.1,
-        "skill": 0.4,
-        "liberation": 0.35,
-        "other": 0.0
+        "basic": 0.55,
+        "heavy": 0.05,
+        "skill": 0.2,
+        "liberation": 0.05,
+        "other": 0.15
       },
       "innate": [],
       "chains": [],
-      "source_kind": "MingEchoAssistant",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "source_kind": "community guides 2026-09 (derived)",
+      "source_url": "https://www.163.com/dy/article/KVAMSBLN0552SPH7.html",
       "signature_weapon": {
         "name": "存帧",
         "effects": [],
         "verified": false
-      }
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://www.163.com/dy/article/KVAMSBLN0552SPH7.html",
+        "https://m.ali213.net/news/gl2606/1777801.html",
+        "https://www.taptap.cn/moment/814903128892639124"
+      ],
+      "notes": "冷凝音感仪双模态副C/辅助，霜渐模态主要伤害标签为普攻，声骸模态转声骸伤害。"
     },
     "露西": {
       "verified": true,
       "scaler": "atk",
       "type_weights": {
-        "basic": 0.12,
-        "heavy": 0.08,
-        "skill": 0.61,
-        "liberation": 0.18,
-        "other": 0.010000000000000009
+        "basic": 0.1,
+        "heavy": 0.5,
+        "skill": 0.12,
+        "liberation": 0.2,
+        "other": 0.08
       },
       "innate": [],
       "chains": [],
-      "source_kind": "MingEchoAssistant",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "source_kind": "community guides 2026-09 (derived)",
+      "source_url": "https://www.233leyuan.com/post-detail/2064291965858041856",
       "signature_weapon": {
         "name": "蜃影",
         "effects": [],
         "verified": false
-      }
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://www.233leyuan.com/post-detail/2064291965858041856",
+        "https://www.taptap.cn/moment/813006538305177222",
+        "https://news.17173.com/content/06082026/174327932.shtml"
+      ],
+      "notes": "衍射佩枪骇破主C，主要伤害标签为重击（含部分技能动画），大招骇入衍射爆发。"
     },
     "丽贝卡": {
       "verified": true,
       "scaler": "atk",
       "type_weights": {
-        "basic": 0.15,
-        "heavy": 0.1,
-        "skill": 0.6,
-        "liberation": 0.15,
-        "other": 0.0
+        "basic": 0.65,
+        "heavy": 0.05,
+        "skill": 0.12,
+        "liberation": 0.08,
+        "other": 0.1
       },
       "innate": [],
       "chains": [],
-      "source_kind": "MingEchoAssistant",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "source_kind": "community guides 2026-09 (derived)",
+      "source_url": "https://news.17173.com/content/06102026/164014466.shtml",
       "signature_weapon": {
         "name": "碎骨",
         "effects": [],
         "verified": false
-      }
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://news.17173.com/content/06102026/164014466.shtml",
+        "https://www.233leyuan.com/post-detail/2064291967157989376",
+        "https://www.taptap.cn/moment/813165978459308049"
+      ],
+      "notes": "导电佩枪骇破副C，共鸣解放31型重机枪扫射伤害标签为普攻，普攻标签占绝对大头。"
     },
     "达妮娅": {
       "verified": true,
       "scaler": "atk",
       "type_weights": {
-        "basic": 0.5,
-        "heavy": 0.3,
+        "basic": 0.25,
+        "heavy": 0.05,
         "skill": 0.15,
-        "liberation": 0.05,
-        "other": 0.0
+        "liberation": 0.5,
+        "other": 0.05
       },
       "innate": [],
       "chains": [],
-      "source_kind": "MingEchoAssistant",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "source_kind": "community guides 2026-09 (derived)",
+      "source_url": "https://cg.163.com/static/content/6a414133c07e1836098b0b25",
       "signature_weapon": {
         "name": "赝作的矮星",
         "effects": [],
         "verified": false
-      }
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://cg.163.com/static/content/6a414133c07e1836098b0b25",
+        "https://www.gamersky.com/handbook/202605/2143115.shtml",
+        "https://www.taptap.cn/moment/806481522579213541"
+      ],
+      "notes": "热熔快速协奏辅助，解放态消耗虚质粒子的攻击标签转为共鸣解放伤害，解放为大头。"
     },
     "西格莉卡": {
       "verified": true,
       "scaler": "atk",
       "type_weights": {
-        "basic": 0.25,
-        "heavy": 0.15,
-        "skill": 0.45,
-        "liberation": 0.15,
-        "other": 0.0
+        "basic": 0.1,
+        "heavy": 0.02,
+        "skill": 0.05,
+        "liberation": 0.05,
+        "other": 0.78
       },
       "innate": [],
       "chains": [],
-      "source_kind": "MingEchoAssistant",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "source_kind": "community guides 2026-09 (measured)",
+      "source_url": "https://news.17173.com/content/03222026/152835603.shtml",
       "signature_weapon": {
         "name": "昭日译注",
         "effects": [],
         "verified": false
-      }
+      },
+      "confidence": "measured",
+      "sources": [
+        "https://news.17173.com/content/03222026/152835603.shtml",
+        "https://www.gamersky.com/handbook/202603/2114132.shtml",
+        "https://www.prydwen.gg/wuthering-waves/characters/sigrika"
+      ],
+      "notes": "气动声骸体系主C，几乎所有动作伤害标签判定为声骸技能伤害（归入other）。"
     },
     "陆·赫斯": {
       "verified": true,
@@ -3160,23 +3260,30 @@
     },
     "桃祈": {
       "verified": true,
-      "scaler": "atk",
+      "scaler": "def",
       "type_weights": {
-        "basic": 0.3,
-        "heavy": 0.15,
-        "skill": 0.4,
-        "liberation": 0.15,
-        "other": 0.0
+        "basic": 0.15,
+        "heavy": 0.3,
+        "skill": 0.15,
+        "liberation": 0.35,
+        "other": 0.05
       },
       "innate": [],
       "chains": [],
-      "source_kind": "MingEchoAssistant",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
+      "source_kind": "community guides 2026-09 (derived)",
+      "source_url": "https://www.gamersky.com/handbook/202405/1751606.shtml",
       "signature_weapon": {
         "name": "异响空灵",
         "effects": [],
         "verified": false
-      }
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://www.gamersky.com/handbook/202405/1751606.shtml",
+        "https://www.gamekee.com/mc/623015.html",
+        "https://www.prydwen.gg/wuthering-waves/characters/taoqi"
+      ],
+      "notes": "湮灭防御向护盾辅助，重击反击与解放为主要输出，回路判定为普攻伤害。"
     }
   }
 }

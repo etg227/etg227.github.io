@@ -6,30 +6,104 @@
       "verified": false,
       "preview": true,
       "scaler": "atk",
-      "type_weights": {"basic": 0.12, "heavy": 0.06, "skill": 0.70, "liberation": 0.07, "other": 0.05},
+      "type_weights": {
+        "basic": 0.15,
+        "heavy": 0.05,
+        "skill": 0.4,
+        "liberation": 0.25,
+        "other": 0.15
+      },
       "innate": [],
       "chains": [
-        {"level": 4, "effects": [{"kind": "globalDmg", "value": 20, "apply": "combat", "source": "S4-preview"}]},
-        {"level": 6, "effects": [{"kind": "skillDmg", "value": 40, "apply": "combat", "source": "S6-preview"}]}
+        {
+          "level": 4,
+          "effects": [
+            {
+              "kind": "globalDmg",
+              "value": 20,
+              "apply": "combat",
+              "source": "S4-preview"
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "effects": [
+            {
+              "kind": "skillDmg",
+              "value": 40,
+              "apply": "combat",
+              "source": "S6-preview"
+            }
+          ]
+        }
       ],
       "source_kind": "3.7 preview/test data",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
-      "notes": "共鸣技能为主要伤害标签；输出占比为前瞻模型，正式上线后应重新校验。"
+      "source_url": "https://keygold.gg/zh-hant/blog/detail/wuthering-waves-hsin-suoming-gameplay-zh",
+      "notes": "3.7上半导电音感仪主C（前瞻），狐火印记与白狐形态电磁爆发，数值未公布。 正式上线后应重新校验。",
+      "confidence": "estimated",
+      "sources": [
+        "https://keygold.gg/zh-hant/blog/detail/wuthering-waves-hsin-suoming-gameplay-zh",
+        "https://m.ali213.net/news/gl2609/1805531.html",
+        "https://niubi.wiki/2026/08/19/138453/"
+      ]
     },
     "锁暝": {
       "verified": false,
       "preview": true,
       "scaler": "atk",
-      "type_weights": {"basic": 0.75, "heavy": 0.02, "skill": 0.08, "liberation": 0.10, "other": 0.05},
+      "type_weights": {
+        "basic": 0.55,
+        "heavy": 0.05,
+        "skill": 0.15,
+        "liberation": 0.15,
+        "other": 0.1
+      },
       "innate": [],
       "chains": [
-        {"level": 2, "effects": [{"kind": "critDmg", "value": 40, "apply": "combat", "source": "S2-preview"}]},
-        {"level": 4, "effects": [{"kind": "atkPct", "value": 20, "apply": "combat", "source": "S4-preview"}]},
-        {"level": 6, "effects": [{"kind": "critDmg", "value": 80, "apply": "combat", "source": "S6-preview-state"}]}
+        {
+          "level": 2,
+          "effects": [
+            {
+              "kind": "critDmg",
+              "value": 40,
+              "apply": "combat",
+              "source": "S2-preview"
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "effects": [
+            {
+              "kind": "atkPct",
+              "value": 20,
+              "apply": "combat",
+              "source": "S4-preview"
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "effects": [
+            {
+              "kind": "critDmg",
+              "value": 80,
+              "apply": "combat",
+              "source": "S6-preview-state"
+            }
+          ]
+        }
       ],
       "source_kind": "3.7 preview/test data",
-      "source_url": "https://wiki.kurobbs.com/mc/home",
-      "notes": "普攻为主要伤害标签；输出占比与6链状态为前瞻模型，正式上线后应重新校验。"
+      "source_url": "https://news.17173.com/content/08312026/152433755.shtml",
+      "notes": "3.7下半导电迅刀副C/协同（前瞻），禁锢十重契锁频机制，占比为定位推断、确定度低。 正式上线后应重新校验。",
+      "confidence": "estimated",
+      "sources": [
+        "https://news.17173.com/content/08312026/152433755.shtml",
+        "https://www.bilibili.com/video/BV15ahF6gEB5/",
+        "https://niubi.wiki/2026/08/19/138453/"
+      ]
     }
   }
 }

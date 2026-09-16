@@ -15,7 +15,7 @@ var posts=["2025/04/20/post/","2025/04/20/test/","2025/01/14/hello-world/"];func
       const link = document.createElement('link');
       link.id = 'wuwa-toolbox-css';
       link.rel = 'stylesheet';
-      link.href = '/wuwa/toolbox.css?v=20260917-3';
+      link.href = '/wuwa/toolbox.css?v=20260917-4';
       document.head.appendChild(link);
     }
 
@@ -27,7 +27,7 @@ var posts=["2025/04/20/post/","2025/04/20/test/","2025/01/14/hello-world/"];func
     if (!document.getElementById('wuwa-toolbox-js')) {
       const script = document.createElement('script');
       script.id = 'wuwa-toolbox-js';
-      script.src = '/wuwa/toolbox.js?v=20260917-3';
+      script.src = '/wuwa/toolbox.js?v=20260917-4';
       script.defer = true;
       document.head.appendChild(script);
     }
