@@ -9,6 +9,7 @@
       "element": "spectro",
       "element_label": "衍射",
       "data_source": "WuwaEchoTool + 库街区/Prydwen机制校验",
+      "defaults": {"sonata": "eternal5", "main_echo": "glory"},
       "summary": "焚日模式下主要攻击均为重击类型；按 WuwaEchoTool 的成熟输出模型，重击约占标准输出的 76%。",
       "type_weights": {"heavy": 0.76, "liberation": 0.12, "basic": 0.03, "skill": 0.01, "other": 0.09},
       "type_notes": {
