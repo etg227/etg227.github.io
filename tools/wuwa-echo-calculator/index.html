@@ -90,7 +90,7 @@
     <div class="replace-grid">
       <label>替换位置<select id="replaceSlot"><option value="0">声骸 1</option><option value="1">声骸 2</option><option value="2">声骸 3</option><option value="3">声骸 4</option><option value="4">声骸 5</option></select></label>
       <label>COST<select id="candidateCost"><option value="4">4 COST</option><option value="3">3 COST</option><option value="1">1 COST</option></select></label>
-      <div class="replace-tip">副词条数值只能选择游戏内真实固定档位；主词条根据 COST 自动使用对应满级数值。</div>
+      <div class="replace-tip">副词条数值只能选择游戏内真实固定档位；主词条按 COST 使用对应满级数值。</div>
     </div>
     <div class="candidate-layout">
       <div><h3>候选主词条</h3><div id="candidateMainRows" class="echo-rows"></div></div>
@@ -115,22 +115,9 @@
     <div class="score-note" id="scoreMethodNote"></div>
   </section>
 
-  <section class="panel full">
-    <div class="panel-title-row"><div><span class="step">07</span><h2>收益边界</h2></div><span class="hint">观察稀释与共鸣链对词条价值的影响</span></div>
-    <div id="rollControls" class="roll-controls"></div>
-    <div id="boundaryCards" class="boundary-grid"></div>
-  </section>
-
-  <section class="panel full references" id="references">
-    <div class="panel-title-row"><div><span class="step">R</span><h2>Reference</h2></div></div>
-    <ol>
-      <li><a href="https://wiki.kurobbs.com/mc/home" target="_blank" rel="noreferrer">库街区《鸣潮》WIKI</a>：角色、技能伤害归类、共鸣链文本的主要数据源。</li>
-      <li><a href="https://www.prydwen.gg/wuthering-waves/guides/echo-stats" target="_blank" rel="noreferrer">Prydwen · Echo Stats</a>：五星声骸副词条范围交叉检查。</li>
-      <li><a href="https://wutheringwaves.fandom.com/wiki/Echo/Stats" target="_blank" rel="noreferrer">Wuthering Waves Wiki · Echo Stats</a>：副词条固定离散档位交叉检查。</li>
-      <li><a href="https://www.wutheringtools.com/info" target="_blank" rel="noreferrer">Wuthering Tools</a>：伤害乘区结构交叉检查。</li>
-    </ol>
-    <div class="callout warning">角色的“有效伤害类型”来自角色机制库，不再由玩家手填。尚未完成机制校验的角色会明确提示，并不会擅自把某个类型伤害词条判为有效。</div>
-  </section>
+  <!-- Kept only as hidden calculation targets for the current JS engine. -->
+  <div id="rollControls" hidden></div>
+  <div id="boundaryCards" hidden></div>
 </main>
 <script src="app.js"></script>
 </body>
