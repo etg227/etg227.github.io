@@ -102,7 +102,19 @@ overall ratio = Σ(current window damage share × window ratio)
 
 Using the current build's actual damage shares means skill motion values, enemy defense/resistance and unrelated independent multipliers are already encoded in the weights. They cancel inside a same-window Candidate/Current comparison unless the Echo itself changes those mechanics.
 
-## 5. Scope and known limitations
+## 5. Product / UX reference
+
+### wuwacalc.cn — 南边道友TEIO
+https://wuwacalc.cn
+
+Bilibili launch / introduction video:
+https://www.bilibili.com/video/BV1qTuh63E4c/
+
+This project references **wuwacalc.cn as a product and interaction-design reference only**: low-friction data entry, making theorycrafting accessible outside spreadsheets, and presenting complex character/team data in a web interface.
+
+It is **not treated as the sole source for the damage formulas in this calculator**, and this project does not copy its UI, assets, private data, or implementation. The blog-integrated version deliberately follows the visual language of the owner's AnZhiYu-based blog instead.
+
+## 6. Scope and known limitations
 
 The current model is intended for conventional direct damage whose Echo-relevant changes can be represented by:
 
