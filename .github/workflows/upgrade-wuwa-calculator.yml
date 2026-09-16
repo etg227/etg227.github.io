@@ -1,48 +1,36 @@
-name: Upgrade WuWa calculator data
+name: Validate WuWa calculator
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'scripts/upgrade_wuwa_calculator.py'
+      - 'tools/wuwa-echo-calculator/**'
+      - 'wuwa/profile-save-v3.js'
+      - 'wuwa/data/character-mechanics*.json'
+      - 'wuwa/data/sonata-effects.json'
       - '.github/workflows/upgrade-wuwa-calculator.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  upgrade:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Sync latest main
-        run: |
-          git fetch origin main
-          git rebase origin/main
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Generate mechanics and patch UI
-        run: python scripts/upgrade_wuwa_calculator.py
-      - name: Syntax check
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: JavaScript syntax check
         run: |
           node --check tools/wuwa-echo-calculator/app.js
-          node --check wuwa/profile-save-v2.js
-          python -m json.tool wuwa/data/character-mechanics.json >/dev/null
-      - name: Commit generated files
+          node --check tools/wuwa-echo-calculator/baseline-sync.js
+          node --check wuwa/profile-save-v3.js
+      - name: Data syntax check
         run: |
-          if git diff --quiet; then
-            echo 'No generated changes.'
-            exit 0
-          fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add tools/wuwa-echo-calculator/index.html tools/wuwa-echo-calculator/app.js wuwa/profile-save-v2.js wuwa/data/character-mechanics.json
-          git commit -m 'Upgrade WuWa calculator character data and UI'
-          git pull --rebase origin main
-          git push
+          python -m json.tool wuwa/data/character-mechanics.json >/dev/null
+          python -m json.tool wuwa/data/character-mechanics-extra.json >/dev/null
+          python -m json.tool wuwa/data/sonata-effects.json >/dev/null

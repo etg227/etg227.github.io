@@ -1,9 +1,59 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="鸣潮单角色声骸边际收益评分器"><title>鸣潮声骸边际评分器</title><link rel="stylesheet" href="styles.css?v=20260917-2"><style>
-.profile-grid{grid-template-columns:1.35fr .55fr .65fr}.current-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.echo-row select.echo-value{min-width:78px}.echo-row select:disabled{opacity:.65}.character-card .nomodel{font-size:10px;font-style:normal;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 6px;margin-top:2px}.gear-auto-config{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--panel2)}.gear-auto-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.gear-auto-grid label{font-size:11px;color:var(--muted);display:grid;gap:5px}.gear-auto-grid select{width:100%;min-width:0}.echo-mini-grade{font-size:11px;font-weight:900;border:1px solid var(--line);border-radius:999px;padding:2px 7px;margin-left:auto;color:var(--accent)}.candidate-grade-core{display:inline-block;margin-top:8px}@media(max-width:980px){.gear-auto-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:820px){.profile-grid,.current-stat-grid{grid-template-columns:1fr 1fr}}@media(max-width:620px){.profile-grid,.current-stat-grid,.gear-auto-grid{grid-template-columns:1fr}}
-</style></head><body><main class="wrap main-grid">
-<section class="panel full intro-panel"><div class="panel-title-row"><div><span class="step">01</span><h2>角色配置</h2></div><span class="status-pill">Character-aware · Local</span></div><div class="profile-grid"><button class="character-pick" id="characterPick" type="button"><span class="portrait placeholder">?</span><span class="pick-copy"><b id="characterName">选择角色</b><small>正在读取角色库…</small></span></button><label>共鸣链<select id="chainLevel"><option value="0">0 链</option><option value="1">1 链</option><option value="2">2 链</option><option value="3">3 链</option><option value="4">4 链</option><option value="5">5 链</option><option value="6">6 链</option></select></label><label>主要倍率属性<select id="scaler"><option value="atk">ATK</option><option value="hp">HP</option><option value="def">DEF</option></select></label></div><div class="character-browser" id="characterBrowser" hidden><div class="browser-head"><input id="characterSearch" placeholder="搜索角色名称"><button id="closeCharacterBrowser" type="button">关闭</button></div><div class="character-grid" id="characterGrid"></div></div></section>
-<section class="panel"><div class="panel-title-row"><div><span class="step">02</span><h2>当前面板</h2></div><button class="mini" id="resetStatsBtn" type="button">重置示例</button></div><p class="micro">填写角色详情页当前静态面板；共鸣链、套装与首位声骸的战斗态增益由计算器加入。</p><div class="current-stat-grid"><label>攻击 ATK<input id="totalAtk" type="number" value="2300"></label><label>生命 HP<input id="totalHp" type="number" value="21000"></label><label>防御 DEF<input id="totalDef" type="number" value="1500"></label><label>暴击率 CR %<input id="critRate" type="number" value="75" step="0.1"></label><label>暴击伤害 CD %<input id="critDmg" type="number" value="250" step="0.1"></label><label>共鸣效率 ER %<input id="energyRegen" type="number" value="125" step="0.1"></label></div><details><summary>其他伤害加成（可选）</summary><div class="form-grid three compact-top"><label>其他静态属性伤害 %<input id="elementDmg" type="number" value="0" step="0.1"></label><label>全伤害加成 %<input id="globalDmg" type="number" value="0" step="0.1"></label><label>Amplify / 加深 %<input id="globalAmp" type="number" value="0" step="0.1"></label></div><div class="form-grid three compact-top"><label>非声骸攻击 %<input id="nonEchoAtkPct" type="number" value="0" step="0.1"></label><label>非声骸生命 %<input id="nonEchoHpPct" type="number" value="0" step="0.1"></label><label>非声骸防御 %<input id="nonEchoDefPct" type="number" value="0" step="0.1"></label></div></details></section>
-<section class="panel full"><div class="panel-title-row"><div><span class="step">03</span><h2>当前 5 只声骸</h2></div><span class="hint">每只独立评分 · 固定档位下拉</span></div><div id="equippedEchoes" class="equipped-grid"></div></section>
-<section class="panel full compare-panel"><div class="panel-title-row"><div><span class="step">04</span><h2>候选声骸替换</h2></div><button class="primary" id="calculateBtn" type="button">重新计算</button></div><div class="replace-grid"><label>替换位置<select id="replaceSlot"><option value="0">声骸 1</option><option value="1">声骸 2</option><option value="2">声骸 3</option><option value="3">声骸 4</option><option value="4">声骸 5</option></select></label><label>COST<select id="candidateCost"><option value="4">4 COST</option><option value="3">3 COST</option><option value="1">1 COST</option></select></label><div class="replace-tip">副词条数值只能选择游戏内真实固定档位；主词条按 COST 使用对应满级数值。</div></div><div class="candidate-layout"><div><h3>候选主词条</h3><div id="candidateMainRows" class="echo-rows"></div></div><div><h3>候选副词条</h3><div id="candidateSubRows" class="echo-rows"></div></div></div></section>
-<section class="panel full results-panel"><div class="panel-title-row"><div><span class="step">05</span><h2>计算结果</h2></div><span class="hint">角色机制感知评分</span></div><div class="hero-results"><div class="metric-card accent"><span>候选声骸替换提升</span><strong id="overallGain">—</strong><small>相对当前整套</small></div><div class="metric-card"><span>候选副词条评分</span><strong id="candidateScore">—</strong><small>100 = 5 条当前最优平均档</small><span id="candidateGrade" class="echo-mini-grade candidate-grade-core">评级 D</span></div><div class="metric-card"><span>当前期望暴击乘区</span><strong id="critFactor">—</strong><small id="critState">—</small></div><div class="metric-card"><span>当前最推荐副词条</span><strong id="bestStandard">—</strong><small id="bestStandardNote">填写角色与当前面板后生成推荐</small></div></div><div class="results-grid"><div><h3>候选每条副词条边际贡献</h3><div id="lineMarginals" class="bars"></div></div><div><h3>副词条边际收益排行</h3><div id="standardBars" class="bars"></div></div></div></section>
-</main><script src="baseline-sync.js?v=20260917-2"></script><script src="app.js?v=20260917-2"></script><script src="/wuwa/profile-save-v3.js?v=20260917-2"></script></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="鸣潮单角色声骸边际收益评分器">
+  <title>鸣潮声骸边际评分器</title>
+  <link rel="stylesheet" href="styles.css?v=20260917-3">
+  <style>
+    .profile-grid{grid-template-columns:1.35fr .55fr .65fr}
+    .current-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .echo-row select.echo-value{min-width:78px}
+    .echo-row select:disabled,.gear-auto-grid select:disabled{opacity:.58;cursor:not-allowed}
+    .character-card .nomodel{font-size:10px;font-style:normal;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 6px;margin-top:2px}
+    .gear-auto-config{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--panel2)}
+    .gear-auto-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .gear-auto-grid label{font-size:11px;color:var(--muted);display:grid;gap:5px}
+    .gear-auto-grid select{width:100%;min-width:0}
+    .echo-mini-grade{font-size:11px;font-weight:900;border:1px solid var(--line);border-radius:999px;padding:2px 7px;margin-left:auto;color:var(--accent)}
+    .candidate-grade-core{display:inline-block;margin-top:8px}
+    @media(max-width:980px){.gear-auto-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:820px){.profile-grid,.current-stat-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:620px){.profile-grid,.current-stat-grid,.gear-auto-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<main class="wrap main-grid">
+  <section class="panel full intro-panel">
+    <div class="panel-title-row"><div><span class="step">01</span><h2>角色配置</h2></div><span class="status-pill">Character-aware · Local</span></div>
+    <div class="profile-grid">
+      <button class="character-pick" id="characterPick" type="button"><span class="portrait placeholder">?</span><span class="pick-copy"><b id="characterName">选择角色</b><small>正在读取角色库…</small></span></button>
+      <label>共鸣链<select id="chainLevel"><option value="0">0 链</option><option value="1">1 链</option><option value="2">2 链</option><option value="3">3 链</option><option value="4">4 链</option><option value="5">5 链</option><option value="6">6 链</option></select></label>
+      <label>主要倍率属性<select id="scaler"><option value="atk">ATK</option><option value="hp">HP</option><option value="def">DEF</option></select></label>
+    </div>
+    <div class="character-browser" id="characterBrowser" hidden><div class="browser-head"><input id="characterSearch" placeholder="搜索角色名称"><button id="closeCharacterBrowser" type="button">关闭</button></div><div class="character-grid" id="characterGrid"></div></div>
+  </section>
+  <section class="panel">
+    <div class="panel-title-row"><div><span class="step">02</span><h2>当前面板</h2></div><button class="mini" id="resetStatsBtn" type="button">重置示例</button></div>
+    <p class="micro">填写角色详情页当前静态面板；共鸣链、武器被动与合鸣套装的战斗态增益由计算器加入。</p>
+    <div class="current-stat-grid"><label>攻击 ATK<input id="totalAtk" type="number" value="2300"></label><label>生命 HP<input id="totalHp" type="number" value="21000"></label><label>防御 DEF<input id="totalDef" type="number" value="1500"></label><label>暴击率 CR %<input id="critRate" type="number" value="75" step="0.1"></label><label>暴击伤害 CD %<input id="critDmg" type="number" value="250" step="0.1"></label><label>共鸣效率 ER %<input id="energyRegen" type="number" value="125" step="0.1"></label></div>
+    <details><summary>其他伤害加成（可选）</summary><div class="form-grid three compact-top"><label>其他静态属性伤害 %<input id="elementDmg" type="number" value="0" step="0.1"></label><label>全伤害加成 %<input id="globalDmg" type="number" value="0" step="0.1"></label><label>Amplify / 加深 %<input id="globalAmp" type="number" value="0" step="0.1"></label></div><div class="form-grid three compact-top"><label>非声骸攻击 %<input id="nonEchoAtkPct" type="number" value="0" step="0.1"></label><label>非声骸生命 %<input id="nonEchoHpPct" type="number" value="0" step="0.1"></label><label>非声骸防御 %<input id="nonEchoDefPct" type="number" value="0" step="0.1"></label></div></details>
+  </section>
+  <section class="panel full"><div class="panel-title-row"><div><span class="step">03</span><h2>当前 5 只声骸</h2></div><span class="hint">每只独立评分 · 固定档位下拉</span></div><div id="equippedEchoes" class="equipped-grid"></div></section>
+  <section class="panel full compare-panel">
+    <div class="panel-title-row"><div><span class="step">04</span><h2>候选声骸替换</h2></div><button class="primary" id="calculateBtn" type="button">重新计算</button></div>
+    <div class="replace-grid"><label>替换位置<select id="replaceSlot"><option value="0">声骸 1</option><option value="1">声骸 2</option><option value="2">声骸 3</option><option value="3">声骸 4</option><option value="4">声骸 5</option></select></label><label>COST<select id="candidateCost"><option value="4">4 COST</option><option value="3">3 COST</option><option value="1">1 COST</option></select></label><div class="replace-tip">副词条数值只能选择游戏内真实固定档位；主词条按 COST 使用对应满级数值。</div></div>
+    <div class="candidate-layout"><div><h3>候选主词条</h3><div id="candidateMainRows" class="echo-rows"></div></div><div><h3>候选副词条</h3><div id="candidateSubRows" class="echo-rows"></div></div></div>
+  </section>
+  <section class="panel full results-panel">
+    <div class="panel-title-row"><div><span class="step">05</span><h2>计算结果</h2></div><span class="hint">角色机制感知评分</span></div>
+    <div class="hero-results"><div class="metric-card accent"><span>候选声骸替换提升</span><strong id="overallGain">—</strong><small>相对当前整套</small></div><div class="metric-card"><span>候选副词条评分</span><strong id="candidateScore">—</strong><small>100 = 5 条当前最优平均档</small><span id="candidateGrade" class="echo-mini-grade candidate-grade-core">评级 D</span></div><div class="metric-card"><span>当前期望暴击乘区</span><strong id="critFactor">—</strong><small id="critState">—</small></div><div class="metric-card"><span>当前最推荐副词条</span><strong id="bestStandard">—</strong><small id="bestStandardNote">填写角色与当前面板后生成推荐</small></div></div>
+    <div class="results-grid"><div><h3>候选每条副词条边际贡献</h3><div id="lineMarginals" class="bars"></div></div><div><h3>可实现的提升排行</h3><div id="standardBars" class="bars"></div></div></div>
+  </section>
+</main>
+<script src="baseline-sync.js?v=20260917-3"></script>
+<script src="app.js?v=20260917-3"></script>
+<script src="/wuwa/profile-save-v3.js?v=20260917-3"></script>
+</body>
+</html>
