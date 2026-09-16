@@ -6,6 +6,7 @@
   const fire=(el,type='change')=>el&&el.dispatchEvent(new Event(type,{bubbles:true}));
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   const grade=s=>s>=100?'SSS':s>=90?'SS':s>=80?'S':s>=65?'A':s>=50?'B':s>=35?'C':'D';
+  const setText=(el,text)=>{if(el&&el.textContent!==text)el.textContent=text};
 
   function readStore(){
     try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')||{}}catch(e){return{}}
@@ -32,15 +33,16 @@
   }
   function refreshSavedSelect(prefer=''){
     const sel=$('wuwaSavedBuilds');if(!sel)return;const store=readStore(),names=Object.keys(store).sort((a,b)=>a.localeCompare(b,'zh-CN'));
-    sel.innerHTML='<option value="">— 已保存角色 —</option>'+names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
+    const html='<option value="">— 已保存角色 —</option>'+names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
+    if(sel.innerHTML!==html)sel.innerHTML=html;
     if(prefer&&store[prefer])sel.value=prefer;
     updateSaveStatus();
   }
   function updateSaveStatus(msg=''){
     const status=$('wuwaSaveStatus');if(!status)return;
-    if(msg){status.textContent=msg;return}
+    if(msg){setText(status,msg);return}
     const name=currentCharacter(),store=readStore();
-    status.textContent=name&&store[name]?'该角色已有本机保存配置':'配置仅保存在当前浏览器';
+    setText(status,name&&store[name]?'该角色已有本机保存配置':'配置仅保存在当前浏览器');
   }
   async function chooseCharacter(name){
     if(currentCharacter()===name)return true;
@@ -107,12 +109,13 @@
     `;document.head.appendChild(s);
   }
   function updateGrades(){
-    document.querySelectorAll('.score-card').forEach(card=>{const score=Number(card.querySelector('strong')?.textContent);const badge=card.querySelector('.grade');if(!Number.isFinite(score)||!badge)return;const g=grade(score);if(badge.textContent!==g)badge.textContent=g});
-    const scoreEl=$('candidateScore');if(scoreEl){const score=Number(scoreEl.textContent);const card=scoreEl.closest('.metric-card');if(card&&Number.isFinite(score)){let b=card.querySelector('.wuwa-candidate-grade');if(!b){b=document.createElement('span');b.className='wuwa-candidate-grade';card.appendChild(b)}const t=`评级 ${grade(score)}`;if(b.textContent!==t)b.textContent=t}}
+    document.querySelectorAll('.score-card').forEach(card=>{const score=Number(card.querySelector('strong')?.textContent);const badge=card.querySelector('.grade');if(!Number.isFinite(score)||!badge)return;setText(badge,grade(score))});
+    const scoreEl=$('candidateScore');if(scoreEl){const score=Number(scoreEl.textContent);const card=scoreEl.closest('.metric-card');if(card&&Number.isFinite(score)){let b=card.querySelector('.wuwa-candidate-grade');if(!b){b=document.createElement('span');b.className='wuwa-candidate-grade';card.appendChild(b)}setText(b,`评级 ${grade(score)}`)}}
   }
   function init(){
     mountStyles();mountSaveUi();updateGrades();
-    const mo=new MutationObserver(()=>{mountSaveUi();updateGrades();updateSaveStatus()});mo.observe(document.body,{childList:true,subtree:true,characterData:true});
+    let queued=false;const run=()=>{queued=false;mountSaveUi();updateGrades();updateSaveStatus()};
+    const mo=new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(run)});mo.observe(document.body,{childList:true,subtree:true,characterData:true});
     document.addEventListener('click',e=>{if(e.target.closest?.('.character-card'))setTimeout(()=>{updateSaveStatus();refreshSavedSelect(currentCharacter())},80)});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
