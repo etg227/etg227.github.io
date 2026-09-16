@@ -3,16 +3,31 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="鸣潮单角色声骸边际收益、共鸣链修正、单件评分与替换对比计算器。" />
+  <meta name="description" content="鸣潮单角色声骸边际收益、角色机制、共鸣链与单件评分计算器。" />
   <title>鸣潮声骸边际评分器</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .profile-grid{grid-template-columns:1.35fr .55fr .65fr}
+    .current-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .mechanic-tags{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 12px}
+    .mechanic-tag{font-size:11px;font-weight:800;border:1px solid var(--line);background:var(--panel2);padding:5px 8px;border-radius:999px}
+    .mechanic-tag.core{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,var(--line));background:color-mix(in srgb,var(--accent) 8%,var(--panel))}
+    .chain-list{display:grid;gap:7px;margin-top:10px}.chain-item{display:grid;grid-template-columns:54px 1fr;gap:8px;align-items:start;border-top:1px solid var(--line);padding-top:7px;font-size:12px}.chain-item b{color:var(--accent)}
+    .mechanic-source{font-size:11px;color:var(--muted);line-height:1.6}
+    .echo-row select.echo-value{min-width:78px}
+    .echo-row select:disabled{opacity:.65;cursor:not-allowed}
+    .score-note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:7px}
+    .model-warning{font-size:11px;color:var(--warn);margin-top:6px}
+    @media(max-width:820px){.profile-grid,.current-stat-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:620px){.profile-grid,.current-stat-grid{grid-template-columns:1fr}.chain-item{grid-template-columns:44px 1fr}}
+  </style>
 </head>
 <body>
 <main class="wrap main-grid">
   <section class="panel full intro-panel">
     <div class="panel-title-row">
       <div><span class="step">01</span><h2>角色配置</h2></div>
-      <span class="status-pill">Single Character · Local</span>
+      <span class="status-pill">Character-aware · Local</span>
     </div>
     <div class="profile-grid">
       <button class="character-pick" id="characterPick" type="button">
@@ -28,60 +43,45 @@
       <label>主要倍率属性
         <select id="scaler"><option value="atk" selected>ATK</option><option value="hp">HP</option><option value="def">DEF</option></select>
       </label>
-      <label>主要输出类型
-        <select id="primaryDamageType">
-          <option value="basic">普攻</option><option value="heavy">重击</option><option value="skill" selected>共鸣技能</option>
-          <option value="liberation">共鸣解放</option><option value="coordinated">协同攻击</option><option value="other">其他</option>
-        </select>
-      </label>
-      <label>该类型占整轮伤害 %<input id="primaryShare" type="number" value="70" min="0" max="100" step="1"></label>
     </div>
     <div class="character-browser" id="characterBrowser" hidden>
       <div class="browser-head"><input id="characterSearch" placeholder="搜索角色名称"><button id="closeCharacterBrowser" type="button">关闭</button></div>
       <div class="character-grid" id="characterGrid"></div>
     </div>
-    <div class="callout"><strong>共鸣链口径：</strong>已经显示在面板里的永久属性直接包含在下面的“当前总值”中；链带来的战斗中临时攻击/双暴/增伤，请填进“战斗态自拐 / 共鸣链修正”。这样不会重复计算。</div>
+    <div class="callout" id="characterModelStatus"><strong>角色机制：</strong>请选择角色。有效的普攻/重击/共鸣技能/共鸣解放词条会由角色机制库自动决定，不再让玩家填写伤害占比。</div>
   </section>
 
   <section class="panel">
     <div class="panel-title-row"><div><span class="step">02</span><h2>当前面板</h2></div><button class="mini" id="resetStatsBtn" type="button">重置示例</button></div>
-    <p class="micro">建议填写角色实际装备当前 5 只声骸后的静态面板；替换计算会先移除旧声骸，再加入候选声骸。</p>
-    <div class="stat-table">
-      <div class="stat-head"><span>属性</span><span>基础值</span><span>当前总值</span></div>
-      <label class="stat-row"><span>攻击 ATK</span><input id="baseAtk" type="number" value="950"><input id="totalAtk" type="number" value="2300"></label>
-      <label class="stat-row"><span>生命 HP</span><input id="baseHp" type="number" value="15000"><input id="totalHp" type="number" value="21000"></label>
-      <label class="stat-row"><span>防御 DEF</span><input id="baseDef" type="number" value="1200"><input id="totalDef" type="number" value="1500"></label>
-    </div>
-    <div class="form-grid three compact-top">
+    <p class="micro">只填当前装备状态下的角色面板，不再要求填写基础面板。</p>
+    <div class="current-stat-grid">
+      <label>攻击 ATK<input id="totalAtk" type="number" value="2300"></label>
+      <label>生命 HP<input id="totalHp" type="number" value="21000"></label>
+      <label>防御 DEF<input id="totalDef" type="number" value="1500"></label>
       <label>暴击率 CR %<input id="critRate" type="number" value="75" step="0.1"></label>
       <label>暴击伤害 CD %<input id="critDmg" type="number" value="250" step="0.1"></label>
       <label>共鸣效率 ER %<input id="energyRegen" type="number" value="125" step="0.1"></label>
     </div>
     <details>
-      <summary>伤害加成池</summary>
-      <div class="form-grid two compact-top">
-        <label>全局/属性伤害加成池 %<input id="globalDmg" type="number" value="60" step="0.1"></label>
-        <label>全局 Amplify / 加深 %<input id="globalAmp" type="number" value="0" step="0.1"></label>
+      <summary>当前伤害加成（可选）</summary>
+      <div class="form-grid three compact-top">
+        <label>属性伤害加成 %<input id="elementDmg" type="number" value="0" step="0.1"></label>
+        <label>全伤害加成 %<input id="globalDmg" type="number" value="0" step="0.1"></label>
+        <label>Amplify / 加深 %<input id="globalAmp" type="number" value="0" step="0.1"></label>
       </div>
-      <div id="typeBonusGrid" class="type-bonus-grid"></div>
     </details>
   </section>
 
   <section class="panel">
-    <div class="panel-title-row"><div><span class="step">03</span><h2>战斗态自拐 / 共鸣链修正</h2></div><span class="hint">只填未体现在静态面板里的部分</span></div>
-    <div class="form-grid three">
-      <label>攻击力 %<input id="selfAtkPct" type="number" value="0" step="0.1"></label>
-      <label>暴击率 %<input id="selfCritRate" type="number" value="0" step="0.1"></label>
-      <label>暴击伤害 %<input id="selfCritDmg" type="number" value="0" step="0.1"></label>
-      <label>全局伤害加成 %<input id="selfDmg" type="number" value="0" step="0.1"></label>
-      <label>主要类型伤害加成 %<input id="selfTypeDmg" type="number" value="0" step="0.1"></label>
-      <label>Amplify / 加深 %<input id="selfAmp" type="number" value="0" step="0.1"></label>
-    </div>
-    <div class="callout subtle"><strong id="chainLabel">0 链</strong> · 当前阶段不自动猜测角色每一链的文本机制；你填写的战斗态修正会真实进入边际收益。后续角色机制库补齐后，这里会由角色 + 共鸣链自动带出。</div>
+    <div class="panel-title-row"><div><span class="step">03</span><h2>角色伤害构成 / 共鸣链</h2></div><span class="hint">自动读取机制库</span></div>
+    <div id="mechanicSummary" class="micro">选择角色后显示。</div>
+    <div id="mechanicTags" class="mechanic-tags"></div>
+    <div id="chainSummary" class="chain-list"></div>
+    <div id="mechanicSource" class="mechanic-source"></div>
   </section>
 
   <section class="panel full">
-    <div class="panel-title-row"><div><span class="step">04</span><h2>当前 5 只声骸</h2></div><span class="hint">每只独立评分 · 支持主词条 + 5 副词条</span></div>
+    <div class="panel-title-row"><div><span class="step">04</span><h2>当前 5 只声骸</h2></div><span class="hint">每只独立评分 · 固定档位下拉</span></div>
     <div id="equippedEchoes" class="equipped-grid"></div>
   </section>
 
@@ -90,7 +90,7 @@
     <div class="replace-grid">
       <label>替换位置<select id="replaceSlot"><option value="0">声骸 1</option><option value="1">声骸 2</option><option value="2">声骸 3</option><option value="3">声骸 4</option><option value="4">声骸 5</option></select></label>
       <label>COST<select id="candidateCost"><option value="4">4 COST</option><option value="3">3 COST</option><option value="1">1 COST</option></select></label>
-      <div class="replace-tip">候选声骸会完整替换选中位置的主词条与副词条。</div>
+      <div class="replace-tip">副词条数值只能选择游戏内真实固定档位；主词条根据 COST 自动使用对应满级数值。</div>
     </div>
     <div class="candidate-layout">
       <div><h3>候选主词条</h3><div id="candidateMainRows" class="echo-rows"></div></div>
@@ -99,12 +99,12 @@
   </section>
 
   <section class="panel full results-panel">
-    <div class="panel-title-row"><div><span class="step">06</span><h2>计算结果</h2></div><span class="hint">边际评分 ≠ 传统固定 CV</span></div>
+    <div class="panel-title-row"><div><span class="step">06</span><h2>计算结果</h2></div><span class="hint">角色机制感知评分</span></div>
     <div class="hero-results">
       <div class="metric-card accent"><span>候选声骸替换提升</span><strong id="overallGain">—</strong><small>相对当前整套</small></div>
       <div class="metric-card"><span>候选副词条评分</span><strong id="candidateScore">—</strong><small>100 = 5 条当前最优平均档</small></div>
       <div class="metric-card"><span>当前期望暴击乘区</span><strong id="critFactor">—</strong><small id="critState">—</small></div>
-      <div class="metric-card"><span>最值钱标准词条</span><strong id="bestStandard">—</strong><small>随面板 / 共鸣链修正变化</small></div>
+      <div class="metric-card"><span>最值钱标准词条</span><strong id="bestStandard">—</strong><small id="bestStandardNote">随角色 / 共鸣链变化</small></div>
     </div>
     <h3>5 只当前声骸独立评分</h3>
     <div id="echoScoreCards" class="score-grid"></div>
@@ -112,10 +112,11 @@
       <div><h3>候选每条副词条边际贡献</h3><div id="lineMarginals" class="bars"></div></div>
       <div><h3>标准词条当前收益</h3><div id="standardBars" class="bars"></div></div>
     </div>
+    <div class="score-note" id="scoreMethodNote"></div>
   </section>
 
   <section class="panel full">
-    <div class="panel-title-row"><div><span class="step">07</span><h2>收益边界</h2></div><span class="hint">观察什么时候继续堆某词条开始明显稀释</span></div>
+    <div class="panel-title-row"><div><span class="step">07</span><h2>收益边界</h2></div><span class="hint">观察稀释与共鸣链对词条价值的影响</span></div>
     <div id="rollControls" class="roll-controls"></div>
     <div id="boundaryCards" class="boundary-grid"></div>
   </section>
@@ -123,12 +124,12 @@
   <section class="panel full references" id="references">
     <div class="panel-title-row"><div><span class="step">R</span><h2>Reference</h2></div></div>
     <ol>
-      <li><a href="https://wiki.kurobbs.com/mc/home" target="_blank" rel="noreferrer">库街区《鸣潮》WIKI</a>：角色名称与角色图鉴数据来源。</li>
-      <li><a href="https://www.wutheringtools.com/info" target="_blank" rel="noreferrer">Wuthering Tools</a>：社区伤害乘区结构交叉检查。</li>
-      <li><a href="https://wikiwiki.jp/w-w/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F" target="_blank" rel="noreferrer">鳴潮 Wiki* · ダメージ計算式</a>：ATK、暴击期望、Damage Bonus / Amplify 等口径交叉检查。</li>
+      <li><a href="https://wiki.kurobbs.com/mc/home" target="_blank" rel="noreferrer">库街区《鸣潮》WIKI</a>：角色、技能伤害归类、共鸣链文本的主要数据源。</li>
       <li><a href="https://www.prydwen.gg/wuthering-waves/guides/echo-stats" target="_blank" rel="noreferrer">Prydwen · Echo Stats</a>：五星声骸副词条范围交叉检查。</li>
+      <li><a href="https://wutheringwaves.fandom.com/wiki/Echo/Stats" target="_blank" rel="noreferrer">Wuthering Waves Wiki · Echo Stats</a>：副词条固定离散档位交叉检查。</li>
+      <li><a href="https://www.wutheringtools.com/info" target="_blank" rel="noreferrer">Wuthering Tools</a>：伤害乘区结构交叉检查。</li>
     </ol>
-    <div class="callout warning">本站的“边际评分”是基于当前角色面板重新计算词条价值，不是官方评分，也不是固定 CV。共鸣链若只是一个对所有伤害都相同的独立倍率，会在新旧声骸比值中相消；真正影响声骸词条边际价值的是它对攻击、双暴、增伤、伤害构成等的改变。</div>
+    <div class="callout warning">角色的“有效伤害类型”来自角色机制库，不再由玩家手填。尚未完成机制校验的角色会明确提示，并不会擅自把某个类型伤害词条判为有效。</div>
   </section>
 </main>
 <script src="app.js"></script>
