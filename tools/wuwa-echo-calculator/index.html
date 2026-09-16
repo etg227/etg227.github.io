@@ -3,198 +3,104 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="鸣潮声骸副词条边际收益、稀释边界、队伍 Buff 覆盖与换装提升计算器。" />
-  <title>鸣潮声骸边际收益计算器 · WuWa Echo Marginal Calculator</title>
+  <meta name="description" content="鸣潮声骸副词条边际收益、稀释边界与可选高级配队 Buff 计算器。" />
+  <title>鸣潮声骸边际收益计算器</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap header-inner">
-      <div>
-        <div class="eyebrow">WUTHERING WAVES · ECHO THEORY TOOL</div>
-        <h1>鸣潮声骸边际收益计算器</h1>
-        <p class="subtitle">把“几有效”换成真正的伤害提升：计算副词条稀释、队伍 Buff 覆盖、换声骸收益与收益分界线。</p>
-      </div>
-      <div class="header-actions">
-        <button class="ghost" id="saveBtn">保存配置</button>
-        <button class="ghost" id="loadBtn">读取配置</button>
-        <button class="primary" id="exportBtn">导出 JSON</button>
-        <input id="importInput" type="file" accept="application/json" hidden />
-        <button class="ghost" id="importBtn">导入 JSON</button>
-      </div>
+<main class="wrap main-grid">
+  <section class="panel intro-panel full">
+    <div class="panel-title-row"><div><span class="step">01</span><h2>计算模式</h2></div><span class="status-pill">Reference snapshot · 2026-09-16</span></div>
+    <div class="mode-grid">
+      <label class="mode-card active" id="simpleModeCard"><input id="advancedMode" type="checkbox" hidden><strong>普通模式</strong><span>只计算声骸副词条边际收益。无需理解 Buff 覆盖、输出窗口。</span></label>
+      <button class="mode-card" id="advancedToggle" type="button"><strong>高级配队模式</strong><span>需要时再加入队友 Buff、伤害类型与输出窗口覆盖。</span><b id="advancedState">未开启</b></button>
     </div>
-  </header>
+    <div class="callout"><strong>默认建议：</strong>如果你只是想判断“这只声骸值不值得换”，保持高级模式关闭即可。高级模式不会在关闭时偷偷参与计算。</div>
+  </section>
 
-  <main class="wrap main-grid">
-    <section class="panel intro-panel full">
-      <div class="panel-title-row">
-        <div>
-          <span class="step">01</span>
-          <h2>计算口径</h2>
-        </div>
-        <span class="status-pill">Reference snapshot: 2026-09-16 · v3.6</span>
-      </div>
-      <div class="callout">
-        <strong>推荐输入战斗前的角色面板。</strong> “当前面板”包含你正在使用的旧声骸副词条，但不包含临时队友/自 Buff。工具会先减去旧声骸副词条，再加入候选声骸，然后在每个输出窗口叠加该窗口实际生效的 Buff。
-      </div>
-      <div class="formula-strip">
-        <span>属性区</span><b>×</b><span>伤害加成区</span><b>×</b><span>Amplify / 加深</span><b>×</b><span>期望暴击区</span><b>×</b><span>其他乘区</span>
-      </div>
-      <p class="micro">本工具专门比较“换副词条以后相对提升多少”。技能倍率、防御、抗性等在同一输出段对候选声骸通常会约掉；如果它们改变了某一段在整轮中的伤害占比，请直接把变化反映到“输出窗口”的当前伤害占比中。</p>
-    </section>
+  <section class="panel full">
+    <div class="panel-title-row"><div><span class="step">02</span><h2>选择角色</h2></div><span class="hint" id="rosterSource">正在读取库街区角色库…</span></div>
+    <div class="party-picker">
+      <div class="party-slot"><span>主角色</span><button class="character-pick" data-slot="carry" type="button"><span class="portrait placeholder">?</span><span class="pick-name" id="carryName">选择角色</span></button></div>
+      <div class="party-slot advanced-only"><span>队友 2</span><button class="character-pick" data-slot="mate2" type="button"><span class="portrait placeholder">?</span><span class="pick-name" id="mate2Name">选择角色</span></button></div>
+      <div class="party-slot advanced-only"><span>队友 3</span><button class="character-pick" data-slot="mate3" type="button"><span class="portrait placeholder">?</span><span class="pick-name" id="mate3Name">选择角色</span></button></div>
+    </div>
+    <div class="character-browser" id="characterBrowser" hidden>
+      <div class="browser-head"><input id="characterSearch" placeholder="搜索角色名称"><button id="closeCharacterBrowser" type="button">关闭</button></div>
+      <div class="character-grid" id="characterGrid"></div>
+    </div>
+  </section>
 
-    <section class="panel">
-      <div class="panel-title-row">
-        <div><span class="step">02</span><h2>角色当前面板</h2></div>
-        <button class="mini" id="resetStatsBtn">重置示例</button>
+  <section class="panel">
+    <div class="panel-title-row"><div><span class="step">03</span><h2>角色当前战斗面板</h2></div><button class="mini" id="resetStatsBtn">重置示例</button></div>
+    <div class="stat-table">
+      <div class="stat-head"><span>属性</span><span>基础值</span><span>当前总值</span></div>
+      <label class="stat-row"><span>攻击 ATK</span><input id="baseAtk" type="number" value="950"><input id="totalAtk" type="number" value="2300"></label>
+      <label class="stat-row"><span>生命 HP</span><input id="baseHp" type="number" value="15000"><input id="totalHp" type="number" value="21000"></label>
+      <label class="stat-row"><span>防御 DEF</span><input id="baseDef" type="number" value="1200"><input id="totalDef" type="number" value="1500"></label>
+    </div>
+    <div class="form-grid three compact-top">
+      <label>暴击率 CR %<input id="critRate" type="number" value="75" step="0.1"></label>
+      <label>面板暴伤 CD %<input id="critDmg" type="number" value="250" step="0.1"></label>
+      <label>共鸣效率 ER %<input id="energyRegen" type="number" value="125" step="0.1"></label>
+    </div>
+    <details>
+      <summary>当前伤害加成（普通模式可选）</summary>
+      <div class="form-grid two compact-top">
+        <label>全局/属性伤害加成池 %<input id="globalDmg" type="number" value="60" step="0.1"></label>
+        <label>全局 Amplify / 加深 %<input id="globalAmp" type="number" value="0" step="0.1"></label>
       </div>
-      <div class="form-grid three">
-        <label>角色名<input id="carryName" value="主C" /></label>
-        <label>队友 2<input id="mate2Name" value="副C" /></label>
-        <label>队友 3<input id="mate3Name" value="辅助" /></label>
-      </div>
+      <div id="typeBonusGrid" class="type-bonus-grid"></div>
+    </details>
+  </section>
 
-      <div class="stat-table">
-        <div class="stat-head"><span>属性</span><span>基础值</span><span>当前总值</span></div>
-        <label class="stat-row"><span>攻击 ATK</span><input id="baseAtk" type="number" value="950" step="1" /><input id="totalAtk" type="number" value="2300" step="1" /></label>
-        <label class="stat-row"><span>生命 HP</span><input id="baseHp" type="number" value="15000" step="1" /><input id="totalHp" type="number" value="21000" step="1" /></label>
-        <label class="stat-row"><span>防御 DEF</span><input id="baseDef" type="number" value="1200" step="1" /><input id="totalDef" type="number" value="1500" step="1" /></label>
-      </div>
+  <section class="panel">
+    <div class="panel-title-row"><div><span class="step">04</span><h2>旧声骸 vs 候选声骸</h2></div><span class="hint">主词条/套装保持一致</span></div>
+    <div class="echo-columns">
+      <div><div class="echo-title"><strong>当前声骸</strong><button class="mini" data-clear-echo="old">清空</button></div><div id="oldEchoRows" class="echo-rows"></div></div>
+      <div><div class="echo-title"><strong>候选声骸</strong><button class="mini" data-clear-echo="new">清空</button></div><div id="newEchoRows" class="echo-rows"></div></div>
+    </div>
+  </section>
 
-      <div class="form-grid three compact-top">
-        <label>暴击率 CR %<input id="critRate" type="number" value="75" step="0.1" /></label>
-        <label>面板暴伤 CD %<input id="critDmg" type="number" value="250" step="0.1" /></label>
-        <label>共鸣效率 ER %<input id="energyRegen" type="number" value="125" step="0.1" /></label>
-      </div>
+  <section class="panel full advanced-section advanced-only">
+    <div class="panel-title-row"><div><span class="step">A1</span><h2>队伍 Buff 库</h2></div><button class="primary mini" id="addBuffBtn">+ 添加 Buff</button></div>
+    <p class="micro">高级模式才参与计算。每个 Buff 单独填写；同一技能有多个效果时拆成多条。</p>
+    <div class="table-scroll"><table class="data-table"><thead><tr><th>来源</th><th>名称</th><th>效果</th><th>数值</th><th>目标</th><th></th></tr></thead><tbody id="buffRows"></tbody></table></div>
+  </section>
 
-      <details open>
-        <summary>当前伤害加成 / Amplify</summary>
-        <div class="form-grid two compact-top">
-          <label>全局 + 属性伤害加成池 %<input id="globalDmg" type="number" value="60" step="0.1" /></label>
-          <label>全局 Amplify / 加深 %<input id="globalAmp" type="number" value="0" step="0.1" /></label>
-        </div>
-        <div class="type-bonus-grid" id="typeBonusGrid"></div>
-      </details>
+  <section class="panel full advanced-section advanced-only">
+    <div class="panel-title-row"><div><span class="step">A2</span><h2>输出窗口 / Buff 覆盖</h2></div><div class="inline-actions"><button class="mini" id="normalizeSegmentsBtn">归一化 100%</button><button class="primary mini" id="addSegmentBtn">+ 添加窗口</button></div></div>
+    <p class="micro">不知道怎么填就不要开启高级模式。普通模式下工具使用一个默认“全伤害窗口”，不会要求覆盖率。</p>
+    <div id="segmentRows" class="segment-list"></div><div id="coverageSummary" class="coverage-summary"></div>
+  </section>
 
-      <details>
-        <summary>ER 阈值提示（可选）</summary>
-        <div class="form-grid two compact-top">
-          <label>循环所需 ER %<input id="erTarget" type="number" value="120" step="0.1" /></label>
-          <label>不足时仅提示，不自动估算 DPS<input value="阈值属性：达到即可" disabled /></label>
-        </div>
-      </details>
-    </section>
+  <section class="panel full results-panel">
+    <div class="panel-title-row"><div><span class="step">05</span><h2>计算结果</h2></div><button class="primary" id="calculateBtn">重新计算</button></div>
+    <div class="hero-results">
+      <div class="metric-card accent"><span>候选声骸整轮提升</span><strong id="overallGain">—</strong><small id="overallGainNote">相对当前声骸</small></div>
+      <div class="metric-card"><span>当前期望暴击乘区</span><strong id="critFactor">—</strong><small id="critState">—</small></div>
+      <div class="metric-card"><span>候选 ER</span><strong id="candidateEr">—</strong><small id="erState">阈值属性，不强换算 DPS</small></div>
+      <div class="metric-card"><span>当前最值钱标准词条</span><strong id="bestStandard">—</strong><small id="modeResult">普通模式</small></div>
+    </div>
+    <div class="results-grid"><div><h3>候选声骸每条副词条边际贡献</h3><div id="lineMarginals" class="bars"></div></div><div><h3>标准词条当前收益</h3><div id="standardBars" class="bars"></div></div></div>
+    <div class="advanced-only"><h3>高级模式：每个输出窗口换装收益</h3><div id="segmentResultBars" class="bars"></div></div>
+  </section>
 
-    <section class="panel">
-      <div class="panel-title-row">
-        <div><span class="step">03</span><h2>旧声骸 vs 候选声骸</h2></div>
-        <span class="hint">只填副词条；主词条/套装保持不变</span>
-      </div>
-      <div class="echo-columns">
-        <div>
-          <div class="echo-title"><strong>当前旧声骸</strong><button class="mini" data-clear-echo="old">清空</button></div>
-          <div id="oldEchoRows" class="echo-rows"></div>
-        </div>
-        <div>
-          <div class="echo-title"><strong>候选声骸</strong><button class="mini" data-clear-echo="new">清空</button></div>
-          <div id="newEchoRows" class="echo-rows"></div>
-        </div>
-      </div>
-      <div class="callout subtle compact-top">如果你只想算“一条新词条能提高多少”，把旧声骸清空，并让当前面板填写为<strong>未包含这条新词条</strong>的状态即可。</div>
-    </section>
+  <section class="panel full">
+    <div class="panel-title-row"><div><span class="step">06</span><h2>收益边界</h2></div><span class="hint">用来观察稀释什么时候反转词条优先级</span></div>
+    <div id="rollControls" class="roll-controls"></div><div id="boundaryCards" class="boundary-grid"></div>
+  </section>
 
-    <section class="panel full">
-      <div class="panel-title-row">
-        <div><span class="step">04</span><h2>队伍 Buff 库</h2></div>
-        <button class="primary mini" id="addBuffBtn">+ 添加 Buff</button>
-      </div>
-      <p class="micro">每条 Buff 只描述一个效果。若同一技能同时提供攻击和暴伤，请拆成两条并在同一输出窗口同时勾选，这样重叠关系是精确的，不使用“平均覆盖率”近似。</p>
-      <div class="table-scroll">
-        <table class="data-table">
-          <thead><tr><th>来源</th><th>Buff 名称</th><th>效果</th><th>数值</th><th>目标</th><th></th></tr></thead>
-          <tbody id="buffRows"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="panel full">
-      <div class="panel-title-row">
-        <div><span class="step">05</span><h2>输出窗口 / Buff 覆盖</h2></div>
-        <div class="inline-actions"><button class="mini" id="normalizeSegmentsBtn">归一化 100%</button><button class="primary mini" id="addSegmentBtn">+ 添加窗口</button></div>
-      </div>
-      <p class="micro"><strong>伤害占比</strong>填写当前旧声骸、当前队伍与当前手法下，该输出窗口占整轮伤害的比例。Buff 的覆盖率会由勾选它的窗口占比自动得到。一个技能跨越 Buff 前后时，拆成两个窗口即可。</p>
-      <div id="segmentRows" class="segment-list"></div>
-      <div class="coverage-summary" id="coverageSummary"></div>
-    </section>
-
-    <section class="panel full results-panel">
-      <div class="panel-title-row">
-        <div><span class="step">06</span><h2>计算结果</h2></div>
-        <button class="primary" id="calculateBtn">重新计算</button>
-      </div>
-      <div class="hero-results">
-        <div class="metric-card accent"><span>候选声骸整轮提升</span><strong id="overallGain">—</strong><small id="overallGainNote">相对当前旧声骸</small></div>
-        <div class="metric-card"><span>当前期望暴击乘区</span><strong id="critFactor">—</strong><small id="critState">—</small></div>
-        <div class="metric-card"><span>候选 ER</span><strong id="candidateEr">—</strong><small id="erState">—</small></div>
-        <div class="metric-card"><span>最高价值标准词条</span><strong id="bestStandard">—</strong><small>按当前队伍与窗口计算</small></div>
-      </div>
-
-      <div class="results-grid">
-        <div>
-          <h3>每个输出窗口的换装收益</h3>
-          <div id="segmentResultBars" class="bars"></div>
-        </div>
-        <div>
-          <h3>候选声骸每条副词条的边际贡献</h3>
-          <div id="lineMarginals" class="bars"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel full">
-      <div class="panel-title-row">
-        <div><span class="step">07</span><h2>标准副词条收益边界</h2></div>
-        <span class="hint">标准档可自行修改</span>
-      </div>
-      <div class="roll-controls" id="rollControls"></div>
-      <div id="standardBars" class="bars large"></div>
-      <div class="boundary-grid" id="boundaryCards"></div>
-    </section>
-
-    <section class="panel full">
-      <div class="panel-title-row">
-        <div><span class="step">08</span><h2>不同队伍下，同一候选声骸的收益</h2></div>
-        <button class="primary mini" id="snapshotBtn">+ 记录当前队伍</button>
-      </div>
-      <p class="micro">切换队友 / Buff / 输出窗口后重新计算，再记录一次。这样可以直接比较“同一声骸在不同配队里的实际价值”。记录只保存在当前浏览器。</p>
-      <div id="snapshotTableWrap" class="table-scroll"></div>
-    </section>
-
-    <section class="panel full references" id="references">
-      <div class="panel-title-row"><div><span class="step">R</span><h2>Reference / 公式依据</h2></div></div>
-      <ol>
-        <li><a href="https://www.wutheringtools.com/info" target="_blank" rel="noreferrer">Wuthering Tools — Info / damage formula</a>：属性面板、Damage Bonus、Amplify、暴击、防御与抗性乘区的社区实测计算口径。</li>
-        <li><a href="https://wikiwiki.jp/w-w/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F" target="_blank" rel="noreferrer">鳴潮 Wiki* — ダメージ計算式</a>（页面更新 2026-08-13）：攻击力公式、不同伤害乘区、暴击期望与 1:2 推导、防御/耐性说明。</li>
-        <li><a href="https://www.prydwen.gg/wuthering-waves/guides/echo-stats" target="_blank" rel="noreferrer">Prydwen — Echoes Stats</a>：声骸副词条可出现的数值范围。</li>
-        <li><a href="https://wikiwiki.jp/w-w/%E9%9F%B3%E9%AA%B8/%E5%8E%B3%E9%81%B8%E3%81%A8%E7%A2%BA%E7%8E%87" target="_blank" rel="noreferrer">鳴潮 Wiki* — 音骸/厳選と確率</a>：副词条离散档位与公开概率整理。</li>
-        <li><a href="https://github.com/chuan-hane/wuwa-damage-calculator" target="_blank" rel="noreferrer">chuan-hane/wuwa-damage-calculator</a> 与 <a href="https://github.com/devyur/Wuwa-rotation-calculator" target="_blank" rel="noreferrer">devyur/Wuwa-rotation-calculator</a>：用于交叉检查社区开源实现的乘区组织方式。</li>
-      </ol>
-      <div class="callout warning"><strong>重要：</strong>本工具是非官方理论计算器。鸣潮并未提供一套面向玩家的官方完整计算器；公式与词条资料来自社区实测、Wiki 与开源工具的交叉验证。版本更新、新角色的“特殊倍率/独立乘区/异常效果”可能需要单独建模。工具不把未验证机制伪装成官方结论。</div>
-      <h3>核心公式</h3>
-      <pre><code>属性 = 当前总属性 - 旧声骸贡献 + 新声骸贡献 + 基础属性 × Buff% + 固定 Buff
-期望暴击 = 1 + min(CR, 100%) × (CD - 100%)
-伤害加成 = 1 + 全局/属性加成 + 对应攻击类型加成
-Amplify = 1 + 全局 Amplify + 对应攻击类型 Amplify
-
-单窗口换装倍率 = CandidateFactor / CurrentFactor
-整轮换装倍率 = Σ(当前窗口伤害占比 × 单窗口换装倍率)
-副词条边际收益 = 完整候选 / 去掉该条后的候选 - 1</code></pre>
-      <p class="micro">“伤害占比加权”让工具可以精确处理 Buff 覆盖与重叠，而不需要假设 Buff 相互独立。若你填的是实战/完整模拟器得到的当前伤害占比，则技能倍率、防御、抗性、独立乘区等已经隐含在权重里。</p>
-    </section>
-  </main>
-
-  <footer class="site-footer"><div class="wrap">Unofficial fan-made theory tool · Source intended for GitHub Pages · No game assets bundled.</div></footer>
-
-  <script src="app.js"></script>
-</body>
-</html>
+  <section class="panel full references" id="references">
+    <div class="panel-title-row"><div><span class="step">R</span><h2>Reference</h2></div></div>
+    <ol>
+      <li><a href="https://wiki.kurobbs.com/mc/home" target="_blank" rel="noreferrer">库街区《鸣潮》WIKI</a>：角色名称、角色图鉴及角色库数据来源。</li>
+      <li><a href="https://www.wutheringtools.com/info" target="_blank" rel="noreferrer">Wuthering Tools</a>：社区伤害乘区结构交叉检查。</li>
+      <li><a href="https://wikiwiki.jp/w-w/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F" target="_blank" rel="noreferrer">鳴潮 Wiki* · ダメージ計算式</a>：ATK、暴击期望、Damage Bonus / Amplify 等口径交叉检查。</li>
+      <li><a href="https://www.prydwen.gg/wuthering-waves/guides/echo-stats" target="_blank" rel="noreferrer">Prydwen · Echo Stats</a>：五星声骸副词条范围。</li>
+    </ol>
+    <div class="callout warning">非官方理论工具。普通模式只计算声骸自身边际变化；高级模式只有在玩家主动开启后才加入 Buff 与输出窗口。</div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body></html>
