@@ -1,0 +1,293 @@
+/* WuWa toolbox integration for /wuwa/ only. Scoped to avoid affecting other blog pages. */
+body.wuwa-toolbox-mounted #content-inner.layout {
+  max-width: 1400px;
+}
+
+body.wuwa-toolbox-mounted #aside-content {
+  display: none;
+}
+
+body.wuwa-toolbox-mounted #page {
+  width: 100%;
+  min-width: 0;
+}
+
+#wuwa-toolbox-root {
+  --wuwa-accent: var(--anzhiyu-main, #425aef);
+  --wuwa-card: var(--anzhiyu-card-bg, #fff);
+  --wuwa-soft: var(--anzhiyu-secondbg, #f7f9fe);
+  --wuwa-text: var(--anzhiyu-fontcolor, #363636);
+  --wuwa-muted: var(--anzhiyu-secondtext, #858585);
+  --wuwa-border: var(--anzhiyu-card-border, rgba(60, 60, 67, 0.12));
+  color: var(--wuwa-text);
+  margin-top: .4rem;
+}
+
+#wuwa-toolbox-root * {
+  box-sizing: border-box;
+}
+
+.wuwa-toolbox-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  border: 1px solid var(--wuwa-border);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 96% 0%, color-mix(in srgb, var(--wuwa-accent) 18%, transparent), transparent 34%),
+    var(--wuwa-soft);
+}
+
+.wuwa-toolbox-hero::after {
+  content: "WUTHERING WAVES";
+  position: absolute;
+  right: 20px;
+  bottom: -9px;
+  color: color-mix(in srgb, var(--wuwa-accent) 9%, transparent);
+  font-size: clamp(30px, 7vw, 76px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: .04em;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.wuwa-toolbox-kicker {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--wuwa-accent) 12%, transparent);
+  color: var(--wuwa-accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.wuwa-toolbox-hero h2 {
+  position: relative;
+  z-index: 1;
+  margin: 12px 0 8px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  font-size: clamp(24px, 4vw, 36px) !important;
+  line-height: 1.2;
+}
+
+.wuwa-toolbox-hero h2::before,
+.wuwa-toolbox-hero h3::before {
+  display: none !important;
+}
+
+.wuwa-toolbox-hero p {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0;
+  color: var(--wuwa-muted);
+  line-height: 1.75;
+}
+
+.wuwa-toolbox-tags {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.wuwa-toolbox-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 9px;
+  border: 1px solid var(--wuwa-border);
+  border-radius: 9px;
+  background: var(--wuwa-card);
+  color: var(--wuwa-muted);
+  font-size: 12px;
+}
+
+.wuwa-toolbox-meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 15px;
+  font-size: 12px;
+  color: var(--wuwa-muted);
+}
+
+.wuwa-toolbox-meta a {
+  color: var(--wuwa-accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.wuwa-toolbox-meta a:hover {
+  text-decoration: underline;
+}
+
+.wuwa-tool-shell {
+  overflow: hidden;
+  border: 1px solid var(--wuwa-border);
+  border-radius: 18px;
+  background: var(--wuwa-card);
+  box-shadow: var(--anzhiyu-shadow-border, 0 8px 24px rgba(0,0,0,.05));
+}
+
+.wuwa-tool-shell-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--wuwa-border);
+  background: var(--wuwa-soft);
+}
+
+.wuwa-tool-title {
+  min-width: 0;
+}
+
+.wuwa-tool-title strong {
+  display: block;
+  color: var(--wuwa-text);
+  font-size: 15px;
+}
+
+.wuwa-tool-title span {
+  display: block;
+  margin-top: 2px;
+  color: var(--wuwa-muted);
+  font-size: 11px;
+}
+
+.wuwa-tool-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.wuwa-tool-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 1px solid var(--wuwa-border);
+  border-radius: 9px;
+  background: var(--wuwa-card);
+  color: var(--wuwa-text);
+  font-size: 12px;
+  text-decoration: none;
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.wuwa-tool-actions a:hover {
+  transform: translateY(-1px);
+  border-color: var(--wuwa-accent);
+  color: var(--wuwa-accent);
+}
+
+.wuwa-tool-embed-wrap {
+  position: relative;
+  min-height: 720px;
+  background: var(--wuwa-card);
+}
+
+.wuwa-tool-loading {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 120px;
+  color: var(--wuwa-muted);
+  font-size: 13px;
+  background: var(--wuwa-card);
+  transition: opacity .2s ease;
+}
+
+.wuwa-tool-loading.is-ready {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wuwa-tool-loading-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--wuwa-accent);
+  box-shadow: 14px 0 0 color-mix(in srgb, var(--wuwa-accent) 60%, transparent), 28px 0 0 color-mix(in srgb, var(--wuwa-accent) 30%, transparent);
+  margin-right: 28px;
+  animation: wuwaToolPulse 1s infinite alternate ease-in-out;
+}
+
+@keyframes wuwaToolPulse {
+  from { opacity: .45; transform: translateY(0); }
+  to { opacity: 1; transform: translateY(-2px); }
+}
+
+#wuwa-calculator-frame {
+  display: block;
+  width: 100%;
+  min-height: 720px;
+  border: 0;
+  background: transparent;
+}
+
+.wuwa-toolbox-note {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--wuwa-accent);
+  border-radius: 0 10px 10px 0;
+  background: var(--wuwa-soft);
+  color: var(--wuwa-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+[data-theme="dark"] #wuwa-toolbox-root {
+  --wuwa-card: var(--anzhiyu-card-bg, #1d1e20);
+  --wuwa-soft: var(--anzhiyu-secondbg, #242629);
+  --wuwa-text: var(--anzhiyu-fontcolor, #f1f1f1);
+  --wuwa-muted: var(--anzhiyu-secondtext, #a8a8a8);
+  --wuwa-border: var(--anzhiyu-card-border, rgba(255,255,255,.1));
+}
+
+@media (max-width: 768px) {
+  .wuwa-toolbox-hero {
+    padding: 18px 16px;
+    border-radius: 14px;
+  }
+
+  .wuwa-toolbox-hero::after {
+    display: none;
+  }
+
+  .wuwa-tool-shell {
+    border-radius: 14px;
+  }
+
+  .wuwa-tool-shell-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .wuwa-tool-actions {
+    width: 100%;
+  }
+
+  .wuwa-tool-actions a {
+    flex: 1;
+  }
+}
