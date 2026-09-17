@@ -1,6 +1,6 @@
 # References and Methodology
 
-Reference snapshot: **2026-09-16**. Intended for Wuthering Waves **v3.6** theorycrafting.
+Reference snapshot: **2026-09-17**. Intended for Wuthering Waves **v3.6** theorycrafting.
 
 This project is an **unofficial fan-made theory tool**. It distinguishes community-tested formulas from official in-game descriptions. Kuro Games does not publish one complete player-facing formula reference covering every character-specific mechanic.
 
@@ -61,7 +61,7 @@ Used to cross-check Rank 5 Echo substat ranges, including examples such as:
 - Flat HP: 320 – 580
 - Flat DEF: 40 – 70
 
-The calculator does not hard-lock the comparison tier. Users can edit the standard-roll controls because marginal boundaries should not depend on a single arbitrary roll tier.
+Substat values in the UI are hard-locked to the real in-game roll tiers (dropdowns), so impossible values cannot be entered. Duplicate substat types on one Echo are rejected, matching the in-game rule.
 
 ### 鳴潮 Wiki* — 音骸/厳選と確率
 https://wikiwiki.jp/w-w/%E9%9F%B3%E9%AA%B8/%E5%8E%B3%E9%81%B8%E3%81%A8%E7%A2%BA%E7%8E%87
@@ -111,49 +111,43 @@ ReplacementGain = CandidateFactor / CurrentFactor - 1
 
 Both main stats and substats can therefore affect replacement gain.
 
-## 7. Individual Echo marginal score
+## 7. Individual Echo score and build graduation (static)
 
-The score is designed to measure contextual substat quality rather than fixed CV.
+Since 2026-09-17 the per-Echo score is a **static, character-scoped score** adapted from the open-source [WuwaEchoTool](https://github.com/GQin404/WuwaEchoTool) coefficient scheme. It replaced the earlier marginal-equivalent-roll formula.
 
-First, the tool calculates the current marginal gain of representative average rolls and takes the strongest relevant one as the reference gain `Gref`.
-
-For each substat line:
+Each substat type has a character-dependent coefficient:
 
 ```text
-EquivalentRoll_i = ln(1 + Gi) / ln(1 + Gref)
+Crit Rate 1.8 · Crit DMG 0.9 · scaler% 1 (DEF-scaler 1.2)
+flat scaler stat: small coefficient (ATK 0.1 / HP 0.01 / DEF 0.09)
+type-damage substat = 0.9 × that character's damage-composition share
+Energy Regen 0.5 · off-scaler substats 0
+
+LineScore   = value × coefficient
+EchoScore   = Σ LineScore / (theoretical best 5 distinct max-roll lines) × 100
+BuildScore  = Σ(main + fixed main + substats) / theoretical full loadout × 100
 ```
 
-where `Gi` is the actual damage loss observed when that substat is removed from the current build.
+Graduation tiers on BuildScore (WuwaEchoTool convention): `>90 完美毕业 · >80 大毕业 · >70 中毕业 · >60 小毕业 · >50 接近毕业 · else 咸鱼一条`.
 
-Then:
+Properties and limits of this score — stated deliberately so players know what it can and cannot claim:
 
-```text
-EchoMarginalScore = Σ EquivalentRoll_i / 5 × 100
-```
+- `100` = five distinct best-effective substats all at max roll.
+- The score depends only on the character (and its per-chain damage composition), **not** on the entered panel or the other four Echoes. Editing Echo B never changes Echo A's score.
+- Because it ignores the live panel, **a high-scoring Echo is not automatically the better swap for the current build** (e.g. Crit Rate lines near the 100% cap). The replacement gain and the actionable-upgrade ranking are the panel-aware, fully recomputed numbers to use for that decision. The two systems intentionally coexist: static score = "how good is this Echo's substat budget for this character", marginal calculations = "what should I change next on this build".
+- The S/SS/SSS label is a presentation layer for this site's own score, not an official game grade.
 
-Interpretation:
-
-- `100` means five substats approximately equal to five currently-best average rolls.
-- The same physical Echo can receive a different score on a different character/build.
-- High Crit-DMG self buffs can reduce Crit-DMG line scores.
-- A stat that does not affect the modeled damage state, such as excess ER in the current simplified model, can receive little or zero damage score.
-
-The displayed S/SS/SSS-style label is only a presentation layer for this site's own score. It is not an official game grade.
+The actionable-upgrade ranking does **not** use ratio approximations: every candidate action (raise an existing line to max roll, or replace one existing line with an average roll of the target type) is evaluated by cloning the full 5-Echo loadout and recomputing the damage factor, so crit-cap clamping and conditional set thresholds (e.g. ER ≥ 250%) are honored per scenario.
 
 ## 8. Resonance Chain handling
 
-The manual version records the selected Resonance Chain level from 0 to 6.
+The character-mechanics dataset now carries, per character:
 
-It does **not** claim that all character-specific chain descriptions are already machine-modeled.
+- `chains[].effects`: combat-only stat buffs per chain level (ATK%, Crit, type/element damage bonus, Amplify), applied automatically when the chain level is selected. Permanent panel-visible chain stats are marked `apply: "panel"` and excluded, since they are already inside the user-entered panel.
+- `chain_type_weights`: per-chain damage-composition tables ("1"–"6"), used when a chain changes motion multipliers, adds new tagged damage or converts tags. Legacy characters reuse WuwaEchoTool's `mzProperty` tables; post-陆·赫斯 characters were derived from 2026-09 community guides with per-character sources recorded in the data.
+- Chain buffs that only raise crit damage of a single skill cannot be honestly encoded as flat type-damage bonuses; they are kept as text notes and (approximately) reflected via the composition tables instead.
 
-Current treatment:
-
-- Permanent chain stats visible in the character panel belong in the current panel values.
-- Combat-only ATK%, Crit Rate, Crit DMG, Damage Bonus and Amplify changes can be entered under the self-buff / chain correction section.
-- A constant independent multiplier that affects both Current and Candidate identically cancels out of the replacement ratio.
-- Chain effects that alter motion values, damage composition, anomaly formulas or stat-conversion rules require character-specific modeling and are not guessed.
-
-A future character-mechanics dataset can populate these corrections automatically from character + chain selection.
+A constant multiplier affecting Current and Candidate identically still cancels out of the replacement ratio.
 
 ## 9. Product / UX reference
 
@@ -165,10 +159,6 @@ https://www.bilibili.com/video/BV1qTuh63E4c/
 
 Used only as a product / interaction reference for making theorycrafting easier to enter and read in a browser. This project does not treat it as the sole damage-formula source and does not copy its UI, assets or private data.
 
-## 10. Deferred Kuro account synchronization
+## 10. Kuro account import
 
-Automatic login and player-data import are intentionally deferred.
-
-The public Kuro data structures used by existing community tools can expose character level, chain list, weapon, attribute lists and equipped Echoes, but a GitHub Pages-only frontend is not an appropriate place to persist player authentication tokens.
-
-If account sync is added later, it should use a separate backend/session layer and avoid embedding credentials in public frontend source.
+`kuro-sync.js` implements optional client-side import, mirroring WuwaEchoTool's flow: the player pastes their own Kuro BBS token, which is stored only in that browser's localStorage and sent directly to the official `api.kurobbs.com` endpoints (requestToken → refreshData → roleData → getRoleDetail). This site never receives, proxies or logs the token; an unbind button deletes the local copy. Imported substat values are snapped to the nearest legal roll tier. Panel stats are not provided by the API and must still be copied from the in-game character page.
