@@ -1,5 +1,5 @@
 (()=>{
-  const TOOL_PATH='/tools/wuwa-echo-calculator/?embed=blog&v=20260917-5';
+  const TOOL_PATH='/tools/wuwa-echo-calculator/?embed=blog&v=20260917-6';
   const ROOT_ID='wuwa-toolbox-root',FRAME_ID='wuwa-calculator-frame';
   const isWuwa=()=>/^\/wuwa\/?$/.test(location.pathname);
   const tv=(n,f)=>getComputedStyle(document.documentElement).getPropertyValue(n).trim()||f;
