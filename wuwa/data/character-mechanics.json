@@ -84,7 +84,51 @@
         "https://www.prydwen.gg/wuthering-waves/characters/mornye",
         "https://game8.co/games/Wuthering-Waves/archives/568193"
       ],
-      "notes": "热熔防御倍率奶辅，伤害与治疗吃防御，共鸣效率超出260%转化解放双暴。"
+      "notes": "热熔防御倍率奶辅，伤害与治疗吃防御，共鸣效率超出260%转化解放双暴。；逐链伤害构成取自 WuwaEchoTool mzProperty。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.12,
+          "heavy": 0.08,
+          "skill": 0.45,
+          "liberation": 0.28,
+          "other": 0.07
+        },
+        "2": {
+          "basic": 0.11,
+          "heavy": 0.07,
+          "skill": 0.46,
+          "liberation": 0.29,
+          "other": 0.07
+        },
+        "3": {
+          "basic": 0.1,
+          "heavy": 0.07,
+          "skill": 0.47,
+          "liberation": 0.29,
+          "other": 0.07
+        },
+        "4": {
+          "basic": 0.1,
+          "heavy": 0.06,
+          "skill": 0.46,
+          "liberation": 0.31,
+          "other": 0.07
+        },
+        "5": {
+          "basic": 0.09,
+          "heavy": 0.06,
+          "skill": 0.45,
+          "liberation": 0.33,
+          "other": 0.07
+        },
+        "6": {
+          "basic": 0.08,
+          "heavy": 0.05,
+          "skill": 0.44,
+          "liberation": 0.36,
+          "other": 0.07
+        }
+      }
     },
     "清宵": {
       "verified": true,
@@ -402,7 +446,52 @@
         "name": "白昼之脊",
         "effects": [],
         "verified": false
-      }
+      },
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.62,
+          "heavy": 0.03,
+          "skill": 0.12,
+          "liberation": 0.15,
+          "other": 0.08
+        },
+        "2": {
+          "basic": 0.64,
+          "heavy": 0.03,
+          "skill": 0.11,
+          "liberation": 0.14,
+          "other": 0.08
+        },
+        "3": {
+          "basic": 0.66,
+          "heavy": 0.03,
+          "skill": 0.1,
+          "liberation": 0.13,
+          "other": 0.08
+        },
+        "4": {
+          "basic": 0.68,
+          "heavy": 0.02,
+          "skill": 0.09,
+          "liberation": 0.13,
+          "other": 0.08
+        },
+        "5": {
+          "basic": 0.7,
+          "heavy": 0.02,
+          "skill": 0.08,
+          "liberation": 0.12,
+          "other": 0.08
+        },
+        "6": {
+          "basic": 0.72,
+          "heavy": 0.02,
+          "skill": 0.07,
+          "liberation": 0.11,
+          "other": 0.08
+        }
+      },
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
     },
     "爱弥斯": {
       "verified": true,
@@ -422,7 +511,52 @@
         "name": "永远的启明星",
         "effects": [],
         "verified": false
-      }
+      },
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.1,
+          "heavy": 0.05,
+          "skill": 0.17,
+          "liberation": 0.63,
+          "other": 0.05
+        },
+        "2": {
+          "basic": 0.09,
+          "heavy": 0.05,
+          "skill": 0.16,
+          "liberation": 0.65,
+          "other": 0.05
+        },
+        "3": {
+          "basic": 0.08,
+          "heavy": 0.04,
+          "skill": 0.15,
+          "liberation": 0.68,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.08,
+          "heavy": 0.04,
+          "skill": 0.14,
+          "liberation": 0.69,
+          "other": 0.05
+        },
+        "5": {
+          "basic": 0.07,
+          "heavy": 0.04,
+          "skill": 0.13,
+          "liberation": 0.71,
+          "other": 0.05
+        },
+        "6": {
+          "basic": 0.06,
+          "heavy": 0.03,
+          "skill": 0.12,
+          "liberation": 0.74,
+          "other": 0.05
+        }
+      },
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
     },
     "琳奈": {
       "verified": true,
@@ -442,7 +576,52 @@
         "name": "溢彩荧辉",
         "effects": [],
         "verified": false
-      }
+      },
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.42,
+          "heavy": 0.0,
+          "skill": 0.05,
+          "liberation": 0.15,
+          "other": 0.38
+        },
+        "2": {
+          "basic": 0.42,
+          "heavy": 0.0,
+          "skill": 0.05,
+          "liberation": 0.15,
+          "other": 0.38
+        },
+        "3": {
+          "basic": 0.63,
+          "heavy": 0.0,
+          "skill": 0.03,
+          "liberation": 0.1,
+          "other": 0.24
+        },
+        "4": {
+          "basic": 0.63,
+          "heavy": 0.0,
+          "skill": 0.03,
+          "liberation": 0.1,
+          "other": 0.24
+        },
+        "5": {
+          "basic": 0.59,
+          "heavy": 0.0,
+          "skill": 0.03,
+          "liberation": 0.15,
+          "other": 0.23
+        },
+        "6": {
+          "basic": 0.7,
+          "heavy": 0.0,
+          "skill": 0.02,
+          "liberation": 0.11,
+          "other": 0.17
+        }
+      },
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
     },
     "千咲": {
       "verified": true,
@@ -732,7 +911,52 @@
           }
         ],
         "verified": true
-      }
+      },
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.073,
+          "heavy": 0.729,
+          "skill": 0.17,
+          "liberation": 0.0,
+          "other": 0.028
+        },
+        "2": {
+          "basic": 0.073,
+          "heavy": 0.729,
+          "skill": 0.17,
+          "liberation": 0.0,
+          "other": 0.028
+        },
+        "3": {
+          "basic": 0.064,
+          "heavy": 0.7617,
+          "skill": 0.1499,
+          "liberation": 0.0,
+          "other": 0.0244
+        },
+        "4": {
+          "basic": 0.064,
+          "heavy": 0.7617,
+          "skill": 0.1499,
+          "liberation": 0.0,
+          "other": 0.0244
+        },
+        "5": {
+          "basic": 0.064,
+          "heavy": 0.7617,
+          "skill": 0.1499,
+          "liberation": 0.0,
+          "other": 0.0244
+        },
+        "6": {
+          "basic": 0.0572,
+          "heavy": 0.7912,
+          "skill": 0.1305,
+          "liberation": 0.0,
+          "other": 0.0211
+        }
+      },
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
     },
     "弗洛洛": {
       "verified": true,
@@ -765,7 +989,52 @@
           }
         ],
         "verified": true
-      }
+      },
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.073,
+          "heavy": 0.0,
+          "skill": 0.478,
+          "liberation": 0.042,
+          "other": 0.407
+        },
+        "2": {
+          "basic": 0.063,
+          "heavy": 0.0,
+          "skill": 0.548,
+          "liberation": 0.037,
+          "other": 0.352
+        },
+        "3": {
+          "basic": 0.0531,
+          "heavy": 0.0,
+          "skill": 0.4635,
+          "liberation": 0.031,
+          "other": 0.4525
+        },
+        "4": {
+          "basic": 0.0531,
+          "heavy": 0.0,
+          "skill": 0.4635,
+          "liberation": 0.031,
+          "other": 0.4525
+        },
+        "5": {
+          "basic": 0.0531,
+          "heavy": 0.0,
+          "skill": 0.4635,
+          "liberation": 0.031,
+          "other": 0.4525
+        },
+        "6": {
+          "basic": 0.0471,
+          "heavy": 0.0,
+          "skill": 0.4088,
+          "liberation": 0.0271,
+          "other": 0.517
+        }
+      },
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
     },
     "露帕": {
       "verified": true,
@@ -792,7 +1061,52 @@
           }
         ],
         "verified": true
-      }
+      },
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.102,
+          "heavy": 0.066,
+          "skill": 0.182,
+          "liberation": 0.637,
+          "other": 0.013
+        },
+        "2": {
+          "basic": 0.102,
+          "heavy": 0.066,
+          "skill": 0.182,
+          "liberation": 0.637,
+          "other": 0.013
+        },
+        "3": {
+          "basic": 0.0841,
+          "heavy": 0.0541,
+          "skill": 0.1491,
+          "liberation": 0.7027,
+          "other": 0.01
+        },
+        "4": {
+          "basic": 0.0711,
+          "heavy": 0.0461,
+          "skill": 0.1278,
+          "liberation": 0.747,
+          "other": 0.008
+        },
+        "5": {
+          "basic": 0.0711,
+          "heavy": 0.0461,
+          "skill": 0.1278,
+          "liberation": 0.747,
+          "other": 0.008
+        },
+        "6": {
+          "basic": 0.0375,
+          "heavy": 0.048,
+          "skill": 0.1337,
+          "liberation": 0.7807,
+          "other": 0.0
+        }
+      },
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
     },
     "夏空": {
       "verified": true,
@@ -890,7 +1204,52 @@
           }
         ],
         "verified": true
-      }
+      },
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.6547,
+          "heavy": 0.029,
+          "skill": 0.1031,
+          "liberation": 0.1882,
+          "other": 0.025
+        },
+        "2": {
+          "basic": 0.7067,
+          "heavy": 0.024,
+          "skill": 0.0841,
+          "liberation": 0.1542,
+          "other": 0.031
+        },
+        "3": {
+          "basic": 0.5475,
+          "heavy": 0.024,
+          "skill": 0.0851,
+          "liberation": 0.3113,
+          "other": 0.032
+        },
+        "4": {
+          "basic": 0.5475,
+          "heavy": 0.024,
+          "skill": 0.0851,
+          "liberation": 0.3113,
+          "other": 0.032
+        },
+        "5": {
+          "basic": 0.5475,
+          "heavy": 0.024,
+          "skill": 0.0851,
+          "liberation": 0.3113,
+          "other": 0.032
+        },
+        "6": {
+          "basic": 0.5475,
+          "heavy": 0.024,
+          "skill": 0.0851,
+          "liberation": 0.3113,
+          "other": 0.032
+        }
+      },
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
     },
     "赞妮": {
       "verified": true,
@@ -1329,7 +1688,52 @@
           }
         ],
         "verified": true
-      }
+      },
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.1,
+          "heavy": 0.0,
+          "skill": 0.76,
+          "liberation": 0.0,
+          "other": 0.14
+        },
+        "2": {
+          "basic": 0.09,
+          "heavy": 0.0,
+          "skill": 0.78,
+          "liberation": 0.0,
+          "other": 0.13
+        },
+        "3": {
+          "basic": 0.05,
+          "heavy": 0.0,
+          "skill": 0.76,
+          "liberation": 0.0,
+          "other": 0.19
+        },
+        "4": {
+          "basic": 0.05,
+          "heavy": 0.0,
+          "skill": 0.76,
+          "liberation": 0.0,
+          "other": 0.19
+        },
+        "5": {
+          "basic": 0.04,
+          "heavy": 0.0,
+          "skill": 0.77,
+          "liberation": 0.0,
+          "other": 0.19
+        },
+        "6": {
+          "basic": 0.02,
+          "heavy": 0.0,
+          "skill": 0.86,
+          "liberation": 0.0,
+          "other": 0.12
+        }
+      },
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
     },
     "椿": {
       "verified": true,
@@ -1356,7 +1760,52 @@
           }
         ],
         "verified": true
-      }
+      },
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.66,
+          "heavy": 0.02,
+          "skill": 0.0,
+          "liberation": 0.22,
+          "other": 0.1
+        },
+        "2": {
+          "basic": 0.72,
+          "heavy": 0.01,
+          "skill": 0.0,
+          "liberation": 0.19,
+          "other": 0.08
+        },
+        "3": {
+          "basic": 0.67,
+          "heavy": 0.0,
+          "skill": 0.0,
+          "liberation": 0.28,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.7,
+          "heavy": 0.0,
+          "skill": 0.0,
+          "liberation": 0.26,
+          "other": 0.04
+        },
+        "5": {
+          "basic": 0.66,
+          "heavy": 0.0,
+          "skill": 0.0,
+          "liberation": 0.24,
+          "other": 0.1
+        },
+        "6": {
+          "basic": 0.8,
+          "heavy": 0.0,
+          "skill": 0.0,
+          "liberation": 0.16,
+          "other": 0.04
+        }
+      },
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
     },
     "守岸人": {
       "verified": true,
@@ -1602,7 +2051,52 @@
           }
         ],
         "verified": true
-      }
+      },
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.0,
+          "heavy": 0.0,
+          "skill": 0.65,
+          "liberation": 0.24,
+          "other": 0.11
+        },
+        "2": {
+          "basic": 0.0,
+          "heavy": 0.0,
+          "skill": 0.65,
+          "liberation": 0.24,
+          "other": 0.11
+        },
+        "3": {
+          "basic": 0.0,
+          "heavy": 0.0,
+          "skill": 0.3315,
+          "liberation": 0.1713,
+          "other": 0.4972
+        },
+        "4": {
+          "basic": 0.0,
+          "heavy": 0.0,
+          "skill": 0.3315,
+          "liberation": 0.1713,
+          "other": 0.4972
+        },
+        "5": {
+          "basic": 0.0,
+          "heavy": 0.0,
+          "skill": 0.4128,
+          "liberation": 0.1221,
+          "other": 0.4651
+        },
+        "6": {
+          "basic": 0.0,
+          "heavy": 0.0,
+          "skill": 0.4128,
+          "liberation": 0.1221,
+          "other": 0.4651
+        }
+      },
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
     },
     "今汐": {
       "verified": true,
