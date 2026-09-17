@@ -14,7 +14,52 @@
         "other": 0.07
       },
       "innate": [],
-      "chains": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "阴阳合济：共鸣技能伤害倍率提升80%，施放共鸣技能时免疫打断",
+          "effects": []
+        },
+        {
+          "level": 2,
+          "summary": "入战获得300气与幽世之惠；强化重击命中回复25%共鸣能量并获得伤害加深（短窗口，未计入数值模型）",
+          "effects": []
+        },
+        {
+          "level": 3,
+          "summary": "生命值转化攻击力的上限由1800提升至2500（转化上限，未编码）",
+          "effects": []
+        },
+        {
+          "level": 4,
+          "summary": "全队全属性伤害提升20%（含自身）",
+          "effects": [
+            {
+              "kind": "globalDmg",
+              "value": 20,
+              "apply": "combat",
+              "source": "S4"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "summary": "受到致命伤害时不倒下并获得护盾（生存链）",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "目标受到景燃的重击伤害加深40%；燎焰状态解锁全自动协同攻击",
+          "effects": [
+            {
+              "kind": "heavyDmg",
+              "value": 40,
+              "apply": "combat",
+              "source": "S6"
+            }
+          ]
+        }
+      ],
       "source_kind": "community guides 2026-09 (derived)",
       "source_url": "https://tieba.baidu.com/p/10891791616",
       "signature_weapon": {
@@ -27,9 +72,54 @@
         "https://tieba.baidu.com/p/10891791616",
         "https://niubi.wiki/2026/09/07/140778/",
         "https://keygold.gg/zh-hant/blog/detail/wuthering-waves-3-6-jingran-build-guide-zh",
-        "https://www.4399.com/pcgame/topic/54100575.html"
+        "https://www.4399.com/pcgame/topic/54100575.html",
+        "https://www.prydwen.gg/wuthering-waves/characters/jingran"
       ],
-      "notes": "生命值倍率热熔护盾主C，荧惑状态下魑魅魍魉协同攻击标签为重击伤害，输出高度集中于重击。"
+      "notes": "生命值倍率热熔护盾主C，荧惑状态下魑魅魍魉协同攻击标签为重击伤害，输出高度集中于重击。 逐链效果与伤害构成为 2026-09 社区攻略推导。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.076,
+          "heavy": 0.663,
+          "skill": 0.119,
+          "liberation": 0.076,
+          "other": 0.066
+        },
+        "2": {
+          "basic": 0.076,
+          "heavy": 0.663,
+          "skill": 0.119,
+          "liberation": 0.076,
+          "other": 0.066
+        },
+        "3": {
+          "basic": 0.076,
+          "heavy": 0.663,
+          "skill": 0.119,
+          "liberation": 0.076,
+          "other": 0.066
+        },
+        "4": {
+          "basic": 0.076,
+          "heavy": 0.663,
+          "skill": 0.119,
+          "liberation": 0.076,
+          "other": 0.066
+        },
+        "5": {
+          "basic": 0.076,
+          "heavy": 0.663,
+          "skill": 0.119,
+          "liberation": 0.076,
+          "other": 0.066
+        },
+        "6": {
+          "basic": 0.07,
+          "heavy": 0.617,
+          "skill": 0.111,
+          "liberation": 0.07,
+          "other": 0.132
+        }
+      }
     },
     "绯雪": {
       "verified": true,
@@ -42,7 +132,45 @@
         "other": 0.04
       },
       "innate": [],
-      "chains": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "蓝绯状态常态攻击强化，普攻附加霜渐效应（约+10%总伤）",
+          "effects": []
+        },
+        {
+          "level": 2,
+          "summary": "居合伤害倍率提升125%；脱战回复锻雪·归刃并重置技能冷却",
+          "effects": []
+        },
+        {
+          "level": 3,
+          "summary": "单人可叠满3层雪绣并提升霜渐效应伤害（约+33%总伤，机制解锁，未编码）",
+          "effects": []
+        },
+        {
+          "level": 4,
+          "summary": "施放共鸣技能后全队伤害提升20%",
+          "effects": [
+            {
+              "kind": "globalDmg",
+              "value": 20,
+              "apply": "combat",
+              "source": "S4"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "summary": "共鸣技能倍率小幅提升",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "二段共鸣解放暴击伤害提升500%（暴伤专项，未编码为数值，仅计入构成偏移）",
+          "effects": []
+        }
+      ],
       "source_kind": "community guides 2026-09 (derived)",
       "source_url": "https://m.youxibao.com/gonglue/41500.html",
       "signature_weapon": {
@@ -54,9 +182,55 @@
       "sources": [
         "https://m.youxibao.com/gonglue/41500.html",
         "https://www.dvg.cn/danjigl/148777.html",
-        "https://www.taptap.cn/moment/799059061428453775"
+        "https://www.taptap.cn/moment/799059061428453775",
+        "https://news.17173.com/content/05012026/122851511.shtml",
+        "https://www.taptap.cn/moment/798870539727799802"
       ],
-      "notes": "霜渐效应冷凝主C，几乎全部伤害的类型标签为共鸣解放伤害，主打解放大额爆发。"
+      "notes": "霜渐效应冷凝主C，几乎全部伤害的类型标签为共鸣解放伤害，主打解放大额爆发。 逐链效果与伤害构成为 2026-09 社区攻略推导。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.059,
+          "heavy": 0.02,
+          "skill": 0.078,
+          "liberation": 0.804,
+          "other": 0.039
+        },
+        "2": {
+          "basic": 0.054,
+          "heavy": 0.018,
+          "skill": 0.161,
+          "liberation": 0.731,
+          "other": 0.036
+        },
+        "3": {
+          "basic": 0.053,
+          "heavy": 0.018,
+          "skill": 0.158,
+          "liberation": 0.718,
+          "other": 0.053
+        },
+        "4": {
+          "basic": 0.053,
+          "heavy": 0.018,
+          "skill": 0.158,
+          "liberation": 0.718,
+          "other": 0.053
+        },
+        "5": {
+          "basic": 0.051,
+          "heavy": 0.017,
+          "skill": 0.19,
+          "liberation": 0.691,
+          "other": 0.051
+        },
+        "6": {
+          "basic": 0.049,
+          "heavy": 0.016,
+          "skill": 0.185,
+          "liberation": 0.676,
+          "other": 0.074
+        }
+      }
     },
     "莫宁": {
       "verified": true,
@@ -141,7 +315,65 @@
         "other": 0.06
       },
       "innate": [],
-      "chains": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "暴击率提升16%（面板可见）；剑光护体上限+1；入战获得清邪剑诀25层",
+          "effects": [
+            {
+              "kind": "critRate",
+              "value": 16,
+              "apply": "panel",
+              "source": "S1"
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "summary": "重击·弦剑伤害倍率提升40%；心识锁定单次附加层数提升至6层",
+          "effects": []
+        },
+        {
+          "level": 3,
+          "summary": "共鸣解放暴击伤害提升100%（暴伤专项，未编码为数值，仅计入构成偏移）",
+          "effects": []
+        },
+        {
+          "level": 4,
+          "summary": "队伍角色附加谐振·变频后攻击提升20%，持续8秒",
+          "effects": [
+            {
+              "kind": "atkPct",
+              "value": 20,
+              "apply": "combat",
+              "source": "S4"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "summary": "共鸣技能·断音裁决伤害倍率提升100%；御剑气劲消耗降低30%",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "目标受到清宵的重击/解放伤害加深40%；额外触发巨阙灭迹",
+          "effects": [
+            {
+              "kind": "heavyDmg",
+              "value": 40,
+              "apply": "combat",
+              "source": "S6"
+            },
+            {
+              "kind": "liberationDmg",
+              "value": 40,
+              "apply": "combat",
+              "source": "S6"
+            }
+          ]
+        }
+      ],
       "source_kind": "community guides 2026-09 (derived)",
       "source_url": "https://www.4399.com/pcgame/topic/53922383.html",
       "signature_weapon": {
@@ -154,9 +386,54 @@
         "https://www.4399.com/pcgame/topic/53922383.html",
         "https://m.18183.com/gonglue/202608/6uajimu5.html",
         "https://www.prydwen.gg/wuthering-waves/characters/qingxiao",
-        "https://niubi.wiki/2026/08/15/137642/"
+        "https://niubi.wiki/2026/08/15/137642/",
+        "https://www.18183.com/gonglue/202608/60g48phd.html"
       ],
-      "notes": "气动集谐主C，混伤但以重击>解放>普攻为序，弦刃与天谴须臾超脱走重击标签。"
+      "notes": "气动集谐主C，混伤但以重击>解放>普攻为序，弦刃与天谴须臾超脱走重击标签。 逐链效果与伤害构成为 2026-09 社区攻略推导。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.151,
+          "heavy": 0.463,
+          "skill": 0.039,
+          "liberation": 0.289,
+          "other": 0.058
+        },
+        "2": {
+          "basic": 0.132,
+          "heavy": 0.529,
+          "skill": 0.034,
+          "liberation": 0.254,
+          "other": 0.051
+        },
+        "3": {
+          "basic": 0.127,
+          "heavy": 0.509,
+          "skill": 0.033,
+          "liberation": 0.282,
+          "other": 0.049
+        },
+        "4": {
+          "basic": 0.127,
+          "heavy": 0.509,
+          "skill": 0.033,
+          "liberation": 0.282,
+          "other": 0.049
+        },
+        "5": {
+          "basic": 0.123,
+          "heavy": 0.493,
+          "skill": 0.063,
+          "liberation": 0.273,
+          "other": 0.048
+        },
+        "6": {
+          "basic": 0.163,
+          "heavy": 0.471,
+          "skill": 0.06,
+          "liberation": 0.26,
+          "other": 0.046
+        }
+      }
     },
     "穗穗": {
       "verified": false,
@@ -169,7 +446,45 @@
         "other": 0.2
       },
       "innate": [],
-      "chains": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "施放技能免疫打断；涌雾增益触发条件放宽（团队向）",
+          "effects": []
+        },
+        {
+          "level": 2,
+          "summary": "山水结界内全队暴击伤害提升50%（含自身）",
+          "effects": [
+            {
+              "kind": "critDmg",
+              "value": 50,
+              "apply": "combat",
+              "source": "S2"
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "summary": "资源回复加快、循环缩轴（无输出属性）",
+          "effects": []
+        },
+        {
+          "level": 4,
+          "summary": "治疗效果提升50%（治疗向，未编码）",
+          "effects": []
+        },
+        {
+          "level": 5,
+          "summary": "普攻与重击伤害倍率提升100%",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "变奏与强化共鸣技能暴击伤害提升500%（暴伤专项，未编码，对奶辅影响极小）",
+          "effects": []
+        }
+      ],
       "source_kind": "community guides 2026-09 (estimated)",
       "source_url": "https://m.ali213.net/news/gl2607/1790139.html",
       "signature_weapon": {
@@ -182,9 +497,55 @@
         "https://m.ali213.net/news/gl2607/1790139.html",
         "https://cg.163.com/static/content/6a6724b3d648983a79c672e5",
         "https://www.prydwen.gg/wuthering-waves/characters/suisui",
-        "https://niubi.wiki/2026/06/17/131882/"
+        "https://niubi.wiki/2026/06/17/131882/",
+        "https://m.ali213.net/news/gl2607/1790123.html",
+        "https://www.bilibili.com/video/BV18vKE6XE4n/"
       ],
-      "notes": "冷凝音感仪纯后台奶辅，治疗与生命挂钩，自身输出极少且以共鸣技能标签为主。"
+      "notes": "冷凝音感仪纯后台奶辅，治疗与生命挂钩，自身输出极少且以共鸣技能标签为主。 逐链效果与伤害构成为 2026-09 社区攻略推导。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.15,
+          "heavy": 0.05,
+          "skill": 0.5,
+          "liberation": 0.1,
+          "other": 0.2
+        },
+        "2": {
+          "basic": 0.15,
+          "heavy": 0.05,
+          "skill": 0.5,
+          "liberation": 0.1,
+          "other": 0.2
+        },
+        "3": {
+          "basic": 0.15,
+          "heavy": 0.05,
+          "skill": 0.5,
+          "liberation": 0.1,
+          "other": 0.2
+        },
+        "4": {
+          "basic": 0.15,
+          "heavy": 0.05,
+          "skill": 0.5,
+          "liberation": 0.1,
+          "other": 0.2
+        },
+        "5": {
+          "basic": 0.25,
+          "heavy": 0.083,
+          "skill": 0.417,
+          "liberation": 0.083,
+          "other": 0.167
+        },
+        "6": {
+          "basic": 0.25,
+          "heavy": 0.083,
+          "skill": 0.417,
+          "liberation": 0.083,
+          "other": 0.167
+        }
+      }
     },
     "秧秧·玄翎": {
       "verified": true,
@@ -197,7 +558,59 @@
         "other": 0.05
       },
       "innate": [],
-      "chains": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "强化共鸣技能附带额外湮灭伤害（计为重击）并停滞敌人（约+11%总伤）",
+          "effects": []
+        },
+        {
+          "level": 2,
+          "summary": "重击·苍剑式与羽剑式伤害提升100%；脱战回复苍羽并重置冷却",
+          "effects": []
+        },
+        {
+          "level": 3,
+          "summary": "共鸣解放伤害加深75%；虚湮效应层数上限+3",
+          "effects": [
+            {
+              "kind": "liberationDmg",
+              "value": 75,
+              "apply": "combat",
+              "source": "S3"
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "summary": "施放特定技能后全队攻击提升20%，持续20秒",
+          "effects": [
+            {
+              "kind": "atkPct",
+              "value": 20,
+              "apply": "combat",
+              "source": "S4"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "summary": "被击败时不倒下（生存链）",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "目标受到的重击伤害加深40%；后台队友附加效应额外触发玄翎之影（重击伤害）",
+          "effects": [
+            {
+              "kind": "heavyDmg",
+              "value": 40,
+              "apply": "combat",
+              "source": "S6"
+            }
+          ]
+        }
+      ],
       "source_kind": "community guides 2026-09 (derived)",
       "source_url": "https://www.sohu.com/a/1048986090_100279258",
       "signature_weapon": {
@@ -209,9 +622,55 @@
       "sources": [
         "https://www.sohu.com/a/1048986090_100279258",
         "https://www.taptap.cn/moment/825119152862660977",
-        "https://www.233leyuan.com/post-detail/2074322711773167616"
+        "https://www.233leyuan.com/post-detail/2074322711773167616",
+        "https://m.ali213.net/news/gl2607/1790083.html",
+        "https://www.233leyuan.com/post-detail/2075863246038515712"
       ],
-      "notes": "湮灭迅刀站场重击主C，双姿态消耗流响释放强化重击，重击占比最大。"
+      "notes": "湮灭迅刀站场重击主C，双姿态消耗流响释放强化重击，重击占比最大。 逐链效果与伤害构成为 2026-09 社区攻略推导。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.09,
+          "heavy": 0.64,
+          "skill": 0.063,
+          "liberation": 0.162,
+          "other": 0.045
+        },
+        "2": {
+          "basic": 0.076,
+          "heavy": 0.697,
+          "skill": 0.053,
+          "liberation": 0.136,
+          "other": 0.038
+        },
+        "3": {
+          "basic": 0.076,
+          "heavy": 0.697,
+          "skill": 0.053,
+          "liberation": 0.136,
+          "other": 0.038
+        },
+        "4": {
+          "basic": 0.076,
+          "heavy": 0.697,
+          "skill": 0.053,
+          "liberation": 0.136,
+          "other": 0.038
+        },
+        "5": {
+          "basic": 0.076,
+          "heavy": 0.697,
+          "skill": 0.053,
+          "liberation": 0.136,
+          "other": 0.038
+        },
+        "6": {
+          "basic": 0.069,
+          "heavy": 0.722,
+          "skill": 0.049,
+          "liberation": 0.125,
+          "other": 0.035
+        }
+      }
     },
     "漂泊者-女-导电": {
       "verified": true,
@@ -224,7 +683,45 @@
         "other": 0.08
       },
       "innate": [],
-      "chains": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "施放普攻与千声翻涌时抗打断提升",
+          "effects": []
+        },
+        {
+          "level": 2,
+          "summary": "施放共鸣解放后为目标额外附加5层电磁效应（加速叠层）",
+          "effects": []
+        },
+        {
+          "level": 3,
+          "summary": "共鸣技能·超载冲击伤害倍率提升20%",
+          "effects": []
+        },
+        {
+          "level": 4,
+          "summary": "共鸣解放伤害倍率提升20%",
+          "effects": []
+        },
+        {
+          "level": 5,
+          "summary": "临界共鸣状态下暴击伤害提升20%",
+          "effects": [
+            {
+              "kind": "critDmg",
+              "value": 20,
+              "apply": "combat",
+              "source": "S5"
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "summary": "共鸣技能·千声翻涌伤害倍率提升20%",
+          "effects": []
+        }
+      ],
       "source_kind": "community guides 2026-09 (derived)",
       "source_url": "https://www.233leyuan.com/post-detail/2079124330969825280",
       "signature_weapon": {
@@ -249,9 +746,54 @@
       "sources": [
         "https://www.233leyuan.com/post-detail/2079124330969825280",
         "https://game8.jp/meicho/794053",
-        "https://www.bilibili.com/video/BV1pNNJ6uEEV/"
+        "https://www.bilibili.com/video/BV1pNNJ6uEEV/",
+        "https://www.prydwen.gg/wuthering-waves/characters/rover-electro"
       ],
-      "notes": "雷主，临界共鸣连段与雷陨追加均为共鸣技能标签，电磁效应叠层+20%技能伤。"
+      "notes": "雷主，临界共鸣连段与雷陨追加均为共鸣技能标签，电磁效应叠层+20%技能伤。 逐链效果与伤害构成为 2026-09 社区攻略推导。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.12,
+          "heavy": 0.05,
+          "skill": 0.5,
+          "liberation": 0.25,
+          "other": 0.08
+        },
+        "2": {
+          "basic": 0.12,
+          "heavy": 0.05,
+          "skill": 0.5,
+          "liberation": 0.25,
+          "other": 0.08
+        },
+        "3": {
+          "basic": 0.12,
+          "heavy": 0.05,
+          "skill": 0.51,
+          "liberation": 0.24,
+          "other": 0.08
+        },
+        "4": {
+          "basic": 0.11,
+          "heavy": 0.05,
+          "skill": 0.49,
+          "liberation": 0.28,
+          "other": 0.07
+        },
+        "5": {
+          "basic": 0.11,
+          "heavy": 0.05,
+          "skill": 0.49,
+          "liberation": 0.28,
+          "other": 0.07
+        },
+        "6": {
+          "basic": 0.1,
+          "heavy": 0.05,
+          "skill": 0.52,
+          "liberation": 0.27,
+          "other": 0.06
+        }
+      }
     },
     "漂泊者-男-导电": {
       "verified": true,
@@ -264,7 +806,45 @@
         "other": 0.08
       },
       "innate": [],
-      "chains": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "施放普攻与千声翻涌时抗打断提升",
+          "effects": []
+        },
+        {
+          "level": 2,
+          "summary": "施放共鸣解放后为目标额外附加5层电磁效应（加速叠层）",
+          "effects": []
+        },
+        {
+          "level": 3,
+          "summary": "共鸣技能·超载冲击伤害倍率提升20%",
+          "effects": []
+        },
+        {
+          "level": 4,
+          "summary": "共鸣解放伤害倍率提升20%",
+          "effects": []
+        },
+        {
+          "level": 5,
+          "summary": "临界共鸣状态下暴击伤害提升20%",
+          "effects": [
+            {
+              "kind": "critDmg",
+              "value": 20,
+              "apply": "combat",
+              "source": "S5"
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "summary": "共鸣技能·千声翻涌伤害倍率提升20%",
+          "effects": []
+        }
+      ],
       "source_kind": "community guides 2026-09 (derived)",
       "source_url": "https://www.233leyuan.com/post-detail/2079124330969825280",
       "signature_weapon": {
@@ -289,9 +869,54 @@
       "sources": [
         "https://www.233leyuan.com/post-detail/2079124330969825280",
         "https://game8.jp/meicho/794053",
-        "https://www.bilibili.com/video/BV1pNNJ6uEEV/"
+        "https://www.bilibili.com/video/BV1pNNJ6uEEV/",
+        "https://www.prydwen.gg/wuthering-waves/characters/rover-electro"
       ],
-      "notes": "雷主，临界共鸣连段与雷陨追加均为共鸣技能标签，电磁效应叠层+20%技能伤。"
+      "notes": "雷主，临界共鸣连段与雷陨追加均为共鸣技能标签，电磁效应叠层+20%技能伤。 逐链效果与伤害构成为 2026-09 社区攻略推导。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.12,
+          "heavy": 0.05,
+          "skill": 0.5,
+          "liberation": 0.25,
+          "other": 0.08
+        },
+        "2": {
+          "basic": 0.12,
+          "heavy": 0.05,
+          "skill": 0.5,
+          "liberation": 0.25,
+          "other": 0.08
+        },
+        "3": {
+          "basic": 0.12,
+          "heavy": 0.05,
+          "skill": 0.51,
+          "liberation": 0.24,
+          "other": 0.08
+        },
+        "4": {
+          "basic": 0.11,
+          "heavy": 0.05,
+          "skill": 0.49,
+          "liberation": 0.28,
+          "other": 0.07
+        },
+        "5": {
+          "basic": 0.11,
+          "heavy": 0.05,
+          "skill": 0.49,
+          "liberation": 0.28,
+          "other": 0.07
+        },
+        "6": {
+          "basic": 0.1,
+          "heavy": 0.05,
+          "skill": 0.52,
+          "liberation": 0.27,
+          "other": 0.06
+        }
+      }
     },
     "洛瑟菈": {
       "verified": true,
@@ -304,7 +929,59 @@
         "other": 0.15
       },
       "innate": [],
-      "chains": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "施放强化共鸣技能·聚光时暴击率提升20%持续10秒",
+          "effects": [
+            {
+              "kind": "critRate",
+              "value": 20,
+              "apply": "combat",
+              "source": "S1"
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "summary": "霜渐伤害加深提升80%（霜渐归属普攻标签）",
+          "effects": [
+            {
+              "kind": "basicDmg",
+              "value": 80,
+              "apply": "combat",
+              "source": "S2"
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "summary": "断舍离伤害倍率提升100%",
+          "effects": []
+        },
+        {
+          "level": 4,
+          "summary": "施放遗忘时攻击提升10%×3层（合计30%）",
+          "effects": [
+            {
+              "kind": "atkPct",
+              "value": 30,
+              "apply": "combat",
+              "source": "S4"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "summary": "遗忘伤害倍率提升50%",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "缅怀最多3层，每层断舍离伤害提升200%（构成偏移，未编码数值）",
+          "effects": []
+        }
+      ],
       "source_kind": "community guides 2026-09 (derived)",
       "source_url": "https://www.163.com/dy/article/KVAMSBLN0552SPH7.html",
       "signature_weapon": {
@@ -316,9 +993,54 @@
       "sources": [
         "https://www.163.com/dy/article/KVAMSBLN0552SPH7.html",
         "https://m.ali213.net/news/gl2606/1777801.html",
-        "https://www.taptap.cn/moment/814903128892639124"
+        "https://www.taptap.cn/moment/814903128892639124",
+        "https://www.prydwen.gg/wuthering-waves/characters/lucilla"
       ],
-      "notes": "冷凝音感仪双模态副C/辅助，霜渐模态主要伤害标签为普攻，声骸模态转声骸伤害。"
+      "notes": "冷凝音感仪双模态副C/辅助，霜渐模态主要伤害标签为普攻，声骸模态转声骸伤害。 逐链效果与伤害构成为 2026-09 社区攻略推导。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.55,
+          "heavy": 0.05,
+          "skill": 0.2,
+          "liberation": 0.05,
+          "other": 0.15
+        },
+        "2": {
+          "basic": 0.55,
+          "heavy": 0.05,
+          "skill": 0.2,
+          "liberation": 0.05,
+          "other": 0.15
+        },
+        "3": {
+          "basic": 0.65,
+          "heavy": 0.04,
+          "skill": 0.15,
+          "liberation": 0.04,
+          "other": 0.12
+        },
+        "4": {
+          "basic": 0.65,
+          "heavy": 0.04,
+          "skill": 0.15,
+          "liberation": 0.04,
+          "other": 0.12
+        },
+        "5": {
+          "basic": 0.63,
+          "heavy": 0.04,
+          "skill": 0.19,
+          "liberation": 0.04,
+          "other": 0.1
+        },
+        "6": {
+          "basic": 0.8,
+          "heavy": 0.02,
+          "skill": 0.1,
+          "liberation": 0.02,
+          "other": 0.06
+        }
+      }
     },
     "露西": {
       "verified": true,
@@ -331,7 +1053,72 @@
         "other": 0.08
       },
       "innate": [],
-      "chains": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "施放变奏技能后攻击提升20%，持续14秒",
+          "effects": [
+            {
+              "kind": "atkPct",
+              "value": 20,
+              "apply": "combat",
+              "source": "S1"
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "summary": "RAM上限提升；会话劫持额外造成300%衍射伤害（重击标签）；多线程倍率加成100%→200%",
+          "effects": []
+        },
+        {
+          "level": 3,
+          "summary": "共鸣解放倍率提升60%，施放时暴击率+20%、暴击伤害+50%",
+          "effects": [
+            {
+              "kind": "critRate",
+              "value": 20,
+              "apply": "combat",
+              "source": "S3"
+            },
+            {
+              "kind": "critDmg",
+              "value": 50,
+              "apply": "combat",
+              "source": "S3"
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "summary": "队伍附加骇破·偏移时全队全属性伤害加成提升20%",
+          "effects": [
+            {
+              "kind": "globalDmg",
+              "value": 20,
+              "apply": "combat",
+              "source": "S4"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "summary": "生存强化：低血获得视错觉与护盾（无输出属性）",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "骇破状态目标受露西重击伤害提升40%、骇破伤害提升60%",
+          "effects": [
+            {
+              "kind": "heavyDmg",
+              "value": 40,
+              "apply": "combat",
+              "source": "S6"
+            }
+          ]
+        }
+      ],
       "source_kind": "community guides 2026-09 (derived)",
       "source_url": "https://www.233leyuan.com/post-detail/2064291965858041856",
       "signature_weapon": {
@@ -343,9 +1130,55 @@
       "sources": [
         "https://www.233leyuan.com/post-detail/2064291965858041856",
         "https://www.taptap.cn/moment/813006538305177222",
-        "https://news.17173.com/content/06082026/174327932.shtml"
+        "https://news.17173.com/content/06082026/174327932.shtml",
+        "https://www.taptap.cn/moment/813035540948453705",
+        "https://forum.gamer.com.tw/C.php?bsn=74934&snA=17506"
       ],
-      "notes": "衍射佩枪骇破主C，主要伤害标签为重击（含部分技能动画），大招骇入衍射爆发。"
+      "notes": "衍射佩枪骇破主C，主要伤害标签为重击（含部分技能动画），大招骇入衍射爆发。 逐链效果与伤害构成为 2026-09 社区攻略推导。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.1,
+          "heavy": 0.5,
+          "skill": 0.12,
+          "liberation": 0.2,
+          "other": 0.08
+        },
+        "2": {
+          "basic": 0.08,
+          "heavy": 0.58,
+          "skill": 0.1,
+          "liberation": 0.17,
+          "other": 0.07
+        },
+        "3": {
+          "basic": 0.08,
+          "heavy": 0.53,
+          "skill": 0.09,
+          "liberation": 0.24,
+          "other": 0.06
+        },
+        "4": {
+          "basic": 0.08,
+          "heavy": 0.53,
+          "skill": 0.09,
+          "liberation": 0.24,
+          "other": 0.06
+        },
+        "5": {
+          "basic": 0.08,
+          "heavy": 0.53,
+          "skill": 0.09,
+          "liberation": 0.24,
+          "other": 0.06
+        },
+        "6": {
+          "basic": 0.07,
+          "heavy": 0.51,
+          "skill": 0.09,
+          "liberation": 0.24,
+          "other": 0.09
+        }
+      }
     },
     "丽贝卡": {
       "verified": true,
@@ -358,7 +1191,58 @@
         "other": 0.1
       },
       "innate": [],
-      "chains": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "猎手/铁胆模式普攻、重击、闪避反击倍率提升50%",
+          "effects": []
+        },
+        {
+          "level": 2,
+          "summary": "施放变奏或解放一段时全队全伤加成+20%；队伍附加骇破·偏移时全伤加深15%",
+          "effects": [
+            {
+              "kind": "globalDmg",
+              "value": 20,
+              "apply": "combat",
+              "source": "S2"
+            },
+            {
+              "kind": "globalAmp",
+              "value": 15,
+              "apply": "combat",
+              "source": "S2"
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "summary": "共鸣解放伤害倍率提升60%，爆炸范围+30%",
+          "effects": []
+        },
+        {
+          "level": 4,
+          "summary": "施放共鸣技能时额外造成1次900%攻击的普攻伤害",
+          "effects": []
+        },
+        {
+          "level": 5,
+          "summary": "施放共鸣技能回复枪械热度（循环向）",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "妹子要什么有什么！属性提升效果额外提升60%（普攻输出增强）",
+          "effects": [
+            {
+              "kind": "basicDmg",
+              "value": 60,
+              "apply": "combat",
+              "source": "S6"
+            }
+          ]
+        }
+      ],
       "source_kind": "community guides 2026-09 (derived)",
       "source_url": "https://news.17173.com/content/06102026/164014466.shtml",
       "signature_weapon": {
@@ -370,9 +1254,55 @@
       "sources": [
         "https://news.17173.com/content/06102026/164014466.shtml",
         "https://www.233leyuan.com/post-detail/2064291967157989376",
-        "https://www.taptap.cn/moment/813165978459308049"
+        "https://www.taptap.cn/moment/813165978459308049",
+        "https://zhuanlan.zhihu.com/p/2047842015564632968",
+        "https://www.233leyuan.com/post-detail/2065506977194340352"
       ],
-      "notes": "导电佩枪骇破副C，共鸣解放31型重机枪扫射伤害标签为普攻，普攻标签占绝对大头。"
+      "notes": "导电佩枪骇破副C，共鸣解放31型重机枪扫射伤害标签为普攻，普攻标签占绝对大头。 逐链效果与伤害构成为 2026-09 社区攻略推导。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.69,
+          "heavy": 0.06,
+          "skill": 0.1,
+          "liberation": 0.07,
+          "other": 0.08
+        },
+        "2": {
+          "basic": 0.69,
+          "heavy": 0.06,
+          "skill": 0.1,
+          "liberation": 0.07,
+          "other": 0.08
+        },
+        "3": {
+          "basic": 0.67,
+          "heavy": 0.06,
+          "skill": 0.09,
+          "liberation": 0.1,
+          "other": 0.08
+        },
+        "4": {
+          "basic": 0.68,
+          "heavy": 0.06,
+          "skill": 0.09,
+          "liberation": 0.1,
+          "other": 0.07
+        },
+        "5": {
+          "basic": 0.68,
+          "heavy": 0.06,
+          "skill": 0.09,
+          "liberation": 0.1,
+          "other": 0.07
+        },
+        "6": {
+          "basic": 0.68,
+          "heavy": 0.06,
+          "skill": 0.09,
+          "liberation": 0.1,
+          "other": 0.07
+        }
+      }
     },
     "达妮娅": {
       "verified": true,
@@ -385,7 +1315,65 @@
         "other": 0.05
       },
       "innate": [],
-      "chains": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "暴击伤害提升30%，关键动作免打断，入战即获熵变状态",
+          "effects": [
+            {
+              "kind": "critDmg",
+              "value": 30,
+              "apply": "combat",
+              "source": "S1"
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "summary": "聚爆模态：附加聚爆效应的角色(含自身)热熔伤害加成提升50%持续15秒",
+          "effects": [
+            {
+              "kind": "elementDmg",
+              "value": 50,
+              "apply": "combat",
+              "source": "S2"
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "summary": "共鸣解放「终幕·幻灭之形」倍率提升80%，黯核上限提升至5层",
+          "effects": []
+        },
+        {
+          "level": 4,
+          "summary": "侵蚀领域攻击间隔由4秒缩短至3秒",
+          "effects": []
+        },
+        {
+          "level": 5,
+          "summary": "「终幕·布景之形」伤害倍率提升100%",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "熵变期间攻击提升60%、热熔伤害加成提升60%",
+          "effects": [
+            {
+              "kind": "atkPct",
+              "value": 60,
+              "apply": "combat",
+              "source": "S6"
+            },
+            {
+              "kind": "elementDmg",
+              "value": 60,
+              "apply": "combat",
+              "source": "S6"
+            }
+          ]
+        }
+      ],
       "source_kind": "community guides 2026-09 (derived)",
       "source_url": "https://cg.163.com/static/content/6a414133c07e1836098b0b25",
       "signature_weapon": {
@@ -397,9 +1385,55 @@
       "sources": [
         "https://cg.163.com/static/content/6a414133c07e1836098b0b25",
         "https://www.gamersky.com/handbook/202605/2143115.shtml",
-        "https://www.taptap.cn/moment/806481522579213541"
+        "https://www.taptap.cn/moment/806481522579213541",
+        "https://www.sohu.com/a/1025265389_122598898",
+        "https://news.17173.com/content/05212026/182947351.shtml"
       ],
-      "notes": "热熔快速协奏辅助，解放态消耗虚质粒子的攻击标签转为共鸣解放伤害，解放为大头。"
+      "notes": "热熔快速协奏辅助，解放态消耗虚质粒子的攻击标签转为共鸣解放伤害，解放为大头。 逐链效果与伤害构成为 2026-09 社区攻略推导。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.25,
+          "heavy": 0.05,
+          "skill": 0.15,
+          "liberation": 0.5,
+          "other": 0.05
+        },
+        "2": {
+          "basic": 0.25,
+          "heavy": 0.05,
+          "skill": 0.15,
+          "liberation": 0.5,
+          "other": 0.05
+        },
+        "3": {
+          "basic": 0.22,
+          "heavy": 0.04,
+          "skill": 0.13,
+          "liberation": 0.56,
+          "other": 0.05
+        },
+        "4": {
+          "basic": 0.22,
+          "heavy": 0.04,
+          "skill": 0.13,
+          "liberation": 0.55,
+          "other": 0.06
+        },
+        "5": {
+          "basic": 0.21,
+          "heavy": 0.04,
+          "skill": 0.13,
+          "liberation": 0.56,
+          "other": 0.06
+        },
+        "6": {
+          "basic": 0.2,
+          "heavy": 0.04,
+          "skill": 0.12,
+          "liberation": 0.58,
+          "other": 0.06
+        }
+      }
     },
     "西格莉卡": {
       "verified": true,
@@ -412,7 +1446,65 @@
         "other": 0.78
       },
       "innate": [],
-      "chains": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "凝语层数上限2层提升至3层，声骸技能可更久停滞敌人（机制链）",
+          "effects": []
+        },
+        {
+          "level": 2,
+          "summary": "核心共鸣回路（声骸技能伤害标签）倍率提升120%，脱战4秒即获专注",
+          "effects": []
+        },
+        {
+          "level": 3,
+          "summary": "天赋增伤层数上限由2层提至4层（额外+60%，作用于核心声骸技能伤害，近似全局）",
+          "effects": [
+            {
+              "kind": "globalDmg",
+              "value": 60,
+              "apply": "combat",
+              "source": "S3"
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "summary": "队伍角色释放声骸技能时全队攻击提升20%，持续20秒",
+          "effects": [
+            {
+              "kind": "atkPct",
+              "value": 20,
+              "apply": "combat",
+              "source": "S4"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "summary": "共鸣解放伤害倍率提升30%",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "敌人受到西格莉卡的伤害加深30%；每层天赋额外+15%（至多60%）并无视7.5%防御/层",
+          "effects": [
+            {
+              "kind": "globalAmp",
+              "value": 30,
+              "apply": "combat",
+              "source": "S6"
+            },
+            {
+              "kind": "globalDmg",
+              "value": 60,
+              "apply": "combat",
+              "source": "S6"
+            }
+          ]
+        }
+      ],
       "source_kind": "community guides 2026-09 (measured)",
       "source_url": "https://news.17173.com/content/03222026/152835603.shtml",
       "signature_weapon": {
@@ -424,9 +1516,54 @@
       "sources": [
         "https://news.17173.com/content/03222026/152835603.shtml",
         "https://www.gamersky.com/handbook/202603/2114132.shtml",
-        "https://www.prydwen.gg/wuthering-waves/characters/sigrika"
+        "https://www.prydwen.gg/wuthering-waves/characters/sigrika",
+        "https://www.4399.com/pcgame/topic/52460828.html"
       ],
-      "notes": "气动声骸体系主C，几乎所有动作伤害标签判定为声骸技能伤害（归入other）。"
+      "notes": "气动声骸体系主C，几乎所有动作伤害标签判定为声骸技能伤害（归入other）。 逐链效果与伤害构成为 2026-09 社区攻略推导。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.1,
+          "heavy": 0.02,
+          "skill": 0.05,
+          "liberation": 0.05,
+          "other": 0.78
+        },
+        "2": {
+          "basic": 0.07,
+          "heavy": 0.01,
+          "skill": 0.03,
+          "liberation": 0.03,
+          "other": 0.86
+        },
+        "3": {
+          "basic": 0.07,
+          "heavy": 0.01,
+          "skill": 0.03,
+          "liberation": 0.03,
+          "other": 0.86
+        },
+        "4": {
+          "basic": 0.07,
+          "heavy": 0.01,
+          "skill": 0.03,
+          "liberation": 0.03,
+          "other": 0.86
+        },
+        "5": {
+          "basic": 0.07,
+          "heavy": 0.01,
+          "skill": 0.03,
+          "liberation": 0.04,
+          "other": 0.85
+        },
+        "6": {
+          "basic": 0.07,
+          "heavy": 0.01,
+          "skill": 0.03,
+          "liberation": 0.04,
+          "other": 0.85
+        }
+      }
     },
     "陆·赫斯": {
       "verified": true,
@@ -3763,7 +4900,72 @@
         "other": 0.05
       },
       "innate": [],
-      "chains": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "共鸣回路「攻守易形」护盾量提升40%（防御向）",
+          "effects": []
+        },
+        {
+          "level": 2,
+          "summary": "共鸣解放「岿然」暴击率与暴击伤害各提升20%（折算约+25%解放伤害）",
+          "effects": [
+            {
+              "kind": "liberationDmg",
+              "value": 25,
+              "apply": "combat",
+              "source": "S2"
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "summary": "共鸣技能「磐石之盾」持续时间延长至30秒（机制链）",
+          "effects": []
+        },
+        {
+          "level": 4,
+          "summary": "触发重击·后发制人时恢复25%生命，防御提升50%持续5秒",
+          "effects": [
+            {
+              "kind": "defPct",
+              "value": 50,
+              "apply": "combat",
+              "source": "S4"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "summary": "共鸣回路「攻守易形」伤害提升50%（重击类）",
+          "effects": [
+            {
+              "kind": "heavyDmg",
+              "value": 50,
+              "apply": "combat",
+              "source": "S5"
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "summary": "磐石之盾存在期间，普攻与重击伤害提升40%",
+          "effects": [
+            {
+              "kind": "basicDmg",
+              "value": 40,
+              "apply": "combat",
+              "source": "S6"
+            },
+            {
+              "kind": "heavyDmg",
+              "value": 40,
+              "apply": "combat",
+              "source": "S6"
+            }
+          ]
+        }
+      ],
       "source_kind": "community guides 2026-09 (derived)",
       "source_url": "https://www.gamersky.com/handbook/202405/1751606.shtml",
       "signature_weapon": {
@@ -3775,9 +4977,10 @@
       "sources": [
         "https://www.gamersky.com/handbook/202405/1751606.shtml",
         "https://www.gamekee.com/mc/623015.html",
-        "https://www.prydwen.gg/wuthering-waves/characters/taoqi"
+        "https://www.prydwen.gg/wuthering-waves/characters/taoqi",
+        "https://game8.co/games/Wuthering-Waves/archives/454226"
       ],
-      "notes": "湮灭防御向护盾辅助，重击反击与解放为主要输出，回路判定为普攻伤害。"
+      "notes": "湮灭防御向护盾辅助，重击反击与解放为主要输出，回路判定为普攻伤害。 逐链效果与伤害构成为 2026-09 社区攻略推导。"
     }
   }
 }
