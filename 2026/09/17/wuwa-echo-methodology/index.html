@@ -313,7 +313,7 @@ if (true) {
 </tr>
 </tbody>
 </table>
-<p>表中百分比词条按游戏显示的百分点数值计分，例如 6.3% 暴击率使用 6.3。整套毕业度进一步纳入主词条与固定主词条，并按当前各位置 COST 对应的理论满配得分归一化。</p>
+<p>表中百分比词条按游戏显示的百分点数值计分，例如 6.3% 暴击率使用 6.3。[5]整套毕业度进一步纳入主词条与固定主词条，并按当前各位置 COST 对应的理论满配得分归一化。</p>
 <p>这套分数的优点是稳定、易比较。其限制同样明确：它不读取当前暴击是否溢出，也不判断充能是否已满足循环需求。共鸣效率的 0.5 是静态评价约定，不是由伤害公式推导出的固定 DPS 权重。<strong>高分声骸不必然带来正的换装收益。</strong></p>
 <h2 id="section-5">4. 伤害因子与边际收益</h2>
 <h3 id="section-6">4.1 期望暴击乘区</h3>
@@ -321,18 +321,18 @@ if (true) {
 <div class="research-equation">C(r,d) = 1 + min(max(r,0),1) · (d − 1)</div>
 <p>当 0 &lt; r &lt; 1 且其他变量固定时，其对暴击率和暴击伤害的对数敏感度分别为：</p>
 <div class="research-equation">∂ ln C / ∂r = (d − 1) / C<br/>∂ ln C / ∂d = r / C</div>
-<p>这说明双暴的价值依赖已有面板。暴击率达到上限后，继续增加暴击率不再提高本模型的暴击期望。微分表达只解释局部趋势；实际词条替换采用有限变化的完整比值计算，不能在跨越上限时直接线性外推。</p>
+<p>这说明双暴的价值依赖已有面板。[6][7]暴击率达到上限后，继续增加暴击率不再提高本模型的暴击期望。微分表达只解释局部趋势；实际词条替换采用有限变化的完整比值计算，不能在跨越上限时直接线性外推。</p>
 <h3 id="section-7">4.2 伤害类型加权</h3>
 <p>在属性与各乘区处于有效范围内时，当前代码的主要形式可写为：</p>
 <div class="research-equation">F(E) = S(E) · C(r(E),d(E)) · [1 + A(E)]<br/>× Σₖ wₖ · [1 + B(E) + bₖ(E)]</div>
-<p>类型 k 包括普攻、重击、共鸣技能、共鸣解放与其他伤害。“其他”在当前实现中不获得这四种类型词条的加成。该模型使用统一主要倍率属性和统一暴击乘区，不逐段展开技能倍率、动作时长与特殊伤害机制。[1]</p>
+<p>类型 k 包括普攻、重击、共鸣技能、共鸣解放与其他伤害。“其他”在当前实现中不获得这四种类型词条的加成。该模型使用统一主要倍率属性和统一暴击乘区，不逐段展开技能倍率、动作时长与特殊伤害机制。[1][6][7]</p>
 <p>数据库权重是对输出构成的简化表达。若权重来源本身是某一参考配装下的最终伤害占比，将其固定用于其他配置可能带来偏差；因此不应把该因子解释为逐技能模拟器或实战总伤害预测。</p>
 <h3 id="section-8">4.3 替换比较与面板重建</h3>
 <p>设候选声骸替换位置 n，收益定义为：</p>
 <div class="research-equation">G = [F(E′) / F(E) − 1] × 100%</div>
 <p>工具根据当前面板与当前声骸反推非声骸底座，再重建候选配置。以攻击属性为例，代码使用的有效基础量可概括为：</p>
 <div class="research-equation">S₀,eff = (S面板 − f声骸) / (1 + p声骸 + p非声骸)<br/>S(E′) = S₀,eff · (1 + p声骸′ + p非声骸 + p战斗) + f声骸′</div>
-<p>p 表示百分比属性，f 表示固定属性。这里的 S₀,eff 是模型反推的有效量，并不保证等于角色与武器的真实基础属性之和。未被正确录入或建模的非声骸属性可能影响换装估计。完整录入后，页面会锁定底座以联动模拟面板；重新输入实际面板时必须保持其与装备记录一致。[1]</p>
+<p>p 表示百分比属性，f 表示固定属性。这里的 S₀,eff 是模型反推的有效量，并不保证等于角色与武器的真实基础属性之和。未被正确录入或建模的非声骸属性可能影响换装估计。需要说明的是，当前版本界面不提供 p非声骸 的单独录入，实现中该项恒为 0：不来自声骸的百分比加成会被折入反推的 S₀,eff，这会使主倍率百分比词条的边际收益被轻微高估，属于已知的模型保留项。完整录入后，页面会锁定底座以联动模拟面板；重新输入实际面板时必须保持其与装备记录一致。[1]</p>
 <p>对带充能阈值的套装，计算应依据每一被评估配置重新判断条件。当前实现已将候选声骸聚合值传入套装判断，避免在替换后沿用原配置的触发状态。但这不代表所有角色特有转化规则与阈值均已建模。</p>
 <h2 id="section-9">5. 可复算示例：双暴价值与上限</h2>
 <p>以下为依据第 4.1 节公式构造的控制变量算例，<strong>不是游戏实测数据，也不是完整声骸替换实验</strong>。固定其他乘区与伤害类型，仅独立增加一条属性，不考虑被替换词条的损失。</p>
@@ -381,7 +381,7 @@ if (true) {
 <p>复算时先将暴击率限制在 100%，再代入 C，并计算 C新 / C旧 − 1。若要评价真实换装，还需同时加入原声骸损失、候选主副词条变化与装备条件变化。</p>
 <h2 id="section-10">6. 局部改进建议与使用流程</h2>
 <p>推荐器枚举两类局部动作：将已有目标词条提升至满档；或在尚无目标词条的声骸上，将一条已有副词条替换为目标词条的平均数值。每个方案均复制整套声骸并重算 F，随后按正收益排序。因此，已建模的暴击上限与套装阈值能够进入具体比较。[1]</p>
-<p>这里的“平均档”实际采用档位数值的算术平均，它可能不是游戏内可出现的单个档位，也不意味着已按掉落概率求期望。建议表示模型中的局部改善方向，不是游戏内可以指定执行的洗练操作，更不是获得该声骸所需资源的预测。当前建议集合亦未把共鸣效率作为独立搜索目标，因此不能据“暂无升级”推出全局最优。</p>
+<p>这里的“平均档”实际采用档位数值的算术平均，它可能不是游戏内可出现的单个档位，也不意味着已按掉落概率求期望。[5]建议表示模型中的局部改善方向，不是游戏内可以指定执行的洗练操作，更不是获得该声骸所需资源的预测。当前建议集合亦未把共鸣效率作为独立搜索目标，因此不能据“暂无升级”推出全局最优。</p>
 <p>实际使用可按以下步骤进行：</p>
 <ol>
 <li>选择角色与共鸣链，核对专武被动和套装配置是否符合实际。</li>
@@ -411,6 +411,9 @@ if (true) {
 <li>花澪. 角色机制与合鸣套装数据库 [数据集/在线]. <a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/wuwa/data/character-mechanics.json">角色机制</a>、<a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/wuwa/data/character-mechanics-extra.json">前瞻与补充数据</a>、<a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/wuwa/data/sonata-effects.json">套装效果</a>. 数据快照日期：2026-09-17.</li>
 <li>GQin404. <a href="https://github.com/GQin404/WuwaEchoTool">WuwaEchoTool</a> [开源软件/在线]. 访问日期：2026-09-17. 本项目评分与既有角色数据的参考来源；本文系数以文献 [1] 的实现为准。</li>
 <li>库街区. <a href="https://wiki.kurobbs.com/mc/home">《鸣潮》WIKI</a> [在线资料]. 本项目角色目录的来源；其收录信息不应被等同于官方完整伤害公式。</li>
+<li>Prydwen. <a href="https://www.prydwen.gg/wuthering-waves/guides/echo-stats">Echoes Stats</a> [在线资料]. 访问日期：2026-09-17. 声骸副词条固定档位与数值范围的交叉检查来源。</li>
+<li>Wuthering Tools. <a href="https://www.wutheringtools.com/info">Info</a> [在线资料]. 访问日期：2026-09-17. 期望暴击与“倍率×增伤×加深×暴击”乘区结构的社区口径来源之一。</li>
+<li>鳴潮 Wiki*. <a href="https://wikiwiki.jp/w-w/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F">ダメージ計算式</a> [在线资料]. 访问日期：2026-09-17. 攻击力公式、乘区划分与暴击期望的交叉核对来源。</li>
 </ol>
 <p class="research-footnote">本文公式与表格为方法推导及合成算例；未使用或虚构玩家实测样本。文章与工具均为非官方社区项目。</p></article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img alt="头像" class="post-copyright__author_img_back" data-lazy-src="/img/avatar.png" onerror='this.onerror=null,this.src="/img/404.jpg"' src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" title="头像"/><img alt="头像" class="post-copyright__author_img_front" data-lazy-src="/img/avatar.png" onerror='this.onerror=null,this.src="/img/404.jpg"' src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" title="头像"/></a><div class="post-copyright__author_name">花澪</div><div class="post-copyright__author_desc">你所弹奏的声音，至今仍在回响</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" href="/2026/09/17/wuwa-echo-methodology/" title="该文章为原创文章，注意版权协议">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('2026/09/17/wuwa-echo-methodology/')">鸣潮声骸评价的双层模型：静态评分、边际收益与换装决策</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://etg227.github.io/2026/09/17/wuwa-echo-methodology/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" href="https://service.weibo.com/share/share.php?title=%E9%B8%A3%E6%BD%AE%E5%A3%B0%E9%AA%B8%E8%AF%84%E4%BB%B7%E7%9A%84%E5%8F%8C%E5%B1%82%E6%A8%A1%E5%9E%8B%EF%BC%9A%E9%9D%99%E6%80%81%E8%AF%84%E5%88%86%E3%80%81%E8%BE%B9%E9%99%85%E6%94%B6%E7%9B%8A%E4%B8%8E%E6%8D%A2%E8%A3%85%E5%86%B3%E7%AD%96&amp;url=https%3A%2F%2Fetg227.github.io%2F2026%2F09%2F17%2Fwuwa-echo-methodology%2F" rel="external nofollow noreferrer noopener" target="_blank"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
   var currentPageUrl = window.location.href;
