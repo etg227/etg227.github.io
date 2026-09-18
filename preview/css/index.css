@@ -27423,3 +27423,66 @@ div#runtime {
   transform: translateY(-100%);
 }
 
+/* Keep the desktop console cards and player on the same layout grid. */
+@media screen and (min-width: 1201px) and (min-height: 650px) {
+  body:has(#console.show) {
+    --console-width: min(1080px, calc(100vw - 48px));
+    --console-half-width: min(540px, calc(50vw - 24px));
+    --console-height: min(580px, calc(100vh - 170px));
+    --console-left-width: 260px;
+    --console-gap: 12px;
+  }
+
+  #console .console-card-group {
+    display: flex !important;
+    align-items: stretch;
+    gap: var(--console-gap);
+    width: var(--console-width);
+    height: var(--console-height);
+    max-width: none;
+    max-height: none;
+    margin: 0;
+  }
+
+  #console .console-card-group-left {
+    flex: 0 0 var(--console-left-width);
+    width: auto;
+    height: 100%;
+    margin: 0;
+  }
+
+  #console .console-card-group-right {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    height: 100%;
+  }
+
+  #console #card-newest-comments {
+    min-height: 0;
+    padding: 32px;
+  }
+
+  #console .console-card.tags {
+    height: calc(100% - 96px);
+    padding: 32px;
+  }
+
+  #console .console-card.history {
+    flex: 0 0 88px;
+    min-width: 0;
+  }
+
+  #consoleMusic {
+    display: block;
+  }
+
+  body:has(#console.show) #nav-music {
+    display: flex !important;
+    left: calc(50vw - var(--console-half-width) + var(--console-left-width) + var(--console-gap));
+    top: calc((100vh - var(--console-height) - 76px) / 2 + 12px);
+    width: calc(var(--console-width) - var(--console-left-width) - var(--console-gap));
+    height: calc(var(--console-height) - 124px);
+  }
+}
+
