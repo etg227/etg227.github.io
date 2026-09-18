@@ -1,0 +1,61 @@
+name: Sync WuWa calculator shared assets
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'wuwa/profile-save-v3.js'
+      - 'wuwa/data/characters.json'
+      - 'wuwa/data/character-mechanics.json'
+      - 'wuwa/data/character-mechanics-extra.json'
+      - 'wuwa/data/sonata-effects.json'
+      - '.github/workflows/sync-wuwa-calculator-assets.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-wuwa-calculator-assets
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Validate shared source files
+        run: |
+          node --check wuwa/profile-save-v3.js
+          python -m json.tool wuwa/data/characters.json >/dev/null
+          python -m json.tool wuwa/data/character-mechanics.json >/dev/null
+          python -m json.tool wuwa/data/character-mechanics-extra.json >/dev/null
+          python -m json.tool wuwa/data/sonata-effects.json >/dev/null
+
+      - name: Sync calculator copies
+        run: |
+          mkdir -p tools/wuwa-echo-calculator/data
+          cp wuwa/profile-save-v3.js tools/wuwa-echo-calculator/profile-save-v3.js
+          cp wuwa/data/characters.json tools/wuwa-echo-calculator/data/characters.json
+          cp wuwa/data/character-mechanics.json tools/wuwa-echo-calculator/data/character-mechanics.json
+          cp wuwa/data/character-mechanics-extra.json tools/wuwa-echo-calculator/data/character-mechanics-extra.json
+          cp wuwa/data/sonata-effects.json tools/wuwa-echo-calculator/data/sonata-effects.json
+
+      - name: Commit synchronized copies
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            tools/wuwa-echo-calculator/profile-save-v3.js \
+            tools/wuwa-echo-calculator/data/characters.json \
+            tools/wuwa-echo-calculator/data/character-mechanics.json \
+            tools/wuwa-echo-calculator/data/character-mechanics-extra.json \
+            tools/wuwa-echo-calculator/data/sonata-effects.json
+          if git diff --cached --quiet; then
+            echo "Calculator copies are already synchronized."
+            exit 0
+          fi
+          git commit -m "chore: sync WuWa calculator shared assets"
+          git push origin HEAD:main
