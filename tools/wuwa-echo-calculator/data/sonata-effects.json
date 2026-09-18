@@ -1,0 +1,591 @@
+{
+  "updated_at": "2026-09-17",
+  "assumption": "Combat-triggered effects are evaluated at full sustainable trigger when selected. Next-character/team-only effects are stored but are not added to this single-character self-DPS model.",
+  "sets": [
+    {
+      "name": "凝夜白霜",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "elementDmg",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "name": "熔山裂谷",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "elementDmg",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "name": "彻空冥雷",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "elementDmg",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "name": "啸谷长风",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "elementDmg",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "name": "浮星祛暗",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "elementDmg",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "name": "沉日劫明",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "elementDmg",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "name": "隐世回光",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "healing",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "atkPct",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "name": "不绝余音",
+      "source": "WuwaEchoTool",
+      "p2": [
+        {
+          "kind": "atkPct",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "atkPct",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "name": "凌冽决断之心",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "skillDmg",
+          "value": 12
+        }
+      ],
+      "p5": [
+        {
+          "kind": "elementDmg",
+          "value": 22.5
+        },
+        {
+          "kind": "skillDmg",
+          "value": 36
+        }
+      ]
+    },
+    {
+      "name": "此间永驻之光",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "critRate",
+          "value": 20
+        },
+        {
+          "kind": "elementDmg",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "name": "无惧浪涛之勇",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "energyRegen",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "atkPct",
+          "value": 15
+        },
+        {
+          "kind": "elementDmg",
+          "value": 30,
+          "condition": "er250"
+        }
+      ]
+    },
+    {
+      "name": "幽夜隐匿之帷",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "nextElementDmg",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "name": "流云逝尽之空",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "elementDmg",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "name": "高天共奏之曲",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "energyRegen",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "coordinatedDmg",
+          "value": 80
+        },
+        {
+          "kind": "atkPct",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "name": "轻云出月",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "energyRegen",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "nextAtkPct",
+          "value": 22.5
+        }
+      ]
+    },
+    {
+      "name": "愿戴荣光之旅",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "critRate",
+          "value": 10
+        },
+        {
+          "kind": "elementDmg",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "name": "奔狼燎原之焰",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "elementDmg",
+          "value": 15
+        },
+        {
+          "kind": "liberationDmg",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "name": "失序彼岸之梦",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p3": [
+        {
+          "kind": "critRate",
+          "value": 20
+        },
+        {
+          "kind": "echoDmg",
+          "value": 35
+        }
+      ]
+    },
+    {
+      "name": "荣斗铸锋之冠",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p3": [
+        {
+          "kind": "atkPct",
+          "value": 30
+        },
+        {
+          "kind": "critDmg",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "name": "息界同调之律",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p3": [
+        {
+          "kind": "heavyDmg",
+          "value": 30
+        },
+        {
+          "kind": "echoDmg",
+          "value": 16
+        }
+      ]
+    },
+    {
+      "name": "焚羽猎魔之影",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p3": [
+        {
+          "kind": "elementDmg",
+          "value": 16
+        }
+      ]
+    },
+    {
+      "name": "命理崩毁之弦",
+      "source": "WuwaEchoTool / current calculator cross-check",
+      "p3": [
+        {
+          "kind": "atkPct",
+          "value": 20
+        },
+        {
+          "kind": "liberationDmg",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "name": "碎梦亡鬼之魇",
+      "source": "current Wuthering Waves calculator data",
+      "p1": [
+        {
+          "kind": "basicDmg",
+          "value": 35
+        },
+        {
+          "kind": "heavyDmg",
+          "value": 35
+        }
+      ]
+    },
+    {
+      "name": "逆光跃彩之约",
+      "source": "current Wuthering Waves calculator data",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "nextAtkPct",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "name": "流金溯真之式",
+      "source": "current Wuthering Waves calculator data",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "elementDmg",
+          "value": 30
+        },
+        {
+          "kind": "basicDmg",
+          "value": 40
+        }
+      ]
+    },
+    {
+      "name": "长路启航之星",
+      "source": "current Wuthering Waves calculator data",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "critRate",
+          "value": 20
+        },
+        {
+          "kind": "elementDmg",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "name": "斑驳粉饰之沫",
+      "source": "current Wuthering Waves calculator data",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        },
+        {
+          "kind": "nextElementDmg",
+          "value": 25
+        }
+      ]
+    },
+    {
+      "name": "听唤语义之愿",
+      "source": "current Wuthering Waves calculator data",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "elementDmg",
+          "value": 15
+        },
+        {
+          "kind": "echoCritRate",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "name": "雪落无声之愿",
+      "source": "current Wuthering Waves calculator data",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        },
+        {
+          "kind": "critRate",
+          "value": 25
+        }
+      ]
+    },
+    {
+      "name": "剪心辑梦之影",
+      "source": "current Wuthering Waves calculator data",
+      "p2": [
+        {
+          "kind": "atkPct",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "tuneBreakAmp",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "name": "星构寻辉之环",
+      "source": "current Wuthering Waves calculator data",
+      "p2": [
+        {
+          "kind": "healing",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "atkPct",
+          "value": 25
+        }
+      ]
+    },
+    {
+      "name": "羽落空尘之歌",
+      "source": "current Wuthering Waves calculator data",
+      "p2": [
+        {
+          "kind": "energyRegen",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "critRate",
+          "value": 20
+        },
+        {
+          "kind": "heavyDmg",
+          "value": 35
+        }
+      ]
+    },
+    {
+      "name": "清邪荡煞之心",
+      "source": "current Wuthering Waves calculator data",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "critDmg",
+          "value": 20
+        },
+        {
+          "kind": "elementDmg",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "name": "冥途夜行之灯",
+      "source": "current Wuthering Waves calculator data",
+      "p2": [
+        {
+          "kind": "hpPct",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "critRate",
+          "value": 20
+        },
+        {
+          "kind": "elementDmg",
+          "value": 15
+        }
+      ]
+    }
+  ]
+}
