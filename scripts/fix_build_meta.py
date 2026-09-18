@@ -18,7 +18,8 @@ import re
 import sys
 from pathlib import Path
 
-SITE = 'https://etg227.github.io'
+SITE = 'https://blog.etg227.com'
+OLD_SITES = ('https://etg227.github.io',)
 PLACEHOLDERS = {'xxx', 'code-xxx'}
 VERIFY_NAMES = ('google-site-verification', 'baidu-site-verification', 'msvalidate.01')
 
@@ -48,16 +49,20 @@ def fix_file(path: Path, root: Path) -> bool:
         if name in VERIFY_NAMES and (content or '').strip() in PLACEHOLDERS:
             return ''
         prop = ATTR(tag, 'property')
-        if prop == 'og:url' and content is not None and not content.startswith('http'):
+        if prop == 'og:url' and content is not None and (not content.startswith('http') or content.startswith(OLD_SITES)):
             return tag.replace(f'content="{content}"', f'content="{url}"')
-        if (prop == 'og:image' or name == 'twitter:image') and content and content.startswith('/'):
-            return tag.replace(f'content="{content}"', f'content="{SITE}{content}"')
+        if (prop == 'og:image' or name == 'twitter:image') and content:
+            if content.startswith('/'):
+                return tag.replace(f'content="{content}"', f'content="{SITE}{content}"')
+            for old in OLD_SITES:
+                if content.startswith(old):
+                    return tag.replace(f'content="{content}"', f'content="{SITE}{content[len(old):]}"')
         return tag
 
     def canonical_repl(m):
         tag = m.group(0)
         href = ATTR(tag, 'href')
-        if href is not None and not href.startswith('http'):
+        if href is not None and (not href.startswith('http') or href.startswith(OLD_SITES)):
             return tag.replace(f'href="{href}"', f'href="{url}"')
         return tag
 
