@@ -77,7 +77,7 @@ function avatar(c){const src=IMAGE_OVERRIDES[c?.name]||c?.image||'';return src?`
 function profile(){return selectedCharacter?mechanics.characters?.[selectedCharacter.name]||null:null}
 
 async function loadData(){
-  const urls=['/wuwa/data/characters.json','/wuwa/data/character-mechanics.json','/wuwa/data/character-mechanics-extra.json','/wuwa/data/sonata-effects.json'];
+  const urls=['data/characters.json','data/character-mechanics.json','data/character-mechanics-extra.json','data/sonata-effects.json'];
   const r=await Promise.allSettled(urls.map(u=>fetch(u,{cache:'no-store'}).then(x=>x.ok?x.json():Promise.reject())));
   if(r[0].status==='fulfilled'){const a=Array.isArray(r[0].value)?r[0].value:r[0].value.characters;if(Array.isArray(a))roster=a.filter(x=>x?.name).map((x,i)=>({id:String(x.id||i),name:String(x.name).trim(),image:x.image||''}))}
   if(r[1].status==='fulfilled'&&r[1].value?.characters)mechanics=r[1].value;
