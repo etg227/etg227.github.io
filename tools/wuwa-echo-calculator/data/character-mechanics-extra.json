@@ -1,0 +1,254 @@
+{
+  "updated_at": "2026-09-17",
+  "note": "3.7 preview/test-server profiles. Values may change before release; kept separate from released-character database.",
+  "characters": {
+    "心": {
+      "verified": false,
+      "preview": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.15,
+        "heavy": 0.05,
+        "skill": 0.4,
+        "liberation": 0.25,
+        "other": 0.15
+      },
+      "innate": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "[前瞻] 同演模态强化变奏技能倍率提升15%（每层再+10%至多4层）",
+          "effects": []
+        },
+        {
+          "level": 2,
+          "summary": "[前瞻] 强化终结技（共鸣技能伤害）倍率提升60%并提高触发频率",
+          "effects": []
+        },
+        {
+          "level": 3,
+          "summary": "[前瞻] 万炽悬天倍率提升70%；同演模态暴击伤害+20%",
+          "effects": [
+            {
+              "kind": "critDmg",
+              "value": 20,
+              "apply": "combat",
+              "source": "S3"
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "summary": "[前瞻] 触发电磁/同演机制后全队全属性伤害加成提升20%",
+          "effects": [
+            {
+              "kind": "globalDmg",
+              "value": 20,
+              "apply": "combat",
+              "source": "S4"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "summary": "[前瞻] 防御向：纹障减伤与致命伤保护",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "[前瞻] 目标受到心的共鸣技能伤害提升40%，无视20%防御",
+          "effects": [
+            {
+              "kind": "skillDmg",
+              "value": 40,
+              "apply": "combat",
+              "source": "S6"
+            }
+          ]
+        }
+      ],
+      "source_kind": "3.7 preview/test data",
+      "source_url": "https://keygold.gg/zh-hant/blog/detail/wuthering-waves-hsin-suoming-gameplay-zh",
+      "notes": "3.7上半导电音感仪主C（前瞻），狐火印记与白狐形态电磁爆发，数值未公布。 正式上线后应重新校验。 逐链效果与伤害构成为 2026-09 社区攻略推导（前瞻，正式上线后应校验）。",
+      "confidence": "estimated",
+      "sources": [
+        "https://keygold.gg/zh-hant/blog/detail/wuthering-waves-hsin-suoming-gameplay-zh",
+        "https://m.ali213.net/news/gl2609/1805531.html",
+        "https://niubi.wiki/2026/08/19/138453/",
+        "https://gurugamer.com/mobile-games/wuthering-waves-3-7-kit-leaks-hsin-and-suoming-27248",
+        "https://tieba.baidu.com/p/10794891574"
+      ],
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.15,
+          "heavy": 0.05,
+          "skill": 0.39,
+          "liberation": 0.25,
+          "other": 0.16
+        },
+        "2": {
+          "basic": 0.13,
+          "heavy": 0.04,
+          "skill": 0.46,
+          "liberation": 0.22,
+          "other": 0.15
+        },
+        "3": {
+          "basic": 0.12,
+          "heavy": 0.04,
+          "skill": 0.41,
+          "liberation": 0.3,
+          "other": 0.13
+        },
+        "4": {
+          "basic": 0.12,
+          "heavy": 0.04,
+          "skill": 0.41,
+          "liberation": 0.3,
+          "other": 0.13
+        },
+        "5": {
+          "basic": 0.12,
+          "heavy": 0.04,
+          "skill": 0.41,
+          "liberation": 0.3,
+          "other": 0.13
+        },
+        "6": {
+          "basic": 0.12,
+          "heavy": 0.04,
+          "skill": 0.41,
+          "liberation": 0.3,
+          "other": 0.13
+        }
+      }
+    },
+    "锁暝": {
+      "verified": false,
+      "preview": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.55,
+        "heavy": 0.05,
+        "skill": 0.15,
+        "liberation": 0.15,
+        "other": 0.1
+      },
+      "innate": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "[前瞻] 锁暝攻击提升20%",
+          "effects": [
+            {
+              "kind": "atkPct",
+              "value": 20,
+              "apply": "combat",
+              "source": "S1"
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "summary": "[前瞻] 自身暴击伤害提升40%；延奏为入场角色提供暴伤（队伍向不计）",
+          "effects": [
+            {
+              "kind": "critDmg",
+              "value": 40,
+              "apply": "combat",
+              "source": "S2"
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "summary": "[前瞻] 施放共鸣解放后普攻伤害加深30%，持续25秒",
+          "effects": [
+            {
+              "kind": "basicDmg",
+              "value": 30,
+              "apply": "combat",
+              "source": "S3"
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "summary": "[前瞻] 协契恩赐每层效果提升50%（辅助向）",
+          "effects": []
+        },
+        {
+          "level": 5,
+          "summary": "[前瞻] 共鸣解放「幽幕·瘴锁」伤害倍率提升40%",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "[前瞻] 强化普攻「幽幕·刻心」倍率提升50%；印主状态暴击伤害额外提升80%",
+          "effects": [
+            {
+              "kind": "critDmg",
+              "value": 80,
+              "apply": "combat",
+              "source": "S6"
+            }
+          ]
+        }
+      ],
+      "source_kind": "3.7 preview/test data",
+      "source_url": "https://news.17173.com/content/08312026/152433755.shtml",
+      "notes": "3.7下半导电迅刀副C/协同（前瞻），禁锢十重契锁频机制，占比为定位推断、确定度低。 正式上线后应重新校验。 逐链效果与伤害构成为 2026-09 社区攻略推导（前瞻，正式上线后应校验）。",
+      "confidence": "estimated",
+      "sources": [
+        "https://news.17173.com/content/08312026/152433755.shtml",
+        "https://www.bilibili.com/video/BV15ahF6gEB5/",
+        "https://niubi.wiki/2026/08/19/138453/",
+        "https://gurugamer.com/mobile-games/wuthering-waves-3-7-leak-summary-27259"
+      ],
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.55,
+          "heavy": 0.05,
+          "skill": 0.15,
+          "liberation": 0.15,
+          "other": 0.1
+        },
+        "2": {
+          "basic": 0.55,
+          "heavy": 0.05,
+          "skill": 0.15,
+          "liberation": 0.15,
+          "other": 0.1
+        },
+        "3": {
+          "basic": 0.55,
+          "heavy": 0.05,
+          "skill": 0.15,
+          "liberation": 0.15,
+          "other": 0.1
+        },
+        "4": {
+          "basic": 0.55,
+          "heavy": 0.05,
+          "skill": 0.15,
+          "liberation": 0.15,
+          "other": 0.1
+        },
+        "5": {
+          "basic": 0.52,
+          "heavy": 0.05,
+          "skill": 0.14,
+          "liberation": 0.19,
+          "other": 0.1
+        },
+        "6": {
+          "basic": 0.58,
+          "heavy": 0.04,
+          "skill": 0.12,
+          "liberation": 0.17,
+          "other": 0.09
+        }
+      }
+    }
+  }
+}
