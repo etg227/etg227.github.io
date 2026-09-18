@@ -34,6 +34,10 @@
     .cost-warning{border:1px solid var(--warn);color:var(--warn);background:color-mix(in srgb,var(--warn) 8%,var(--panel));border-radius:10px;padding:9px 12px;font-size:12px;font-weight:700;margin-bottom:12px}
     .score-scope-note{margin:12px 2px 0;line-height:1.7}
     select.dup-flash{border-color:var(--danger);box-shadow:0 0 0 2px color-mix(in srgb,var(--danger) 30%,transparent)}
+    .ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
+    .ref-grid .profile-section-label{margin-top:8px}
+    .ref-grid .micro{margin:5px 0 10px;line-height:1.75}
+    @media(max-width:820px){.ref-grid{grid-template-columns:1fr}}
     @media(max-width:980px){.gear-auto-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:820px){.profile-grid,.current-stat-grid{grid-template-columns:1fr 1fr}}
     @media(max-width:620px){.profile-grid,.current-stat-grid,.gear-auto-grid{grid-template-columns:1fr}}
@@ -69,6 +73,26 @@
     <div class="panel-title-row"><div><span class="step">05</span><h2>计算结果</h2></div><span class="hint">角色机制感知评分</span></div>
     <div class="hero-results"><div class="metric-card accent"><span>候选声骸替换提升</span><strong id="overallGain">—</strong><small>相对当前整套</small></div><div class="metric-card"><span>候选副词条评分</span><strong id="candidateScore">—</strong><small>100 = 五条满档有效词条</small><span id="candidateGrade" class="echo-mini-grade candidate-grade-core">评级 D</span></div><div class="metric-card"><span>整套毕业度</span><strong id="buildScore">—</strong><small id="buildTier">录入声骸后评估毕业度</small></div><div class="metric-card"><span>当前期望暴击乘区</span><strong id="critFactor">—</strong><small id="critState">—</small></div><div class="metric-card"><span>当前最推荐副词条</span><strong id="bestStandard">—</strong><small id="bestStandardNote">填写角色与当前面板后生成推荐</small></div></div>
     <div class="results-grid"><div><h3>候选每条副词条边际贡献</h3><div id="lineMarginals" class="bars"></div></div><div><h3>可实现的提升排行</h3><div id="standardBars" class="bars"></div></div></div>
+  </section>
+  <section class="panel full" id="referencesPanel">
+    <div class="panel-title-row"><div><span class="step">※</span><h2>参考与致谢</h2></div><span class="hint">非官方社区工具</span></div>
+    <div class="ref-grid">
+      <div>
+        <div class="profile-section-label">评分口径与既有角色数据</div>
+        <p class="micro"><a href="https://github.com/GQin404/WuwaEchoTool" target="_blank" rel="noreferrer">WuwaEchoTool</a>（GQin404，已开源停更，作者已公开说明数据可取用）——词条系数方案、毕业度档位与陆·赫斯及之前角色的伤害构成来源。</p>
+        <div class="profile-section-label">角色目录与头像</div>
+        <p class="micro"><a href="https://wiki.kurobbs.com/mc/home" target="_blank" rel="noreferrer">库街区《鸣潮》WIKI</a>。账号导入直连库街区官方接口，token 仅保存在当前浏览器，本站不上传、不经手。</p>
+        <div class="profile-section-label">新角色伤害构成与共鸣链</div>
+        <p class="micro">2026-09 社区攻略调研，逐角色来源链接与置信度（实测 / 攻略推导 / 前瞻推断）记录在 <a href="data/character-mechanics.json" target="_blank" rel="noreferrer">机制数据文件</a> 的 sources 与 confidence 字段。</p>
+      </div>
+      <div>
+        <div class="profile-section-label">伤害公式与档位交叉验证</div>
+        <p class="micro"><a href="https://www.wutheringtools.com/info" target="_blank" rel="noreferrer">Wuthering Tools</a> · <a href="https://wikiwiki.jp/w-w/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F" target="_blank" rel="noreferrer">鳴潮 Wiki ダメージ計算式</a> · <a href="https://www.prydwen.gg/wuthering-waves/guides/echo-stats" target="_blank" rel="noreferrer">Prydwen 声骸档位</a></p>
+        <div class="profile-section-label">方法说明与源码</div>
+        <p class="micro"><a href="/2026/09/17/wuwa-echo-methodology/">评分方法详解（博客文章）</a> · <a href="https://github.com/etg227/etg227.github.io/tree/main/tools/wuwa-echo-calculator" target="_blank" rel="noreferrer">源码 / README / REFERENCES</a> · MIT License</p>
+        <p class="micro">本工具为非官方粉丝项目，与库洛游戏（Kuro Games）无关联。计算结果为简化模型下的条件性估计，不等同于队伍循环 DPS；词条评分为静态口径，换装决策请以按面板重算的替换收益为准。</p>
+      </div>
+    </div>
   </section>
 </main>
 <script src="baseline-sync.js?v=20260917-8"></script>
