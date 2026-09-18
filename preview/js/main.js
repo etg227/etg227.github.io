@@ -1,3 +1,43 @@
+// Keep the complete playlist from the theme provider, but resolve each media
+// URL through a working endpoint. The theme provider's audio URLs now return
+// 404 even though its playlist, artwork and lyric responses still work.
+(() => {
+  const playlistApi = "https://api.i-meto.com/meting/api";
+  const audioApi = "https://meting-api-omega.vercel.app/api";
+  const nativeFetch = window.fetch.bind(window);
+
+  window.meting_api = `${playlistApi}?server=:server&type=:type&id=:id&auth=:auth&r=:r`;
+  window.fetch = async (resource, options) => {
+    const response = await nativeFetch(resource, options);
+    const requestUrl = typeof resource === "string" ? resource : resource && resource.url;
+
+    if (!requestUrl || !requestUrl.startsWith(playlistApi) || !requestUrl.includes("type=playlist") || !response.ok) {
+      return response;
+    }
+
+    try {
+      const songs = await response.clone().json();
+      if (!Array.isArray(songs)) return response;
+
+      songs.forEach(song => {
+        if (!song || !song.url) return;
+        const songId = new URL(song.url).searchParams.get("id");
+        if (songId) song.url = `${audioApi}?server=netease&type=url&id=${encodeURIComponent(songId)}`;
+        if (!song.name && song.title) song.name = song.title;
+        if (!song.artist && song.author) song.artist = song.author;
+      });
+
+      return new Response(JSON.stringify(songs), {
+        status: response.status,
+        statusText: response.statusText,
+        headers: { "content-type": "application/json; charset=utf-8" },
+      });
+    } catch (error) {
+      return response;
+    }
+  };
+})();
+
 // 第一次播放音乐
 var anzhiyu_musicFirst = false;
 // 快捷键
