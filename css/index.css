@@ -7777,6 +7777,38 @@ body[data-type="music"] .layout {
   -ms-flex-direction: row;
   flex-direction: row;
 }
+body[data-type="music"] #aside-content {
+  display: none;
+}
+body[data-type="music"] #content-inner,
+body[data-type="music"] #page,
+body[data-type="music"] #anMusic-page {
+  width: 100%;
+  min-width: 0;
+}
+body[data-type="music"] #page {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+body[data-type="music"] #anMusic-page meting-js {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+body[data-type="music"] #anMusic-page .aplayer {
+  width: 100%;
+  max-width: 100%;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+}
 body[data-type="music"] #page {
   border: 0;
   -webkit-box-shadow: none !important;
@@ -7970,6 +8002,10 @@ body[data-type="music"] .s-sticker div {
   text-align: center;
   height: auto;
   margin: 15px;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 #anMusic-page meting-js .aplayer .aplayer-body .aplayer-info .aplayer-music .aplayer-author,
 #anMusic-page meting-js .aplayer .aplayer-body .aplayer-info .aplayer-music .aplayer-title {
