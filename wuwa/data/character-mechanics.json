@@ -2,6 +2,7 @@
   "source": "WuwaEchoTool (legacy <= 陆·赫斯) + community guide research 2026-09 for newer characters; signature names cross-checked with liangshi-calc and current guides",
   "updated_at": "2026-09-17",
   "legacy_data_boundary": "陆·赫斯 (WuwaEchoTool); newer characters re-derived from 2026-09 community guides, see per-character sources",
+  "chain_weights_note": "chain_type_weights 存在两种口径，见各角色 source_kind：WuwaEchoTool mzProperty 来源为全折算口径（倍率、增伤、暴伤等链效果的结果全部折进逐链占比）；2026-09 研究来源为分轨口径（仅倍率提升/新增伤害段/标签转换折进占比，纯增伤类链效果记录在 chains[].effects，技能专属暴伤仅存文字说明）。两批占比的变化幅度与方向不可直接横向比较。",
   "characters": {
     "景燃": {
       "verified": true,

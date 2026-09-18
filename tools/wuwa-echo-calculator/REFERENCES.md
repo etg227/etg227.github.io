@@ -147,6 +147,13 @@ The character-mechanics dataset now carries, per character:
 - `chain_type_weights`: per-chain damage-composition tables ("1"–"6"), used when a chain changes motion multipliers, adds new tagged damage or converts tags. Legacy characters reuse WuwaEchoTool's `mzProperty` tables; post-陆·赫斯 characters were derived from 2026-09 community guides with per-character sources recorded in the data.
 - Chain buffs that only raise crit damage of a single skill cannot be honestly encoded as flat type-damage bonuses; they are kept as text notes and (approximately) reflected via the composition tables instead.
 
+**Two encoding conventions coexist inside `chain_type_weights`**, distinguishable by each character's `source_kind`:
+
+1. Legacy characters imported from WuwaEchoTool's `mzProperty` use a *fully folded* convention: the outcome of every chain effect — motion-multiplier increases, damage-bonus/amplify buffs, crit buffs — is baked into the per-chain composition tables, because those tables were measured inside that author's complete damage calculator. This is why some legacy characters' dominant-tag share rises (or even flips entirely) at high chains.
+2. Characters researched in 2026-09 use a *split* convention: only motion-multiplier increases, newly added tagged damage and tag conversions shift the composition tables; flat damage-bonus/amplify chain buffs live in `chains[].effects`, and skill-specific crit buffs remain text notes. A chain that strengthens the dominant tag via a damage-bonus therefore leaves the composition table unchanged here, while one that strengthens a secondary tag's multiplier dilutes the dominant share.
+
+The calculator consumes both representations (weights through the type mix, effects through the bonus bucket), so substat valuations stay consistent either way. But the *magnitude and direction* of composition shift across the two groups is not directly comparable: a legacy character whose dominant share climbs at S6 and a researched character whose share stays flat may reflect the same kind of chain, encoded differently.
+
 A constant multiplier affecting Current and Candidate identically still cancels out of the replacement ratio.
 
 ## 9. Product / UX reference
