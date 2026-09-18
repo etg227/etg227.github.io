@@ -15,7 +15,7 @@ permalink: /2026/09/17/wuwa-echo-methodology/
 
 **关键词：** 鸣潮；声骸评价；边际收益；期望伤害；多属性决策
 
-<p class="research-actions"><a class="research-button" href="/tools/wuwa-echo-calculator/">打开声骸评分器 →</a> <a href="/wuwa/">进入鸣潮工具箱</a></p>
+<p class="research-actions"><a class="research-button" href="https://wuwatool.etg227.com/">打开声骸评分器 →</a> <a href="https://wuwatool.etg227.com/">进入鸣潮工具箱</a></p>
 
 ## 1. 问题定义与研究范围
 
