@@ -110,7 +110,7 @@
       if (window.GLOBAL_CONFIG) window.GLOBAL_CONFIG.twikooEnvId = ENV_ID;
 
       if (typeof window.twikoo !== 'object') {
-        await loadScriptOnce('https://cdn.cbd.int/twikoo@1.6.39/dist/twikoo.all.min.js');
+        await loadScriptOnce('https://cdn.cbd.int/twikoo@1.7.20/dist/twikoo.all.min.js');
       }
 
       box.replaceChildren();
