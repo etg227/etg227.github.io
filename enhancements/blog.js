@@ -73,3 +73,87 @@
   document.addEventListener('pjax:complete',setup);
   setup();
 })();
+
+
+/* ETG227_TWIKOO_BOOTSTRAP */
+(() => {
+  // Fill this with the Twikoo backend URL, e.g. https://your-project.vercel.app
+  const ENV_ID = '';
+
+  const loadScriptOnce = (src) => {
+    const existing = Array.from(document.scripts).find((s) => s.src === src);
+    if (existing) {
+      if (typeof window.twikoo === 'object') return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        existing.addEventListener('load', resolve, { once: true });
+        existing.addEventListener('error', reject, { once: true });
+      });
+    }
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = true;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  };
+
+  const initTwikoo = async () => {
+    const box = document.querySelector('#twikoo-wrap');
+    if (!box || box.dataset.etgTwikooReady === '1' || !ENV_ID) return;
+
+    box.dataset.etgTwikooReady = '1';
+    box.textContent = '评论加载中…';
+
+    try {
+      if (window.GLOBAL_CONFIG) window.GLOBAL_CONFIG.twikooEnvId = ENV_ID;
+
+      if (typeof window.twikoo !== 'object') {
+        await loadScriptOnce('https://cdn.cbd.int/twikoo@1.6.39/dist/twikoo.all.min.js');
+      }
+
+      box.replaceChildren();
+      await window.twikoo.init({
+        el: '#twikoo-wrap',
+        envId: ENV_ID,
+        region: '',
+        onCommentLoaded: () => {
+          if (window.anzhiyu && typeof window.anzhiyu.loadLightbox === 'function') {
+            window.anzhiyu.loadLightbox(
+              document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)')
+            );
+          }
+        }
+      });
+
+      const count = document.getElementById('twikoo-count');
+      if (count && typeof window.twikoo.getCommentsCount === 'function') {
+        try {
+          const result = await window.twikoo.getCommentsCount({
+            envId: ENV_ID,
+            region: '',
+            urls: [window.location.pathname],
+            includeReply: false
+          });
+          if (result && result[0]) count.textContent = result[0].count;
+        } catch (err) {
+          console.warn('[Twikoo] comment count failed:', err);
+        }
+      }
+    } catch (err) {
+      box.dataset.etgTwikooReady = '0';
+      box.textContent = '评论加载失败，请稍后重试。';
+      console.error('[Twikoo] init failed:', err);
+    }
+  };
+
+  const boot = () => setTimeout(initTwikoo, 0);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
+  }
+  document.addEventListener('pjax:complete', boot);
+})();
