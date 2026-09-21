@@ -71,3 +71,86 @@ html[data-theme="dark"] #recent-posts .unvisited-post{color:var(--anzhiyu-second
 #pagination.pagination-post>div:hover{border-color:var(--anzhiyu-main)}
 #pagination.pagination-post{background:transparent}
 #pagination.pagination-post :is(.prev_info,.next_info){color:var(--anzhiyu-fontcolor);line-height:1.7}
+
+
+/* ETG227_HOME_TOP_TABLET_FIX */
+@media (min-width:769px) and (max-width:1200px){
+  #home_top{
+    width:100%!important;
+    height:auto!important;
+    max-height:none!important;
+    padding:0 1.5rem!important;
+    overflow:visible!important;
+    box-sizing:border-box!important;
+  }
+
+  #home_top .swiper_container_card{
+    display:grid!important;
+    grid-template-columns:220px minmax(0,1fr)!important;
+    gap:16px!important;
+    align-items:stretch!important;
+    width:100%!important;
+    height:340px!important;
+    margin:1rem auto 0!important;
+    overflow:visible!important;
+  }
+
+  #home_top #bannerGroup{
+    width:220px!important;
+    min-width:220px!important;
+    height:340px!important;
+    margin:0!important;
+    display:flex!important;
+    flex-direction:column!important;
+  }
+
+  #home_top #random-banner{
+    display:none!important;
+  }
+
+  #home_top #bannerGroup .categoryGroup{
+    display:flex!important;
+    flex-direction:column!important;
+    width:100%!important;
+    height:100%!important;
+    margin:0!important;
+    gap:8px!important;
+  }
+
+  #home_top #bannerGroup .categoryItem{
+    display:block!important;
+    width:100%!important;
+    min-width:0!important;
+    height:auto!important;
+    flex:1 1 0!important;
+    margin:0!important;
+  }
+
+  #home_top #bannerGroup .categoryItem:nth-child(3){
+    display:none!important;
+  }
+
+  #home_top #bannerGroup .categoryButton{
+    width:100%!important;
+    height:100%!important;
+  }
+
+  #home_top .topGroup{
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    min-width:0!important;
+    height:340px!important;
+    margin:0!important;
+  }
+
+  #home_top #todayCard.flower-intro{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:340px!important;
+    min-height:340px!important;
+    margin:0!important;
+    padding:34px!important;
+  }
+}
