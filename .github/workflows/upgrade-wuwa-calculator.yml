@@ -28,7 +28,6 @@ jobs:
         run: |
           node --check tools/wuwa-echo-calculator/app.js
           node --check tools/wuwa-echo-calculator/baseline-sync.js
-          node --check tools/wuwa-echo-calculator/kuro-sync.js
           node --check wuwa/profile-save-v3.js
       - name: Data syntax check
         run: |

@@ -38,8 +38,7 @@ https://github.com/GQin404/WuwaEchoTool
 Open-sourced and no longer maintained; the author has publicly stated the project data may be reused. This project takes from it, with attribution:
 
 - the static substat coefficient scheme and graduation-tier convention (section 7);
-- `type_weights` damage compositions for characters up to 陆·赫斯, and the per-chain `mzProperty` composition tables (section 8);
-- the Kuro BBS account-import request flow mirrored by `kuro-sync.js` (section 10).
+- `type_weights` damage compositions for characters up to 陆·赫斯, and the per-chain `mzProperty` composition tables (section 8).
 
 Characters whose `source_kind` names WuwaEchoTool carry this repository URL in their `sources` field inside the mechanics data files.
 
@@ -177,7 +176,3 @@ Bilibili introduction:
 https://www.bilibili.com/video/BV1qTuh63E4c/
 
 Used only as a product / interaction reference for making theorycrafting easier to enter and read in a browser. This project does not treat it as the sole damage-formula source and does not copy its UI, assets or private data.
-
-## 10. Kuro account import
-
-`kuro-sync.js` implements optional client-side import, mirroring WuwaEchoTool's flow: the player pastes their own Kuro BBS token, which is stored only in that browser's localStorage and sent directly to the official `api.kurobbs.com` endpoints (requestToken → refreshData → roleData → getRoleDetail). This site never receives, proxies or logs the token; an unbind button deletes the local copy. Imported substat values are snapped to the nearest legal roll tier. Panel stats are not provided by the API and must still be copied from the in-game character page.
