@@ -1,5 +1,8 @@
 (()=>{'use strict';
 
+// 库街区账号导入已移除：清理旧版本遗留在本地的 token / UID
+try{localStorage.removeItem('wuwaKuroToken');localStorage.removeItem('wuwaKuroUid')}catch(e){}
+
 const $=id=>document.getElementById(id);
 const num=id=>Number($(id)?.value||0);
 const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
