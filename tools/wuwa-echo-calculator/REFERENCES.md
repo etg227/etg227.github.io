@@ -1,6 +1,6 @@
 # References and Methodology
 
-Reference snapshot: **2026-09-17**. Intended for Wuthering Waves **v3.6** theorycrafting.
+Reference snapshot: **2026-09-25**. Intended for Wuthering Waves **v3.6** theorycrafting. The tool is deployed standalone at [wuwatool.etg227.com](https://wuwatool.etg227.com/); the companion blog lives at [blog.etg227.com](https://blog.etg227.com/).
 
 This project is an **unofficial fan-made theory tool**. It distinguishes community-tested formulas from official in-game descriptions. Kuro Games does not publish one complete player-facing formula reference covering every character-specific mechanic.
 
@@ -44,7 +44,7 @@ These are implementation references, not official Kuro Games specifications.
 ### 库街区《鸣潮》WIKI
 https://wiki.kurobbs.com/mc/home
 
-The blog keeps a periodically refreshed local snapshot of the public Resonator catalogue for character names and portrait images. No player account login is required for this catalogue data.
+The repository keeps a periodically refreshed local snapshot of the public Resonator catalogue for character names and portrait images (no player account login required). The standalone deployment reads its own copy under this directory's `data/`, kept in sync with the repository's `wuwa/data/` master by the `sync-wuwa-calculator-assets` CI job.
 
 ## 3. Echo substat ranges
 

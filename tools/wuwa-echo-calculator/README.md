@@ -1,6 +1,11 @@
-# WuWa Echo Marginal Scorer / 鸣潮单角色声骸边际评分器
+# 鸣潮声骸评分器 / WuWa Echo Scorer
 
-一个纯前端、可直接部署到 GitHub Pages 的《鸣潮》单角色声骸理论工具。它不使用固定 CV 作为最终评价，而是根据角色当前面板、共鸣链、武器/合鸣套装和角色伤害构成，重新计算声骸副词条的实际边际收益。
+一个纯前端的《鸣潮》单角色声骸理论工具，独立部署于 **[wuwatool.etg227.com](https://wuwatool.etg227.com/)**。它采用双轨口径：
+
+- **静态词条评分与毕业度**（学习 WuwaEchoTool）：按角色相关的固定系数衡量词条本身的质量，不随面板变化；
+- **边际换装计算**：按玩家实时面板、共鸣链、武器/合鸣套装和角色伤害构成完整重算替换收益与可实现的提升建议。
+
+方法定义、可复算示例与适用边界见配套文章[《鸣潮声骸评价的双层模型》](https://blog.etg227.com/2026/09/17/wuwa-echo-methodology/)。
 
 ## 当前功能
 
@@ -14,7 +19,7 @@
 - **候选为空时的理论排行**：未填写候选副词条时，左侧结果区展示各词条在当前面板下的理论边际收益（平均档），作为词条价值参考。
 - **完整合鸣套装数据库**：主套装会列出当前数据库中的全部套装。选择主套后再选择合法件数（5件 / 3件 / 特殊1件）；只有主套为3件时才能选择2件副套，5件时副套装锁定。
 - **武器被动**：已校验的专武效果可自动计入。
-- **5只声骸独立评分**：每个装备位可填写 COST、主词条与5条副词条，并分别计算边际评分与 SSS–D 评级。
+- **5只声骸独立评分**：每个装备位可填写 COST、主词条与5条副词条，并分别计算静态词条评分与 SSS–D 评级。
 - **固定档位下拉**：副词条数值只允许选择游戏内实际档位；4-COST 支持暴击、暴伤、攻/生/防和治疗效果主词条。
 - **候选声骸替换**：指定替换1–5号声骸后，计算整套理论提升。
 - **候选逐条贡献**：候选声骸每条副词条都会单独显示对当前角色的边际贡献。
@@ -105,8 +110,9 @@ Factor
 - 旧角色伤害构成与评分基础：WuwaEchoTool（作者已公开说明项目数据可取用）。
 - 新角色与新套装：继续结合库街区与仍在更新的社区数据源进行维护和交叉校验。
 - 声骸固定副词条档位：按游戏实际档位维护。
-- `wuwa/data/sonata-effects.json`：当前合鸣套装效果数据库。
-- `wuwa/data/character-mechanics.json` / `character-mechanics-extra.json`：角色机制与补充模型。
+- [`data/sonata-effects.json`](./data/sonata-effects.json)：当前合鸣套装效果数据库。
+- [`data/character-mechanics.json`](./data/character-mechanics.json) / [`character-mechanics-extra.json`](./data/character-mechanics-extra.json)：角色机制与补充模型（逐角色 sources / confidence 字段记录来源与置信度）。
+- 本目录下的 `data/` 为独立部署使用的副本，与仓库 `wuwa/data/` 主数据由 CI（`sync-wuwa-calculator-assets`）自动保持同步。
 
 详细来源与公式说明见 [`REFERENCES.md`](./REFERENCES.md)。
 
