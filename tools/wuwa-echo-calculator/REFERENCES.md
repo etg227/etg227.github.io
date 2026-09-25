@@ -31,6 +31,18 @@ Used to cross-check:
 - Expected Crit relationship.
 - Defense and resistance descriptions.
 
+### WuwaEchoTool — primary upstream (GQin404)
+
+https://github.com/GQin404/WuwaEchoTool
+
+Open-sourced and no longer maintained; the author has publicly stated the project data may be reused. This project takes from it, with attribution:
+
+- the static substat coefficient scheme and graduation-tier convention (section 7);
+- `type_weights` damage compositions for characters up to 陆·赫斯, and the per-chain `mzProperty` composition tables (section 8);
+- the Kuro BBS account-import request flow mirrored by `kuro-sync.js` (section 10).
+
+Characters whose `source_kind` names WuwaEchoTool carry this repository URL in their `sources` field inside the mechanics data files.
+
 ### Open-source implementation cross-checks
 
 - https://github.com/chuan-hane/wuwa-damage-calculator

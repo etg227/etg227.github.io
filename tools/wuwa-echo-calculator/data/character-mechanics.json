@@ -1629,7 +1629,11 @@
           "other": 0.08
         }
       },
-      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。",
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "爱弥斯": {
       "verified": true,
@@ -1694,7 +1698,11 @@
           "other": 0.05
         }
       },
-      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。",
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "琳奈": {
       "verified": true,
@@ -1759,7 +1767,11 @@
           "other": 0.17
         }
       },
-      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。",
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "千咲": {
       "verified": true,
@@ -1823,7 +1835,11 @@
         "name": "昙切",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "仇远": {
       "verified": true,
@@ -1887,7 +1903,11 @@
         "name": "裁竹",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "嘉贝莉娜": {
       "verified": true,
@@ -1951,7 +1971,11 @@
         "name": "光影双生",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "尤诺": {
       "verified": true,
@@ -2022,7 +2046,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "奥古斯塔": {
       "verified": true,
@@ -2094,7 +2122,11 @@
           "other": 0.0211
         }
       },
-      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。",
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "弗洛洛": {
       "verified": true,
@@ -2172,7 +2204,11 @@
           "other": 0.517
         }
       },
-      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。",
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "露帕": {
       "verified": true,
@@ -2244,7 +2280,11 @@
           "other": 0.0
         }
       },
-      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。",
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "夏空": {
       "verified": true,
@@ -2315,7 +2355,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "卡提希娅": {
       "verified": true,
@@ -2387,7 +2431,11 @@
           "other": 0.032
         }
       },
-      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。",
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "赞妮": {
       "verified": true,
@@ -2516,7 +2564,11 @@
         "sonata": "eternal5",
         "main_echo": "glory",
         "weapon": "signature"
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "坎特蕾拉": {
       "verified": true,
@@ -2587,7 +2639,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "菲比": {
       "verified": true,
@@ -2658,7 +2714,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "布兰特": {
       "verified": true,
@@ -2722,7 +2782,11 @@
         "name": "不灭航路",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "洛可可": {
       "verified": true,
@@ -2799,7 +2863,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "珂莱塔": {
       "verified": true,
@@ -2871,7 +2939,11 @@
           "other": 0.12
         }
       },
-      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。",
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "椿": {
       "verified": true,
@@ -2943,7 +3015,11 @@
           "other": 0.04
         }
       },
-      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。",
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "守岸人": {
       "verified": true,
@@ -3014,7 +3090,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "相里要": {
       "verified": true,
@@ -3091,7 +3171,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "折枝": {
       "verified": true,
@@ -3162,7 +3246,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "长离": {
       "verified": true,
@@ -3234,7 +3322,11 @@
           "other": 0.4651
         }
       },
-      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。"
+      "notes": "S1-S6 逐链伤害构成取自 WuwaEchoTool mzProperty。",
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "今汐": {
       "verified": true,
@@ -3305,7 +3397,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "吟霖": {
       "verified": true,
@@ -3376,7 +3472,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "忌炎": {
       "verified": true,
@@ -3447,7 +3547,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "漂泊者-女-气动": {
       "verified": true,
@@ -3524,7 +3628,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "漂泊者-男-气动": {
       "verified": true,
@@ -3601,7 +3709,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "鉴心": {
       "verified": true,
@@ -3665,7 +3777,11 @@
         "name": "常驻四星",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "卡卡罗": {
       "verified": true,
@@ -3724,7 +3840,11 @@
           "liberation": 0.6,
           "other": 0.19
         }
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "安可": {
       "verified": true,
@@ -3795,7 +3915,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "维里奈": {
       "verified": true,
@@ -3859,7 +3983,11 @@
         "name": "奇幻变奏",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "凌阳": {
       "verified": true,
@@ -3923,7 +4051,11 @@
         "name": "擎渊怒涛",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "漂泊者-男-衍射": {
       "verified": true,
@@ -4000,7 +4132,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "漂泊者-女-衍射": {
       "verified": true,
@@ -4077,7 +4213,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "漂泊者-男-湮灭": {
       "verified": true,
@@ -4154,7 +4294,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "漂泊者-女-湮灭": {
       "verified": true,
@@ -4231,7 +4375,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "卜灵": {
       "verified": true,
@@ -4251,7 +4399,11 @@
         "name": "奇幻变奏",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "灯灯": {
       "verified": true,
@@ -4315,7 +4467,11 @@
         "name": "常驻四星",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "秧秧": {
       "verified": true,
@@ -4379,7 +4535,11 @@
         "name": "常驻四星",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "釉瑚": {
       "verified": true,
@@ -4438,7 +4598,11 @@
           "liberation": 0.16,
           "other": 0.04
         }
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "白芷": {
       "verified": true,
@@ -4502,7 +4666,11 @@
         "name": "奇幻变奏",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "炽霞": {
       "verified": true,
@@ -4566,7 +4734,11 @@
         "name": "停驻之烟",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "散华": {
       "verified": true,
@@ -4630,7 +4802,11 @@
         "name": "千古洑流",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "秋水": {
       "verified": true,
@@ -4689,7 +4865,11 @@
           "liberation": 0,
           "other": 0
         }
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "丹瑾": {
       "verified": true,
@@ -4753,7 +4933,11 @@
         "name": "千古洑流",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "莫特斐": {
       "verified": true,
@@ -4817,7 +5001,11 @@
         "name": "停驻之烟",
         "effects": [],
         "verified": false
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "渊武": {
       "verified": true,
@@ -4888,7 +5076,11 @@
           }
         ],
         "verified": true
-      }
+      },
+      "sources": [
+        "https://github.com/GQin404/WuwaEchoTool",
+        "https://wiki.kurobbs.com/mc/home"
+      ]
     },
     "桃祈": {
       "verified": true,

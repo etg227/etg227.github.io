@@ -107,7 +107,7 @@ Factor
 ## 数据
 
 - 角色目录：库街区《鸣潮》WIKI。
-- 旧角色伤害构成与评分基础：WuwaEchoTool（作者已公开说明项目数据可取用）。
+- 旧角色伤害构成、逐链构成表与评分基础：[WuwaEchoTool](https://github.com/GQin404/WuwaEchoTool)（GQin404，已开源停更，作者已公开说明项目数据可取用）；相关角色的 `sources` 字段均带该仓库引用。
 - 新角色与新套装：继续结合库街区与仍在更新的社区数据源进行维护和交叉校验。
 - 声骸固定副词条档位：按游戏实际档位维护。
 - [`data/sonata-effects.json`](./data/sonata-effects.json)：当前合鸣套装效果数据库。
