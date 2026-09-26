@@ -1,4 +1,4 @@
-var posts=["2026/09/17/wuwa-echo-methodology/", "2025/04/20/test/"];function toRandomPost(){
+var posts=["2026/09/17/wuwa-echo-methodology/"];function toRandomPost(){
     pjax.loadUrl('/'+posts[Math.floor(Math.random() * posts.length)]);
   };
 
