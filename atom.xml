@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>花澪</title>
+  <subtitle>你所弹奏的声音，至今仍在回响</subtitle>
+  <link href="https://blog.etg227.com/atom.xml" rel="self"/>
+  <link href="https://blog.etg227.com/"/>
+  <id>https://blog.etg227.com/</id>
+  <updated>2026-09-17T00:00:00+00:00</updated>
+  <author><name>花澪</name></author>
+  <entry>
+    <title>鸣潮声骸评价的双层模型：静态评分、边际收益与换装决策</title>
+    <link href="https://blog.etg227.com/2026/09/17/wuwa-echo-methodology/"/>
+    <id>https://blog.etg227.com/2026/09/17/wuwa-echo-methodology/</id>
+    <published>2026-09-17T00:00:00+00:00</published>
+    <updated>2026-09-17T00:00:00+00:00</updated>
+    <summary>工具发布 · 方法说明 · 2026-09-17 声骸评价包含两个不同的问题：一是词条组合对某一角色的通用质量，二是该声骸在特定配装中的实际替换价值。本文介绍本站发布的《鸣潮》单角色声骸评分器，以角色相关的静态系数评价词条质量，以当前面板驱动的伤害因子比较换装收益，并讨论暴击上限、伤害类型权重与条件型套装效果对决策的影响。本文给出模型定义、可复算的数值示例与适用边界。所述结果属于简化模型下的条件性……</summary>
+    <category term="鸣潮"/>
+    <category term="游戏"/>
+  </entry>
+</feed>
