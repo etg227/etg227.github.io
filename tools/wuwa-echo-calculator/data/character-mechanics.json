@@ -1,9 +1,145 @@
 {
-  "source": "WuwaEchoTool (legacy <= 陆·赫斯) + community guide research 2026-09 for newer characters; signature names cross-checked with liangshi-calc and current guides",
-  "updated_at": "2026-09-17",
-  "legacy_data_boundary": "陆·赫斯 (WuwaEchoTool); newer characters re-derived from 2026-09 community guides, see per-character sources",
-  "chain_weights_note": "chain_type_weights 存在两种口径，见各角色 source_kind：WuwaEchoTool mzProperty 来源为全折算口径（倍率、增伤、暴伤等链效果的结果全部折进逐链占比）；2026-09 研究来源为分轨口径（仅倍率提升/新增伤害段/标签转换折进占比，纯增伤类链效果记录在 chains[].effects，技能专属暴伤仅存文字说明）。两批占比的变化幅度与方向不可直接横向比较。",
+  "source": "WuwaEchoTool (legacy <= 陆·赫斯) + community guide research 2026-09/10 for newer characters; signature names cross-checked with liangshi-calc and current guides",
+  "updated_at": "2026-10-04",
+  "legacy_data_boundary": "陆·赫斯 (WuwaEchoTool); newer characters re-derived from 2026-09/10 community guides, see per-character sources",
+  "chain_weights_note": "chain_type_weights 存在两种口径，见各角色 source_kind：WuwaEchoTool mzProperty 来源为全折算口径（倍率、增伤、暴伤等链效果的结果全部折进逐链占比）；2026-09/10 研究来源为分轨口径（仅倍率提升/新增伤害段/标签转换折进占比，纯增伤类链效果记录在 chains[].effects，技能专属暴伤仅存文字说明）。两批占比的变化幅度与方向不可直接横向比较。",
   "characters": {
+    "心": {
+      "verified": true,
+      "scaler": "atk",
+      "aliases": [
+        "心月狐"
+      ],
+      "type_weights": {
+        "basic": 0.02,
+        "heavy": 0.02,
+        "skill": 0.85,
+        "liberation": 0.0,
+        "other": 0.11
+      },
+      "innate": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "获得纹障：免疫打断、受到伤害降低60%；同奏模态下强化变奏技能倍率提升15%，每层同奏增益再+10%（至多4层）；电磁模态入场即满层电磁效应",
+          "effects": []
+        },
+        {
+          "level": 2,
+          "summary": "强化重击各形态伤害倍率提升60%（视为共鸣技能伤害）；入战重置冷却并额外回复100答心值，每12秒一次",
+          "effects": []
+        },
+        {
+          "level": 3,
+          "summary": "共鸣解放·万炽悬天伤害倍率提升70%（视为共鸣技能伤害）；同奏模态下万炽悬天暴击伤害+20%（技能专属，未编码）",
+          "effects": []
+        },
+        {
+          "level": 4,
+          "summary": "触发电磁效应/电怒、获得同奏或响应同奏时，全队全属性伤害加成提升20%，持续30秒",
+          "effects": [
+            {
+              "kind": "globalDmg",
+              "value": 20,
+              "apply": "combat",
+              "source": "S4"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "summary": "照心形态受到伤害降低20%；致命伤保护：回复100%生命并无敌1秒（10分钟一次，生存链）",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "心的共鸣技能伤害提升40%，并无视目标20%防御（无视防御未编码）；电磁效应伤害可以暴击",
+          "effects": [
+            {
+              "kind": "skillDmg",
+              "value": 40,
+              "apply": "combat",
+              "source": "S6"
+            }
+          ]
+        }
+      ],
+      "source_kind": "community guides 2026-10 (derived, post-release)",
+      "source_url": "https://www.bilibili.com/video/BV1bDa96SE7v/",
+      "signature_weapon": {
+        "name": "玉阙玄华",
+        "effects": [
+          {
+            "kind": "globalDmg",
+            "value": 12,
+            "apply": "combat",
+            "source": "weapon-passive"
+          },
+          {
+            "kind": "skillDmg",
+            "value": 36,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://www.bilibili.com/video/BV1bDa96SE7v/",
+        "https://www.taptap.cn/moment/854402027353018112",
+        "https://www.bilibili.com/video/BV1toad6WEV9/",
+        "https://www.sportskeeda.com/esports/wuwa-hsin-resonance-chain-guide-wuthering-waves",
+        "https://www.prydwen.gg/wuthering-waves/characters/hsin",
+        "https://wutheringlab.com/character/hsin-build/",
+        "https://www.topuplive.com/news/wuwa-3-7-hsin-kit.html"
+      ],
+      "notes": "3.7 上半导电音感仪主C（游戏内名「心」，俗称心月狐）。强化重击终结段（Realm Wanderer / Pillars Aligned / Beholding All Horizons）与共鸣解放·万炽悬天均视为共鸣技能伤害，故按标签计共鸣技能占比约85%、解放标签约0；构成按低链主流的同奏路线（同奏增益按满层）估算，电磁效应伤害计入其他。专武「共鸣技能伤害加深36%」按本库惯例记为共鸣技能伤害加成，「无视10%导电抗性」与 S6 无视防御未编码。逐链效果与伤害构成为 2026-10 正式上线后社区攻略推导，替换 3.7 前瞻占位数据。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.019,
+          "heavy": 0.019,
+          "skill": 0.81,
+          "liberation": 0.0,
+          "other": 0.152
+        },
+        "2": {
+          "basic": 0.015,
+          "heavy": 0.015,
+          "skill": 0.848,
+          "liberation": 0.0,
+          "other": 0.122
+        },
+        "3": {
+          "basic": 0.013,
+          "heavy": 0.013,
+          "skill": 0.874,
+          "liberation": 0.0,
+          "other": 0.1
+        },
+        "4": {
+          "basic": 0.013,
+          "heavy": 0.013,
+          "skill": 0.874,
+          "liberation": 0.0,
+          "other": 0.1
+        },
+        "5": {
+          "basic": 0.013,
+          "heavy": 0.013,
+          "skill": 0.874,
+          "liberation": 0.0,
+          "other": 0.1
+        },
+        "6": {
+          "basic": 0.013,
+          "heavy": 0.013,
+          "skill": 0.874,
+          "liberation": 0.0,
+          "other": 0.1
+        }
+      }
+    },
     "景燃": {
       "verified": true,
       "scaler": "hp",

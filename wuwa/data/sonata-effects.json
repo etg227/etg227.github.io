@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-17",
+  "updated_at": "2026-10-04",
   "assumption": "Combat-triggered effects are evaluated at full sustainable trigger when selected. Next-character/team-only effects are stored but are not added to this single-character self-DPS model.",
   "sets": [
     {
@@ -584,6 +584,26 @@
         {
           "kind": "elementDmg",
           "value": 15
+        }
+      ]
+    },
+    {
+      "name": "衔梦照世之心",
+      "source": "3.7 release data (community guides 2026-10)",
+      "p2": [
+        {
+          "kind": "elementDmg",
+          "value": 10
+        }
+      ],
+      "p5": [
+        {
+          "kind": "critRate",
+          "value": 15
+        },
+        {
+          "kind": "elementDmg",
+          "value": 22.5
         }
       ]
     }
