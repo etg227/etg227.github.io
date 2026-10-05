@@ -1,25 +1,7 @@
 {
   "source": "库街区《鸣潮》WIKI 共鸣者目录 API",
-  "updated_at": "2026-09-28T09:57:27.421770+00:00",
+  "updated_at": "2026-10-05T10:38:17.728202+00:00",
   "characters": [
-    {
-      "id": "23445",
-      "name": "景燃",
-      "image": "https://prod-alicdn-community.kurobbs.com/forum/befddf3913ef4aa8ac6c9553847ece6b20260810.png",
-      "source": "https://wiki.kurobbs.com/mc/home"
-    },
-    {
-      "id": "20984",
-      "name": "绯雪",
-      "image": "https://prod-alicdn-community.kurobbs.com/forum/e56693dc98c34f5ea0d39882609eb69e20260401.png",
-      "source": "https://wiki.kurobbs.com/mc/home"
-    },
-    {
-      "id": "18903",
-      "name": "莫宁",
-      "image": "https://prod-alicdn-community.kurobbs.com/forum/5ce94b857059492b853384b31a7428eb20251202.png",
-      "source": "https://wiki.kurobbs.com/mc/home"
-    },
     {
       "id": "23654",
       "name": "心",
@@ -27,9 +9,27 @@
       "source": "https://wiki.kurobbs.com/mc/home"
     },
     {
+      "id": "18126",
+      "name": "千咲",
+      "image": "https://prod-alicdn-community.kurobbs.com/forum/d6521c51e1214dc4876cb95226d6de2f20251019.png",
+      "source": "https://wiki.kurobbs.com/mc/home"
+    },
+    {
+      "id": "17535",
+      "name": "尤诺",
+      "image": "https://prod-alicdn-community.kurobbs.com/forum/c1f5c6e86e334b969b1e3053b41aa65220250731.png",
+      "source": "https://wiki.kurobbs.com/mc/home"
+    },
+    {
       "id": "23655",
       "name": "锁暝",
       "image": "https://prod-alicdn-community.kurobbs.com/forum/ef38965eeaa044f8b5ea93635abb161820260829.png",
+      "source": "https://wiki.kurobbs.com/mc/home"
+    },
+    {
+      "id": "23445",
+      "name": "景燃",
+      "image": "https://prod-alicdn-community.kurobbs.com/forum/befddf3913ef4aa8ac6c9553847ece6b20260810.png",
       "source": "https://wiki.kurobbs.com/mc/home"
     },
     {
@@ -87,6 +87,12 @@
       "source": "https://wiki.kurobbs.com/mc/home"
     },
     {
+      "id": "20984",
+      "name": "绯雪",
+      "image": "https://prod-alicdn-community.kurobbs.com/forum/e56693dc98c34f5ea0d39882609eb69e20260401.png",
+      "source": "https://wiki.kurobbs.com/mc/home"
+    },
+    {
       "id": "20673",
       "name": "西格莉卡",
       "image": "https://prod-alicdn-community.kurobbs.com/forum/b372dc4cc3ca4b079f22eb6132d4e30f20260309.png",
@@ -111,9 +117,9 @@
       "source": "https://wiki.kurobbs.com/mc/home"
     },
     {
-      "id": "18126",
-      "name": "千咲",
-      "image": "https://prod-alicdn-community.kurobbs.com/forum/d6521c51e1214dc4876cb95226d6de2f20251019.png",
+      "id": "18903",
+      "name": "莫宁",
+      "image": "https://prod-alicdn-community.kurobbs.com/forum/5ce94b857059492b853384b31a7428eb20251202.png",
       "source": "https://wiki.kurobbs.com/mc/home"
     },
     {
@@ -126,12 +132,6 @@
       "id": "17823",
       "name": "嘉贝莉娜",
       "image": "https://prod-alicdn-community.kurobbs.com/forum/e08663b392184c70b39486bff06aeb7b20250910.png",
-      "source": "https://wiki.kurobbs.com/mc/home"
-    },
-    {
-      "id": "17535",
-      "name": "尤诺",
-      "image": "https://prod-alicdn-community.kurobbs.com/forum/c1f5c6e86e334b969b1e3053b41aa65220250731.png",
       "source": "https://wiki.kurobbs.com/mc/home"
     },
     {
