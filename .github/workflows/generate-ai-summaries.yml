@@ -1,0 +1,51 @@
+name: Generate AI summaries
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Regenerate every summary, even unchanged posts'
+        type: boolean
+        default: false
+  push:
+    branches:
+      - main
+    paths:
+      - 'content/posts/**'
+      - 'scripts/generate-ai-summaries.py'
+      - '.github/workflows/generate-ai-summaries.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generate-ai-summaries
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Generate summaries with DeepSeek
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          FORCE: ${{ inputs.force && '--force' || '' }}
+        run: python3 scripts/generate-ai-summaries.py $FORCE
+
+      - name: Commit summaries
+        if: ${{ !cancelled() }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add enhancements/ai-summaries.json
+          if git diff --cached --quiet; then
+            echo "AI summaries are already up to date."
+            exit 0
+          fi
+          git commit -m "chore: regenerate AI summaries"
+          git pull --rebase origin main
+          git push origin HEAD:main
