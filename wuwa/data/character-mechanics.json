@@ -1,6 +1,6 @@
 {
   "source": "WuwaEchoTool (legacy <= 陆·赫斯) + community guide research 2026-09/10 for newer characters; signature names cross-checked with liangshi-calc and current guides",
-  "updated_at": "2026-10-04",
+  "updated_at": "2026-10-25",
   "legacy_data_boundary": "陆·赫斯 (WuwaEchoTool); newer characters re-derived from 2026-09/10 community guides, see per-character sources",
   "chain_weights_note": "chain_type_weights 存在两种口径，见各角色 source_kind：WuwaEchoTool mzProperty 来源为全折算口径（倍率、增伤、暴伤等链效果的结果全部折进逐链占比）；2026-09/10 研究来源为分轨口径（仅倍率提升/新增伤害段/标签转换折进占比，纯增伤类链效果记录在 chains[].effects，技能专属暴伤仅存文字说明）。两批占比的变化幅度与方向不可直接横向比较。",
   "characters": {
@@ -137,6 +137,147 @@
           "skill": 0.874,
           "liberation": 0.0,
           "other": 0.1
+        }
+      }
+    },
+    "锁暝": {
+      "verified": true,
+      "scaler": "atk",
+      "type_weights": {
+        "basic": 0.764,
+        "heavy": 0.0,
+        "skill": 0.02,
+        "liberation": 0.196,
+        "other": 0.02
+      },
+      "innate": [],
+      "chains": [
+        {
+          "level": 1,
+          "summary": "共鸣技能施放期间免疫打断；变奏技能伤害倍率提升（数值未确认，实测整体提升约2%，未编码）",
+          "effects": []
+        },
+        {
+          "level": 2,
+          "summary": "锁暝自身暴击伤害提升40%；延奏为下一位登场角色按同奏增益层数提供至多24%暴击伤害（队伍向不计）",
+          "effects": [
+            {
+              "kind": "critDmg",
+              "value": 40,
+              "apply": "combat",
+              "source": "S2"
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "summary": "施放共鸣解放后普攻伤害加深30%，持续25秒；提高协契恩赐覆盖",
+          "effects": [
+            {
+              "kind": "basicDmg",
+              "value": 30,
+              "apply": "combat",
+              "source": "S3"
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "summary": "锁暝攻击提升20%",
+          "effects": [
+            {
+              "kind": "atkPct",
+              "value": 20,
+              "apply": "combat",
+              "source": "S4"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "summary": "共鸣解放「幽幕·瘴锁」伤害倍率提升40%；协契恩赐每层对全队的效果提升50%（队伍向不计）",
+          "effects": []
+        },
+        {
+          "level": 6,
+          "summary": "强化普攻「幽幕·刻心」伤害倍率提升50%；拥有禁锁契主效果时暴击伤害额外提升200%（状态限定、覆盖率不足全程，未编码）",
+          "effects": []
+        }
+      ],
+      "source_kind": "community guides 2026-10 (derived, post-release)",
+      "source_url": "https://www.sportskeeda.com/esports/wuwa-suoming-resonance-chain-guide-wuthering-waves",
+      "signature_weapon": {
+        "name": "沉冥",
+        "effects": [
+          {
+            "kind": "atkPct",
+            "value": 12,
+            "apply": "combat",
+            "source": "weapon-static"
+          },
+          {
+            "kind": "elementDmg",
+            "value": 30,
+            "apply": "combat",
+            "source": "weapon-trigger"
+          }
+        ],
+        "verified": true
+      },
+      "confidence": "derived",
+      "sources": [
+        "https://www.sportskeeda.com/esports/wuwa-suoming-resonance-chain-guide-wuthering-waves",
+        "https://wutheringlab.com/character/suoming-build/",
+        "https://wuthering.gg/characters/suoming",
+        "https://slyraf.com/en/wuthering-waves/characters/suoming/",
+        "https://games.gg/wuthering-waves/guides/suoming-build/",
+        "https://tieba.baidu.com/p/11069071289",
+        "https://wuwa.huijiwiki.com/wiki/%E9%94%81%E6%9A%9D/%E6%8A%80%E8%83%BD%E8%AF%A6%E6%83%85",
+        "https://www.sportskeeda.com/esports/best-weapons-suoming-wuwa-wuthering-waves"
+      ],
+      "notes": "3.7 下半导电迅刀，同奏副C / 普攻主C 双定位。共鸣回路（Sealed Delusion / Unforsaken Mind / 幽幕·刻心）与全部变奏技能均视为普攻伤害，共鸣解放「幽幕·瘴锁」为解放伤害。构成按主流心锁同奏副C一轮估算（回路43/解放20/普攻18/变奏17/技能2，按标签计普攻约76%、解放约20%）；若作普攻主C站场，构成约为普攻55/回路32/解放8/变奏4/技能1（普攻标签约91%）。幽幕·刻心在回路内的占比（约20%）为估计。专武「沉冥」获得同奏时自身导电伤害+30%已计入，对全队的「羁念」导电+24%与低协奏消耗时的「怅念」导电+40%未计入。S6 禁锁契主暴伤+200%为状态限定、未编码（实测 S6 整体约+52%，开 S6 时该模型会低估）。逐链效果与伤害构成为 2026-10 正式上线后社区攻略推导，替换 3.7 前瞻占位数据。",
+      "chain_type_weights": {
+        "1": {
+          "basic": 0.764,
+          "heavy": 0.0,
+          "skill": 0.02,
+          "liberation": 0.196,
+          "other": 0.02
+        },
+        "2": {
+          "basic": 0.764,
+          "heavy": 0.0,
+          "skill": 0.02,
+          "liberation": 0.196,
+          "other": 0.02
+        },
+        "3": {
+          "basic": 0.764,
+          "heavy": 0.0,
+          "skill": 0.02,
+          "liberation": 0.196,
+          "other": 0.02
+        },
+        "4": {
+          "basic": 0.764,
+          "heavy": 0.0,
+          "skill": 0.02,
+          "liberation": 0.196,
+          "other": 0.02
+        },
+        "5": {
+          "basic": 0.709,
+          "heavy": 0.0,
+          "skill": 0.018,
+          "liberation": 0.255,
+          "other": 0.018
+        },
+        "6": {
+          "basic": 0.733,
+          "heavy": 0.0,
+          "skill": 0.017,
+          "liberation": 0.233,
+          "other": 0.017
         }
       }
     },
