@@ -213,15 +213,27 @@ if (true) {
 #article-container .research-footnote{font-size:.9rem;color:var(--anzhiyu-secondtext);border-top:1px solid var(--anzhiyu-card-border);padding-top:1rem}
 #article-container table{display:block;overflow-x:auto;max-width:100%;font-size:.9rem}
 #article-container h2{margin-top:2.5rem}#article-container p{line-height:1.95}
-</style><p class="research-kicker">工具发布 · 方法说明 · 2026-09-17</p>
+</style><p class="research-kicker">工具发布 · 方法说明 · 2026-09-17 · 2026-10-25 更新</p>
+
+<div class="research-changelog" style="margin:1rem 0 1.5rem;padding:.9rem 1.1rem;border-left:4px solid var(--anzhiyu-main,#425aef);border-radius:8px;background:var(--anzhiyu-secondbg,#f7f9fe)">
+<p style="margin:0 0 .4rem;font-weight:700">更新记录</p>
+<ul style="margin:0;padding-left:1.2rem;line-height:1.8">
+<li><b>2026-10-25</b>　计算方式升级：词条系数改为由伤害公式在固定参考面板上推导（第 3 节），加深独立为单独乘区（第 4.2 节）。偏暴伤的声骸分数会略降、偏暴击的略升。评级标准同步调整：单只声骸最高 S；整套 70 / 80 / 90 分分别为小 / 中 / 大毕业，最高 SSS。评分器页面重构，新增我的角色、声骸库、角色排名、抽卡记录、声骸截图识别、自动保存与备份；声骸可按所选套装筛选；锁暝更新为正式上线数据。</li>
+<li><b>2026-10-04</b>　心（心月狐）更新为正式上线数据。</li>
+<li><b>2026-09-25</b>　评分器独立为 <a href="https://wuwatool.etg227.com/">wuwatool.etg227.com</a>，源码迁至 <a href="https://github.com/etg227/wuwatool">etg227/wuwatool</a>；移除库街区账号导入。</li>
+<li><b>2026-09-17</b>　初版发布。</li>
+</ul>
+</div>
+
 <h2 id="section-1">摘要</h2>
 <p>声骸评价包含两个不同的问题：一是词条组合对某一角色的通用质量，二是该声骸在特定配装中的实际替换价值。本文介绍本站发布的《鸣潮》单角色声骸评分器，以角色相关的静态系数评价词条质量，以当前面板驱动的伤害因子比较换装收益，并讨论暴击上限、伤害类型权重与条件型套装效果对决策的影响。本文给出模型定义、可复算的数值示例与适用边界。所述结果属于简化模型下的条件性估计，不等同于队伍循环 DPS，也不构成对全角色机制的实测验证。</p>
 <p><strong>关键词：</strong> 鸣潮；声骸评价；边际收益；期望伤害；多属性决策</p>
 <p class="research-actions"><a class="research-button" href="https://wuwatool.etg227.com/">打开声骸评分器 →</a> <a href="https://blog.etg227.com/wuwa/">进入鸣潮工具箱</a></p>
+
 <h2 id="section-2">1. 问题定义与研究范围</h2>
 <p>固定双暴分能够快速描述声骸的部分质量，但无法独立回答换装问题。相同的暴击率词条，在暴击不足与暴击接近上限时，可能产生明显不同的收益；攻击、生命或防御词条的价值，也取决于角色的主要倍率属性与现有面板。因而，本工具将“声骸品质评价”与“配装条件下的收益评价”分别建模。[1]</p>
 <p>工具的分析单位是<strong>单角色、给定共鸣链和装备效果假设下的一套五只声骸</strong>。它接受当前静态面板、角色、链数、专武被动与合鸣套装配置，输出单只词条评分、整套毕业度、候选替换提升与局部改进建议。攻击类型权重来自角色机制数据库，部分角色随链数改变。[1][2]</p>
-<p>本文对应 2026 年 9 月 17 日的实现快照。后续版本若修改角色数据或计算规则，应以工具实际版本及更新说明为准。本文是工程方法说明，并非经过同行评审的游戏伤害研究论文。</p>
+<p>本文初版对应 2026 年 9 月 17 日的实现快照，并于 2026 年 10 月 25 日按当时的实现更新（见文首更新记录）。后续版本若修改角色数据或计算规则，应以工具实际版本及更新说明为准。本文是工程方法说明，并非经过同行评审的游戏伤害研究论文。</p>
 <h2 id="section-3">2. 符号约定与基本假设</h2>
 <table>
 <thead>
@@ -263,9 +275,9 @@ if (true) {
 <td>以小数表示；B 合并全局与属性伤害加成</td>
 </tr>
 <tr>
-<td>A</td>
-<td>模型中的全局 Amplify</td>
-<td>以小数表示</td>
+<td>A、aₖ</td>
+<td>全局加深与第 k 类伤害的加深</td>
+<td>以小数表示；与 B、bₖ 分属不同乘区</td>
 </tr>
 <tr>
 <td>F(E)</td>
@@ -278,34 +290,73 @@ if (true) {
 <h2 id="section-4">3. 静态评分：描述词条质量</h2>
 <p>对角色 c，记第 j 条副词条的数值为 vⱼ、对应静态系数为 a꜀,ⱼ，则单只声骸评分为：</p>
 <div class="research-equation">Q꜀(e) = 100 × Σⱼ(a꜀,ⱼ · vⱼ) / M꜀</div>
-<p>其中 M꜀ 为该角色五种互不重复、满档副词条的最高加权总和。该归一化使 100 分对应此静态规则下的理论最优五条组合，而不是“100% 实战输出”。当前实现参考 WuwaEchoTool 的评分思路。[1][3]</p>
+
+<p>其中 M꜀ 为该角色五种互不重复、满档副词条的最高加权总和。该归一化使 100 分对应此静态规则下的理论最优五条组合，而不是“100% 实战输出”。评分框架参考 WuwaEchoTool。[1][3]</p>
+<p>自 2026-10-25 起，系数 a꜀,ⱼ 不再人工设定，而是由第 4 节的伤害因子 F 在一个固定的<strong>毕业参考面板</strong>上求偏导得到，并以“1% 主要倍率属性 = 1”归一：</p>
+<div class="research-equation">a꜀,ⱼ = (∂ ln F / ∂vⱼ) ÷ (∂ ln F / ∂p主)</div>
+
 <table>
 <thead>
 <tr>
-<th>词条</th>
-<th>当前实现系数</th>
+<th>参考面板项</th>
+<th>取值</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>暴击率 / 暴击伤害</td>
-<td>1.8 / 0.9</td>
+<td>主要倍率属性</td>
+<td>基础值 × 2.5（攻击 1000→2500；生命 16000→40000；防御 1100→2750）</td>
+</tr>
+<tr>
+<td>伤害加成合计</td>
+<td>+100%</td>
+</tr>
+<tr>
+<td>战斗态暴击率 / 暴击伤害</td>
+<td>80% / 280%</td>
+</tr>
+<tr>
+<td>角色效果</td>
+<td>计入当前链数的暴伤、增伤与加深；暴击率不叠加</td>
+</tr>
+</tbody>
+</table>
+<p>在该面板上，1% 主要倍率属性带来 1/250 的相对提升，于是各类系数为（sₖ 为第 k 类伤害在参考面板上的实际占比）：</p>
+<table>
+<thead>
+<tr>
+<th>词条</th>
+<th>系数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>暴击率</td>
+<td>2.5 × (d − 1) / C(r,d)</td>
+</tr>
+<tr>
+<td>暴击伤害</td>
+<td>2.5 × r / C(r,d)</td>
 </tr>
 <tr>
 <td>主要倍率属性百分比</td>
-<td>攻击、生命为 1；防御为 1.2</td>
+<td>1</td>
 </tr>
 <tr>
 <td>对应固定属性</td>
-<td>固定攻击 0.1；固定生命 0.01；固定防御 0.09</td>
+<td>100 / 基础值：固定攻击 0.1；固定生命 0.00625；固定防御 0.091</td>
 </tr>
 <tr>
 <td>普攻、重击、技能、解放伤害加成</td>
-<td>0.9 × 对应伤害类型权重</td>
+<td>2.5 × sₖ / (1 + B + bₖ)</td>
+</tr>
+<tr>
+<td>属性伤害加成（仅主词条）</td>
+<td>2.5 × Σₖ sₖ / (1 + B + bₖ)</td>
 </tr>
 <tr>
 <td>共鸣效率</td>
-<td>0.5</td>
+<td>0.5（不进入伤害因子，沿用经验约定）</td>
 </tr>
 <tr>
 <td>不相关属性</td>
@@ -313,25 +364,74 @@ if (true) {
 </tr>
 </tbody>
 </table>
-<p>表中百分比词条按游戏显示的百分点数值计分，例如 6.3% 暴击率使用 6.3。[5]整套毕业度进一步纳入主词条与固定主词条，并按当前各位置 COST 对应的理论满配得分归一化。</p>
-<p>这套分数的优点是稳定、易比较。其限制同样明确：它不读取当前暴击是否溢出，也不判断充能是否已满足循环需求。共鸣效率的 0.5 是静态评价约定，不是由伤害公式推导出的固定 DPS 权重。<strong>高分声骸不必然带来正的换装收益。</strong></p>
+<p>以锁暝为例：</p>
+<table>
+<thead>
+<tr>
+<th>词条</th>
+<th>0 链</th>
+<th>2 链（暴伤 +40%）</th>
+<th>3 链（另加普攻加深 30%）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>暴击率</td>
+<td>1.844</td>
+<td>1.993</td>
+<td>1.993</td>
+</tr>
+<tr>
+<td>暴击伤害</td>
+<td>0.820</td>
+<td>0.725</td>
+<td>0.725</td>
+</tr>
+<tr>
+<td>攻击百分比</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>普攻伤害加成</td>
+<td>0.955</td>
+<td>0.955</td>
+<td>1.010</td>
+</tr>
+<tr>
+<td>共鸣解放伤害加成</td>
+<td>0.245</td>
+<td>0.245</td>
+<td>0.199</td>
+</tr>
+</tbody>
+</table>
+<p>0 链与 2 链的暴击系数与 WuwaEchoTool 新版模型公布的数值一致。[3]参考面板是对“典型毕业配装”的约定，暴击与暴伤之间的相对价值会随这一约定变化。暴击率之所以不叠加链数加成，是因为玩家通常会把战斗态暴击配平到约 80%；若直接叠加，带暴击链的角色会被算到暴击上限，使暴击词条被错误地判为零价值。对于既有角色（WuwaEchoTool 来源），其逐链伤害占比已折算链效果，因此只调整乘区，不再重复调整占比。[2]</p>
+<p>表中百分比词条按游戏显示的百分点数值计分，例如 6.3% 暴击率使用 6.3。[5]整套毕业度进一步纳入主词条与固定主词条，并按当前各位置 COST 对应的理论满配得分归一化。评级方面，单只声骸为 ≥80 S、≥65 A、≥50 B、≥35 C、其余 D（最高 S）；整套为 ≥90 大毕业（SSS）、≥80 中毕业（SS）、≥70 小毕业（S）、≥60 接近毕业（A），其余依次为 B、C、D。</p>
+<p>这套分数的优点是稳定、易比较。其限制同样明确：系数在参考面板而非玩家实际面板上求得，它不读取当前暴击是否溢出，也不判断充能是否已满足循环需求。共鸣效率的 0.5 是静态评价约定，不是由伤害公式推导出的固定 DPS 权重。<strong>高分声骸不必然带来正的换装收益。</strong></p>
 <h2 id="section-5">4. 伤害因子与边际收益</h2>
 <h3 id="section-6">4.1 期望暴击乘区</h3>
 <p>在可暴击伤害共享同一暴击面板的简化条件下，暴击期望乘区为：</p>
 <div class="research-equation">C(r,d) = 1 + min(max(r,0),1) · (d − 1)</div>
+
 <p>当 0 &lt; r &lt; 1 且其他变量固定时，其对暴击率和暴击伤害的对数敏感度分别为：</p>
 <div class="research-equation">∂ ln C / ∂r = (d − 1) / C<br/>∂ ln C / ∂d = r / C</div>
+
 <p>这说明双暴的价值依赖已有面板。[6][7]暴击率达到上限后，继续增加暴击率不再提高本模型的暴击期望。微分表达只解释局部趋势；实际词条替换采用有限变化的完整比值计算，不能在跨越上限时直接线性外推。</p>
 <h3 id="section-7">4.2 伤害类型加权</h3>
 <p>在属性与各乘区处于有效范围内时，当前代码的主要形式可写为：</p>
-<div class="research-equation">F(E) = S(E) · C(r(E),d(E)) · [1 + A(E)]<br/>× Σₖ wₖ · [1 + B(E) + bₖ(E)]</div>
-<p>类型 k 包括普攻、重击、共鸣技能、共鸣解放与其他伤害。“其他”在当前实现中不获得这四种类型词条的加成。该模型使用统一主要倍率属性和统一暴击乘区，不逐段展开技能倍率、动作时长与特殊伤害机制。[1][6][7]</p>
+<div class="research-equation">F(E) = S(E) · C(r(E),d(E))<br/>× Σₖ wₖ · [1 + B(E) + bₖ(E)] · [1 + A(E) + aₖ(E)]</div>
+
+<p>类型 k 包括普攻、重击、共鸣技能、共鸣解放与其他伤害。“其他”在当前实现中不获得这四种类型词条的加成。加深与伤害加成分属不同乘区：同一乘区内相加，不同乘区相乘。自 2026-10-25 起，游戏描述为“加深”的链效果与武器效果（例如锁暝 3 链的普攻伤害加深 30%、心的专武的共鸣技能伤害加深 36%）计入 aₖ，不再并入 bₖ；否则会稀释对应类型伤害加成词条的边际价值。以锁暝 3 链为例，一条 9% 普攻伤害加成的模型收益由约 3.2% 修正为约 3.8%。该模型使用统一主要倍率属性和统一暴击乘区，不逐段展开技能倍率、动作时长与特殊伤害机制。[1][6][7]</p>
 <p>数据库权重是对输出构成的简化表达。若权重来源本身是某一参考配装下的最终伤害占比，将其固定用于其他配置可能带来偏差；因此不应把该因子解释为逐技能模拟器或实战总伤害预测。</p>
 <h3 id="section-8">4.3 替换比较与面板重建</h3>
 <p>设候选声骸替换位置 n，收益定义为：</p>
 <div class="research-equation">G = [F(E′) / F(E) − 1] × 100%</div>
+
 <p>工具根据当前面板与当前声骸反推非声骸底座，再重建候选配置。以攻击属性为例，代码使用的有效基础量可概括为：</p>
 <div class="research-equation">S₀,eff = (S面板 − f声骸) / (1 + p声骸 + p非声骸)<br/>S(E′) = S₀,eff · (1 + p声骸′ + p非声骸 + p战斗) + f声骸′</div>
+
 <p>p 表示百分比属性，f 表示固定属性。这里的 S₀,eff 是模型反推的有效量，并不保证等于角色与武器的真实基础属性之和。未被正确录入或建模的非声骸属性可能影响换装估计。需要说明的是，当前版本界面不提供 p非声骸 的单独录入，实现中该项恒为 0：不来自声骸的百分比加成会被折入反推的 S₀,eff，这会使主倍率百分比词条的边际收益被轻微高估，属于已知的模型保留项。完整录入后，页面会锁定底座以联动模拟面板；重新输入实际面板时必须保持其与装备记录一致。[1]</p>
 <p>对带充能阈值的套装，计算应依据每一被评估配置重新判断条件。当前实现已将候选声骸聚合值传入套装判断，避免在替换后沿用原配置的触发状态。但这不代表所有角色特有转化规则与阈值均已建模。</p>
 <h2 id="section-9">5. 可复算示例：双暴价值与上限</h2>
@@ -377,22 +477,22 @@ if (true) {
 </tr>
 </tbody>
 </table>
-<p>在静态系数下，6.3 × 1.8 与 12.6 × 0.9 均为 11.34 分值单位。但在第二组面板中，两者期望收益明显分离。这正是需要并列展示静态评分与换装收益的原因。</p>
+<p>按 0 链参考面板的静态系数，6.3 × 1.844 ≈ 11.62，12.6 × 0.820 ≈ 10.33，即在 80% / 280% 的参考面板上暴击率略占优；而在上表第一组面板（75% / 250%）中两者的实际收益恰好相等，第二组面板中又明显分离。静态系数只代表参考面板，这正是需要并列展示静态评分与换装收益的原因。</p>
 <p>复算时先将暴击率限制在 100%，再代入 C，并计算 C新 / C旧 − 1。若要评价真实换装，还需同时加入原声骸损失、候选主副词条变化与装备条件变化。</p>
 <h2 id="section-10">6. 局部改进建议与使用流程</h2>
 <p>推荐器枚举两类局部动作：将已有目标词条提升至满档；或在尚无目标词条的声骸上，将一条已有副词条替换为目标词条的平均数值。每个方案均复制整套声骸并重算 F，随后按正收益排序。因此，已建模的暴击上限与套装阈值能够进入具体比较。[1]</p>
 <p>这里的“平均档”实际采用档位数值的算术平均，它可能不是游戏内可出现的单个档位，也不意味着已按掉落概率求期望。[5]建议表示模型中的局部改善方向，不是游戏内可以指定执行的洗练操作，更不是获得该声骸所需资源的预测。当前建议集合亦未把共鸣效率作为独立搜索目标，因此不能据“暂无升级”推出全局最优。</p>
 <p>实际使用可按以下步骤进行：</p>
 <ol>
-<li>选择角色与共鸣链，核对专武被动和套装配置是否符合实际。</li>
-<li>录入当前静态面板及五只已装备声骸，确保二者对应同一状态。</li>
-<li>选择候选声骸与替换位置，先确认 COST 提示与词条合法性。</li>
-<li>优先阅读“替换提升”，再结合单只评分和局部改进排行判断养成方向。</li>
+<li>在“我的角色”或“配装计算”中选择角色与共鸣链（已有存档会自动载入，修改自动保存），核对专武被动和套装配置是否符合实际。</li>
+<li>录入五只已装备声骸（可用“截图导入”识别声骸详情截图）及当前静态面板，确保二者对应同一状态。</li>
+<li>查看“整套毕业度”与“下一步提升”；如有新声骸，在“对比新声骸”中选择替换位置并填写，先确认 COST 提示与词条合法性。</li>
+<li>优先阅读替换提升与“下一步提升”，再结合单只评分判断养成方向。</li>
 <li>对相近结果，结合充能循环、操作习惯与实战稳定性复核，不仅凭小数点后的差异决定去留。</li>
 </ol>
 <p>界面会处理手动选择的重复副词条，并对当前或替换后总 COST 超限显示警告。超限配置仍可继续计算，故出现数值不代表配置可以在游戏内装备。</p>
 <h2 id="section-11">7. 数据来源、可复现性与局限</h2>
-<p>角色目录、角色机制与套装效果分开维护。实现中的置信度标签区分实测、攻略推导与前瞻估计；这些标签描述数据来源口径，不表示本文已独立验证全部角色。角色目录引用库街区 WIKI，既有角色机制与评分方案参考开源 WuwaEchoTool；具体效果以本项目对应版本数据记录为准。[2][3][4]</p>
+<p>角色目录、角色机制与套装效果分开维护。实现中的置信度标签区分实测、攻略推导与前瞻估计；这些标签描述数据来源口径，不表示本文已独立验证全部角色。角色目录引用库街区 WIKI，既有角色机制与评分方案参考开源 WuwaEchoTool；具体效果以本项目对应版本数据记录为准。每只声骸可出的合鸣套装取自游戏数据表，用于在选择套装后筛选声骸。[2][3][4][8]</p>
 <p>为复现一个换装结果，应保存：计算器版本、角色与链数、当前面板、武器和套装开关、五只声骸的完整词条、候选配置及替换位置。仅报告“某声骸提升 3%”而不提供这些条件，无法形成可比较的结果。</p>
 <p>本工具当前主要存在以下边界：</p>
 <ul>
@@ -407,13 +507,14 @@ if (true) {
 <p>后续值得优先推进的工作包括：增加可复现的机制测试案例，核对面板与战斗增益的边界，细化特殊角色公式，并在必要时扩展输出循环模型。这些是改进方向，不是当前版本已经完成的功能。</p>
 <h2 id="section-13">参考文献与实现资料</h2>
 <ol>
-<li>花澪. 鸣潮声骸评分器：计算实现与使用说明 [软件/在线]. 2026-09-17 版本快照：<a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/tools/wuwa-echo-calculator/app.js"><code>app.js</code></a>、<a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/tools/wuwa-echo-calculator/baseline-sync.js"><code>baseline-sync.js</code></a>、<a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/tools/wuwa-echo-calculator/README.md">README</a>.</li>
-<li>花澪. 角色机制与合鸣套装数据库 [数据集/在线]. <a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/wuwa/data/character-mechanics.json">角色机制</a>、<a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/wuwa/data/character-mechanics-extra.json">前瞻与补充数据</a>、<a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/wuwa/data/sonata-effects.json">套装效果</a>. 数据快照日期：2026-09-17.</li>
-<li>GQin404. <a href="https://github.com/GQin404/WuwaEchoTool">WuwaEchoTool</a> [开源软件/在线]. 访问日期：2026-09-17. 本项目评分与既有角色数据的参考来源；本文系数以文献 [1] 的实现为准。</li>
+<li>花澪. 鸣潮声骸评分器（wuwatool）：计算实现与使用说明 [软件/在线]. 2026-10-25 版本快照：<a href="https://github.com/etg227/wuwatool/blob/d0a9d0be92a2e7aa535ee4529b6148dbb74d31e9/app.js"><code>app.js</code></a>、<a href="https://github.com/etg227/wuwatool/blob/d0a9d0be92a2e7aa535ee4529b6148dbb74d31e9/README.md">README</a>、<a href="https://github.com/etg227/wuwatool/blob/d0a9d0be92a2e7aa535ee4529b6148dbb74d31e9/REFERENCES.md">REFERENCES</a>；初版 2026-09-17 快照：<a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/tools/wuwa-echo-calculator/app.js"><code>app.js</code></a>、<a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/tools/wuwa-echo-calculator/baseline-sync.js"><code>baseline-sync.js</code></a>、<a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/tools/wuwa-echo-calculator/README.md">README</a>.</li>
+<li>花澪. 角色机制与合鸣套装数据库 [数据集/在线]. 2026-10-25 快照：<a href="https://github.com/etg227/wuwatool/blob/d0a9d0be92a2e7aa535ee4529b6148dbb74d31e9/data/character-mechanics.json">角色机制</a>、<a href="https://github.com/etg227/wuwatool/blob/d0a9d0be92a2e7aa535ee4529b6148dbb74d31e9/data/sonata-effects.json">套装效果</a>、<a href="https://github.com/etg227/wuwatool/blob/d0a9d0be92a2e7aa535ee4529b6148dbb74d31e9/data/echoes.json">声骸图鉴</a>；初版快照：<a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/wuwa/data/character-mechanics.json">角色机制</a>、<a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/wuwa/data/character-mechanics-extra.json">前瞻与补充数据</a>、<a href="https://github.com/etg227/etg227.github.io/blob/a4f861c9f93811165d7c4e5c12b74321cbb3eb9b/wuwa/data/sonata-effects.json">套装效果</a>. 数据快照日期：2026-09-17.</li>
+<li>GQin404. <a href="https://github.com/GQin404/WuwaEchoTool">WuwaEchoTool</a> [开源软件/在线]. 访问日期：2026-10-25. 本项目评分框架与既有角色数据的参考来源；按参考面板求导的系数方法亦与其新版模型一致。本文系数以文献 [1] 的实现为准。</li>
 <li>库街区. <a href="https://wiki.kurobbs.com/mc/home">《鸣潮》WIKI</a> [在线资料]. 本项目角色目录的来源；其收录信息不应被等同于官方完整伤害公式。</li>
 <li>Prydwen. <a href="https://www.prydwen.gg/wuthering-waves/guides/echo-stats">Echoes Stats</a> [在线资料]. 访问日期：2026-09-17. 声骸副词条固定档位与数值范围的交叉检查来源。</li>
 <li>Wuthering Tools. <a href="https://www.wutheringtools.com/info">Info</a> [在线资料]. 访问日期：2026-09-17. 期望暴击与“倍率×增伤×加深×暴击”乘区结构的社区口径来源之一。</li>
 <li>鳴潮 Wiki*. <a href="https://wikiwiki.jp/w-w/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F">ダメージ計算式</a> [在线资料]. 访问日期：2026-09-17. 攻击力公式、乘区划分与暴击期望的交叉核对来源。</li>
+<li>Arikatsu. <a href="https://github.com/Arikatsu/WutheringWaves_Data">WutheringWaves_Data</a> [游戏数据/在线]. 3.7 分支，访问日期：2026-10-25. 声骸可出合鸣套装（<code>phantomitem.json</code> 的 <code>FetterGroup</code>）的来源。</li>
 </ol>
 <p class="research-footnote">本文公式与表格为方法推导及合成算例；未使用或虚构玩家实测样本。文章与工具均为非官方社区项目。</p></article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img alt="头像" class="post-copyright__author_img_back" data-lazy-src="/img/avatar.png" onerror='this.onerror=null,this.src="/img/404.jpg"' src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" title="头像"/><img alt="头像" class="post-copyright__author_img_front" data-lazy-src="/img/avatar.png" onerror='this.onerror=null,this.src="/img/404.jpg"' src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" title="头像"/></a><div class="post-copyright__author_name">花澪</div><div class="post-copyright__author_desc">你所弹奏的声音，至今仍在回响</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" href="/2026/09/17/wuwa-echo-methodology/" title="该文章为原创文章，注意版权协议">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('2026/09/17/wuwa-echo-methodology/')">鸣潮声骸评价的双层模型：静态评分、边际收益与换装决策</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://blog.etg227.com/2026/09/17/wuwa-echo-methodology/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" href="https://service.weibo.com/share/share.php?title=%E9%B8%A3%E6%BD%AE%E5%A3%B0%E9%AA%B8%E8%AF%84%E4%BB%B7%E7%9A%84%E5%8F%8C%E5%B1%82%E6%A8%A1%E5%9E%8B%EF%BC%9A%E9%9D%99%E6%80%81%E8%AF%84%E5%88%86%E3%80%81%E8%BE%B9%E9%99%85%E6%94%B6%E7%9B%8A%E4%B8%8E%E6%8D%A2%E8%A3%85%E5%86%B3%E7%AD%96&amp;url=https%3A%2F%2Fetg227.github.io%2F2026%2F09%2F17%2Fwuwa-echo-methodology%2F" rel="external nofollow noreferrer noopener" target="_blank"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
   var currentPageUrl = window.location.href;
