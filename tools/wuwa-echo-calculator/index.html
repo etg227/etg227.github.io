@@ -19,6 +19,26 @@
     .gear-auto-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
     .gear-auto-grid label{font-size:11px;color:var(--muted);display:grid;gap:5px}
     .gear-auto-grid select{width:100%;min-width:0}
+    .gear-field{font-size:11px;color:var(--muted);display:grid;gap:5px;position:relative;min-width:0}
+    .gear-auto-grid select.set-native{position:absolute;left:0;bottom:0;width:1px;height:1px;padding:0;border:0;opacity:0;pointer-events:none}
+    .set-pick{display:flex;align-items:center;gap:7px;width:100%;min-width:0;min-height:36px;padding:4px 10px 4px 6px;border-radius:9px;font-size:11px;text-align:left}
+    .set-pick:disabled{opacity:.58;cursor:not-allowed}
+    .set-pick:not(:disabled):hover,.set-pick[aria-expanded="true"]{border-color:var(--accent)}
+    .set-pick-name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+    .set-pick-caret{width:12px;height:12px;flex:none;color:var(--text)}
+    .set-icon{width:25px;height:25px;flex:none;object-fit:contain;border-radius:50%}
+    .set-icon-empty{display:inline-block;border:1.5px dashed var(--line)}
+    .set-browser{margin-top:10px;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--panel)}
+    .set-browser-title{align-self:center;font-size:13px;white-space:nowrap}
+    .set-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px;margin-top:10px;max-height:340px;overflow:auto}
+    .set-card{display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 6px 7px;border-radius:12px;font-size:11px}
+    .set-card .set-icon{width:42px;height:42px}
+    .set-card b{font-size:11px;line-height:1.3;text-align:center}
+    .set-card:hover{border-color:var(--accent)}
+    .set-card.active{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--panel))}
+    .set-badges{display:flex;gap:3px;min-height:15px}
+    @media(max-width:620px){.set-grid{grid-template-columns:repeat(auto-fill,minmax(86px,1fr))}.set-card .set-icon{width:36px;height:36px}.set-browser-title{display:none}}
+    .set-badges i{font-style:normal;font-size:9.5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:0 5px;background:var(--panel)}
     .echo-mini-grade{font-size:11px;font-weight:900;border:1px solid var(--line);border-radius:999px;padding:2px 7px;margin-left:auto;color:var(--accent)}
     .candidate-grade-core{display:inline-block;margin-top:8px}
     .hero-results{grid-template-columns:repeat(5,1fr)}
@@ -82,7 +102,7 @@
     <div class="ref-grid">
       <div>
         <div class="profile-section-label">评分口径与既有角色数据</div>
-        <p class="micro"><a href="https://github.com/GQin404/WuwaEchoTool" target="_blank" rel="noreferrer">WuwaEchoTool</a>（GQin404，已开源停更，作者已公开说明数据可取用）——词条系数方案、毕业度档位与陆·赫斯及之前角色的伤害构成来源。</p>
+        <p class="micro"><a href="https://github.com/GQin404/WuwaEchoTool" target="_blank" rel="noreferrer">WuwaEchoTool</a>（GQin404，已开源停更，作者已公开说明数据可取用）——词条系数方案、毕业度档位、合鸣套装图标与陆·赫斯及之前角色的伤害构成来源。</p>
         <div class="profile-section-label">角色目录与头像</div>
         <p class="micro"><a href="https://wiki.kurobbs.com/mc/home" target="_blank" rel="noreferrer">库街区《鸣潮》WIKI</a>。仅用于角色名称与头像目录，不涉及任何账号数据。</p>
         <div class="profile-section-label">新角色伤害构成与共鸣链</div>
@@ -99,7 +119,7 @@
   </section>
 </main>
 <script src="baseline-sync.js?v=20260917-8"></script>
-<script src="app.js?v=20261004-1"></script>
+<script src="app.js?v=20261025-1"></script>
 <script src="profile-save-v3.js?v=20260918-1"></script>
 </body>
 </html>

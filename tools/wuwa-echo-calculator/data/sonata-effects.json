@@ -5,6 +5,7 @@
     {
       "name": "凝夜白霜",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/1.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -21,6 +22,7 @@
     {
       "name": "熔山裂谷",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/2.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -37,6 +39,7 @@
     {
       "name": "彻空冥雷",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/3.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -53,6 +56,7 @@
     {
       "name": "啸谷长风",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/4.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -69,6 +73,7 @@
     {
       "name": "浮星祛暗",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/5.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -85,6 +90,7 @@
     {
       "name": "沉日劫明",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/6.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -101,6 +107,7 @@
     {
       "name": "隐世回光",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/7.png",
       "p2": [
         {
           "kind": "healing",
@@ -117,6 +124,7 @@
     {
       "name": "不绝余音",
       "source": "WuwaEchoTool",
+      "icon": "icons/sonata/9.png",
       "p2": [
         {
           "kind": "atkPct",
@@ -133,6 +141,7 @@
     {
       "name": "凌冽决断之心",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/10.png",
       "p2": [
         {
           "kind": "skillDmg",
@@ -153,6 +162,7 @@
     {
       "name": "此间永驻之光",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/11.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -173,6 +183,7 @@
     {
       "name": "无惧浪涛之勇",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/14.png",
       "p2": [
         {
           "kind": "energyRegen",
@@ -194,6 +205,7 @@
     {
       "name": "幽夜隐匿之帷",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/12.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -210,6 +222,7 @@
     {
       "name": "流云逝尽之空",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/15.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -226,6 +239,7 @@
     {
       "name": "高天共奏之曲",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/13.png",
       "p2": [
         {
           "kind": "energyRegen",
@@ -246,6 +260,7 @@
     {
       "name": "轻云出月",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/8.png",
       "p2": [
         {
           "kind": "energyRegen",
@@ -262,6 +277,7 @@
     {
       "name": "愿戴荣光之旅",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/16.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -282,6 +298,7 @@
     {
       "name": "奔狼燎原之焰",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/17.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -302,6 +319,7 @@
     {
       "name": "失序彼岸之梦",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/18.png",
       "p3": [
         {
           "kind": "critRate",
@@ -316,6 +334,7 @@
     {
       "name": "荣斗铸锋之冠",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/19.png",
       "p3": [
         {
           "kind": "atkPct",
@@ -330,6 +349,7 @@
     {
       "name": "息界同调之律",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/20.png",
       "p3": [
         {
           "kind": "heavyDmg",
@@ -344,6 +364,7 @@
     {
       "name": "焚羽猎魔之影",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/21.png",
       "p3": [
         {
           "kind": "elementDmg",
@@ -354,6 +375,7 @@
     {
       "name": "命理崩毁之弦",
       "source": "WuwaEchoTool / current calculator cross-check",
+      "icon": "icons/sonata/22.png",
       "p3": [
         {
           "kind": "atkPct",
@@ -368,6 +390,7 @@
     {
       "name": "碎梦亡鬼之魇",
       "source": "current Wuthering Waves calculator data",
+      "icon": "icons/sonata/31.png",
       "p1": [
         {
           "kind": "basicDmg",
@@ -382,6 +405,7 @@
     {
       "name": "逆光跃彩之约",
       "source": "current Wuthering Waves calculator data",
+      "icon": "icons/sonata/25.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -398,6 +422,7 @@
     {
       "name": "流金溯真之式",
       "source": "current Wuthering Waves calculator data",
+      "icon": "icons/sonata/24.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -418,6 +443,7 @@
     {
       "name": "长路启航之星",
       "source": "current Wuthering Waves calculator data",
+      "icon": "icons/sonata/26.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -438,6 +464,7 @@
     {
       "name": "斑驳粉饰之沫",
       "source": "current Wuthering Waves calculator data",
+      "icon": "icons/sonata/27.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -458,6 +485,7 @@
     {
       "name": "听唤语义之愿",
       "source": "current Wuthering Waves calculator data",
+      "icon": "icons/sonata/28.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -478,6 +506,7 @@
     {
       "name": "雪落无声之愿",
       "source": "current Wuthering Waves calculator data",
+      "icon": "icons/sonata/29.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -498,6 +527,7 @@
     {
       "name": "剪心辑梦之影",
       "source": "current Wuthering Waves calculator data",
+      "icon": "icons/sonata/30.png",
       "p2": [
         {
           "kind": "atkPct",
@@ -514,6 +544,7 @@
     {
       "name": "星构寻辉之环",
       "source": "current Wuthering Waves calculator data",
+      "icon": "icons/sonata/23.png",
       "p2": [
         {
           "kind": "healing",
@@ -530,6 +561,7 @@
     {
       "name": "羽落空尘之歌",
       "source": "current Wuthering Waves calculator data",
+      "icon": "icons/sonata/34.png",
       "p2": [
         {
           "kind": "energyRegen",
@@ -550,6 +582,7 @@
     {
       "name": "清邪荡煞之心",
       "source": "current Wuthering Waves calculator data",
+      "icon": "icons/sonata/33.png",
       "p2": [
         {
           "kind": "elementDmg",
@@ -570,6 +603,7 @@
     {
       "name": "冥途夜行之灯",
       "source": "current Wuthering Waves calculator data",
+      "icon": "icons/sonata/32.png",
       "p2": [
         {
           "kind": "hpPct",
@@ -590,6 +624,7 @@
     {
       "name": "衔梦照世之心",
       "source": "3.7 release data (community guides 2026-10)",
+      "icon": "icons/sonata/35.png",
       "p2": [
         {
           "kind": "elementDmg",
