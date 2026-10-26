@@ -1,125 +1,50 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="鸣潮单角色声骸评分器：静态词条评分 + 按面板重算的替换收益">
-  <title>鸣潮声骸评分器</title>
-  <link rel="icon" href="favicon.ico?v=20260925-1" sizes="16x16 32x32 48x48">
-  <link rel="icon" type="image/png" sizes="256x256" href="favicon.png?v=20260925-1">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=20260925-1">
-  <link rel="stylesheet" href="styles.css?v=20260917-8">
-  <style>
-    .profile-grid{grid-template-columns:1.35fr .55fr .65fr}
-    .current-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-    .echo-row select.echo-value{min-width:78px}
-    .echo-row select:disabled,.gear-auto-grid select:disabled{opacity:.58;cursor:not-allowed}
-    .character-card .nomodel{font-size:10px;font-style:normal;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 6px;margin-top:2px}
-    .gear-auto-config{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--panel2)}
-    .gear-auto-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-    .gear-auto-grid label{font-size:11px;color:var(--muted);display:grid;gap:5px}
-    .gear-auto-grid select{width:100%;min-width:0}
-    .gear-field{font-size:11px;color:var(--muted);display:grid;gap:5px;position:relative;min-width:0}
-    .gear-auto-grid select.set-native{position:absolute;left:0;bottom:0;width:1px;height:1px;padding:0;border:0;opacity:0;pointer-events:none}
-    .set-pick{display:flex;align-items:center;gap:7px;width:100%;min-width:0;min-height:36px;padding:4px 10px 4px 6px;border-radius:9px;font-size:11px;text-align:left}
-    .set-pick:disabled{opacity:.58;cursor:not-allowed}
-    .set-pick:not(:disabled):hover,.set-pick[aria-expanded="true"]{border-color:var(--accent)}
-    .set-pick-name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
-    .set-pick-caret{width:12px;height:12px;flex:none;color:var(--text)}
-    .set-icon{width:25px;height:25px;flex:none;object-fit:contain;border-radius:50%}
-    .set-icon-empty{display:inline-block;border:1.5px dashed var(--line)}
-    .set-browser{margin-top:10px;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--panel)}
-    .set-browser-title{align-self:center;font-size:13px;white-space:nowrap}
-    .set-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px;margin-top:10px;max-height:340px;overflow:auto}
-    .set-card{display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 6px 7px;border-radius:12px;font-size:11px}
-    .set-card .set-icon{width:42px;height:42px}
-    .set-card b{font-size:11px;line-height:1.3;text-align:center}
-    .set-card:hover{border-color:var(--accent)}
-    .set-card.active{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--panel))}
-    .set-badges{display:flex;gap:3px;min-height:15px}
-    @media(max-width:620px){.set-grid{grid-template-columns:repeat(auto-fill,minmax(86px,1fr))}.set-card .set-icon{width:36px;height:36px}.set-browser-title{display:none}}
-    .set-badges i{font-style:normal;font-size:9.5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:0 5px;background:var(--panel)}
-    .echo-mini-grade{font-size:11px;font-weight:900;border:1px solid var(--line);border-radius:999px;padding:2px 7px;margin-left:auto;color:var(--accent)}
-    .candidate-grade-core{display:inline-block;margin-top:8px}
-    .hero-results{grid-template-columns:repeat(5,1fr)}
-    @media(max-width:1180px){.hero-results{grid-template-columns:repeat(3,1fr)}}
-    #profileBody{display:grid;gap:12px}
-    .profile-head{display:flex;align-items:center;gap:10px}
-    .profile-head .portrait{width:46px;height:46px}
-    .profile-head b{font-size:15px}
-    .profile-head small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
-    .profile-section-label{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
-    .fx-list{display:flex;flex-wrap:wrap;gap:6px}
-    .fx-chip{font-size:11px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:3px 9px;background:var(--panel)}
-    .fx-chip em{font-style:normal;color:var(--accent)}
-    .profile-note{font-size:11px;color:var(--muted);line-height:1.7;border-top:1px solid var(--line);padding-top:9px}
-    .bars-note{margin-bottom:8px;min-height:16px}
-    .cost-warning{border:1px solid var(--warn);color:var(--warn);background:color-mix(in srgb,var(--warn) 8%,var(--panel));border-radius:10px;padding:9px 12px;font-size:12px;font-weight:700;margin-bottom:12px}
-    .score-scope-note{margin:12px 2px 0;line-height:1.7}
-    select.dup-flash{border-color:var(--danger);box-shadow:0 0 0 2px color-mix(in srgb,var(--danger) 30%,transparent)}
-    .ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
-    .ref-grid .profile-section-label{margin-top:8px}
-    .ref-grid .micro{margin:5px 0 10px;line-height:1.75}
-    @media(max-width:820px){.ref-grid{grid-template-columns:1fr}}
-    @media(max-width:980px){.gear-auto-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:820px){.profile-grid,.current-stat-grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:620px){.profile-grid,.current-stat-grid,.gear-auto-grid{grid-template-columns:1fr}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>鸣潮声骸评分器已迁移</title>
+<link rel="canonical" href="https://wuwatool.etg227.com/">
+<style>
+:root{--bg:#f7f9fe;--panel:#fff;--line:#e3e8ef;--text:#363636;--muted:#858585;--accent:#425aef}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--panel:#171a21;--line:rgba(255,255,255,.1);--text:#e7e9ee;--muted:#9aa1ad;--accent:#8b9bff}}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7}
+main{width:min(520px,calc(100% - 32px));padding:28px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+h1{font-size:20px;margin:0 0 8px}p{margin:8px 0;font-size:14px}.muted{color:var(--muted);font-size:13px}
+a.btn,button{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;margin:6px 8px 0 0;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:inherit;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer}
+.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme:dark){.primary{color:#0c0f16}}
+</style>
 </head>
 <body>
-<main class="wrap main-grid">
-  <section class="panel full intro-panel">
-    <div class="panel-title-row"><div><span class="step">01</span><h2>角色配置</h2></div><span class="status-pill">Character-aware · Local</span></div>
-    <div class="profile-grid">
-      <button class="character-pick" id="characterPick" type="button"><span class="portrait placeholder">?</span><span class="pick-copy"><b id="characterName">选择角色</b><small>正在读取角色库…</small></span></button>
-      <label>共鸣链<select id="chainLevel"><option value="0">0 链</option><option value="1">1 链</option><option value="2">2 链</option><option value="3">3 链</option><option value="4">4 链</option><option value="5">5 链</option><option value="6">6 链</option></select></label>
-      <label>主要倍率属性<select id="scaler"><option value="atk">ATK</option><option value="hp">HP</option><option value="def">DEF</option></select></label>
-    </div>
-    <div class="character-browser" id="characterBrowser" hidden><div class="browser-head"><input id="characterSearch" placeholder="搜索角色名称"><button id="closeCharacterBrowser" type="button">关闭</button></div><div class="character-grid" id="characterGrid"></div></div>
-  </section>
-  <section class="panel">
-    <div class="panel-title-row"><div><span class="step">02</span><h2>当前面板</h2></div><button class="mini" id="resetStatsBtn" type="button">重置示例</button></div>
-    <p class="micro">填写角色详情页当前静态面板；共鸣链、武器被动与合鸣套装的战斗态增益由计算器加入。</p>
-    <div class="current-stat-grid"><label>攻击 ATK<input id="totalAtk" type="number" value="2300"></label><label>生命 HP<input id="totalHp" type="number" value="21000"></label><label>防御 DEF<input id="totalDef" type="number" value="1500"></label><label>暴击率 CR %<input id="critRate" type="number" value="75" step="0.1"></label><label>暴击伤害 CD %<input id="critDmg" type="number" value="250" step="0.1"></label><label>共鸣效率 ER %<input id="energyRegen" type="number" value="125" step="0.1"></label></div>
-  </section>
-  <section class="panel" id="characterProfilePanel">
-    <div class="panel-title-row"><div><span class="step">★</span><h2>角色档案</h2></div><span class="hint" id="profileHint">选择角色后生成</span></div>
-    <div id="profileBody"><div class="micro">选择角色后，这里会显示伤害构成、生效中的机制加成与数据来源。</div></div>
-  </section>
-  <section class="panel full"><div class="panel-title-row"><div><span class="step">03</span><h2>当前 5 只声骸</h2></div><span class="hint">静态词条评分 · 同声骸副词条不可重复</span></div><div id="costWarning" class="cost-warning" hidden></div><div id="equippedEchoes" class="equipped-grid"></div><p class="micro score-scope-note">词条评分与整套毕业度采用角色静态口径（学习 WuwaEchoTool）：只衡量词条本身对该角色的价值，不随面板或其他声骸变化。<b>高分声骸不一定是当前配装的更优替换</b>——是否值得换，请看下方按你的实时面板完整重算的“替换提升”与“可实现的提升排行”。</p></section>
-  <section class="panel full compare-panel">
-    <div class="panel-title-row"><div><span class="step">04</span><h2>候选声骸替换</h2></div><button class="primary" id="calculateBtn" type="button">重新计算</button></div>
-    <div class="replace-grid"><label>替换位置<select id="replaceSlot"><option value="0">声骸 1</option><option value="1">声骸 2</option><option value="2">声骸 3</option><option value="3">声骸 4</option><option value="4">声骸 5</option></select></label><label>COST<select id="candidateCost"><option value="4">4 COST</option><option value="3">3 COST</option><option value="1">1 COST</option></select></label><div class="replace-tip">副词条数值只能选择游戏内真实固定档位；主词条按 COST 使用对应满级数值。</div></div>
-    <div class="candidate-layout"><div><h3>候选主词条</h3><div id="candidateMainRows" class="echo-rows"></div></div><div><h3>候选副词条</h3><div id="candidateSubRows" class="echo-rows"></div></div></div>
-  </section>
-  <section class="panel full results-panel">
-    <div class="panel-title-row"><div><span class="step">05</span><h2>计算结果</h2></div><span class="hint">角色机制感知评分</span></div>
-    <div class="hero-results"><div class="metric-card accent"><span>候选声骸替换提升</span><strong id="overallGain">—</strong><small>相对当前整套</small></div><div class="metric-card"><span>候选副词条评分</span><strong id="candidateScore">—</strong><small>100 = 五条满档有效词条</small><span id="candidateGrade" class="echo-mini-grade candidate-grade-core">评级 D</span></div><div class="metric-card"><span>整套毕业度</span><strong id="buildScore">—</strong><small id="buildTier">录入声骸后评估毕业度</small></div><div class="metric-card"><span>当前期望暴击乘区</span><strong id="critFactor">—</strong><small id="critState">—</small></div><div class="metric-card"><span>当前最推荐副词条</span><strong id="bestStandard">—</strong><small id="bestStandardNote">填写角色与当前面板后生成推荐</small></div></div>
-    <div class="results-grid"><div><h3>候选每条副词条边际贡献</h3><div id="lineMarginals" class="bars"></div></div><div><h3>可实现的提升排行</h3><div id="standardBars" class="bars"></div></div></div>
-  </section>
-  <section class="panel full" id="referencesPanel">
-    <div class="panel-title-row"><div><span class="step">※</span><h2>参考与致谢</h2></div><span class="hint">非官方社区工具</span></div>
-    <div class="ref-grid">
-      <div>
-        <div class="profile-section-label">评分口径与既有角色数据</div>
-        <p class="micro"><a href="https://github.com/GQin404/WuwaEchoTool" target="_blank" rel="noreferrer">WuwaEchoTool</a>（GQin404，已开源停更，作者已公开说明数据可取用）——词条系数方案、毕业度档位、合鸣套装图标与陆·赫斯及之前角色的伤害构成来源。</p>
-        <div class="profile-section-label">角色目录与头像</div>
-        <p class="micro"><a href="https://wiki.kurobbs.com/mc/home" target="_blank" rel="noreferrer">库街区《鸣潮》WIKI</a>。仅用于角色名称与头像目录，不涉及任何账号数据。</p>
-        <div class="profile-section-label">新角色伤害构成与共鸣链</div>
-        <p class="micro">2026-09 社区攻略调研，逐角色来源链接与置信度（实测 / 攻略推导 / 前瞻推断）记录在 <a href="data/character-mechanics.json" target="_blank" rel="noreferrer">机制数据文件</a> 的 sources 与 confidence 字段。</p>
-      </div>
-      <div>
-        <div class="profile-section-label">伤害公式与档位交叉验证</div>
-        <p class="micro"><a href="https://www.wutheringtools.com/info" target="_blank" rel="noreferrer">Wuthering Tools</a> · <a href="https://wikiwiki.jp/w-w/%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A8%88%E7%AE%97%E5%BC%8F" target="_blank" rel="noreferrer">鳴潮 Wiki ダメージ計算式</a> · <a href="https://www.prydwen.gg/wuthering-waves/guides/echo-stats" target="_blank" rel="noreferrer">Prydwen 声骸档位</a></p>
-        <div class="profile-section-label">方法说明与源码</div>
-        <p class="micro"><a href="https://blog.etg227.com/2026/09/17/wuwa-echo-methodology/" target="_blank" rel="noreferrer">评分方法详解（博客文章）</a> · <a href="https://github.com/etg227/etg227.github.io/tree/main/tools/wuwa-echo-calculator" target="_blank" rel="noreferrer">源码 / README / REFERENCES</a> · MIT License</p>
-        <p class="micro">本工具为非官方粉丝项目，与库洛游戏（Kuro Games）无关联。计算结果为简化模型下的条件性估计，不等同于队伍循环 DPS；词条评分为静态口径，换装决策请以按面板重算的替换收益为准。</p>
-      </div>
-    </div>
-  </section>
+<main>
+<h1>鸣潮声骸评分器已迁移</h1>
+<p>评分器现在独立运行在 <b>wuwatool.etg227.com</b>，功能更全（我的角色、声骸库、角色排名、抽卡记录、截图导入）。</p>
+<div id="backup" hidden>
+<p>检测到你在博客里保存过 <b id="count">0</b> 个角色配置。它们只存在本站的浏览器存储里，不会自动带到新网址，请先下载备份，再到新页面「数据 → 导入备份」。</p>
+<button type="button" id="dl" class="primary">下载备份文件</button>
+</div>
+<p><a class="btn primary" id="go" href="https://wuwatool.etg227.com/">前往新版评分器</a><a class="btn" href="https://blog.etg227.com/">回到博客</a></p>
+<p class="muted" id="note">稍后会自动跳转。</p>
 </main>
-<script src="baseline-sync.js?v=20260917-8"></script>
-<script src="app.js?v=20261025-1"></script>
-<script src="profile-save-v3.js?v=20260918-1"></script>
+<script>
+(function(){
+  var NEW='https://wuwatool.etg227.com/',KEY='wuwaEchoBuildProfilesV6',OLD=['wuwaEchoBuildProfilesV5','wuwaEchoBuildProfilesV4','wuwaEchoBuildProfilesV3','wuwaEchoBuildProfilesV2'];
+  var profiles={};
+  function read(k){try{var d=JSON.parse(localStorage.getItem(k)||'{}');return d&&typeof d==='object'?d:{}}catch(e){return{}}}
+  var all=[KEY].concat(OLD);for(var i=0;i<all.length&&!Object.keys(profiles).length;i++)profiles=read(all[i]);
+  var n=Object.keys(profiles).length;
+  if(!n){setTimeout(function(){location.replace(NEW)},1500);return}
+  document.getElementById('count').textContent=n;document.getElementById('backup').hidden=false;
+  document.getElementById('note').textContent='下载备份之前不会自动跳转。';
+  document.getElementById('dl').onclick=function(){
+    var data={app:'wuwatool',kind:'backup',version:1,exportedAt:new Date().toISOString(),profiles:profiles,gacha:{}};
+    var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,1)],{type:'application/json'}));
+    a.download='wuwatool-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();
+    setTimeout(function(){a.remove()},500);document.getElementById('note').textContent='已下载。到新页面的「数据 → 导入备份」选择该文件即可。';
+  };
+})();
+</script>
 </body>
 </html>

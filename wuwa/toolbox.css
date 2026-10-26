@@ -237,14 +237,6 @@ body.wuwa-toolbox-mounted #page {
   to { opacity: 1; transform: translateY(-2px); }
 }
 
-#wuwa-calculator-frame {
-  display: block;
-  width: 100%;
-  min-height: 720px;
-  border: 0;
-  background: transparent;
-}
-
 .wuwa-toolbox-note {
   margin-top: 14px;
   padding: 12px 14px;

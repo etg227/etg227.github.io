@@ -26,7 +26,7 @@ SUMMARY_MAX_CHARS = 200
 # directories that never contain site pages
 EXCLUDE_TOP = {'preview', 'content', 'scripts', '.github', '.git'}
 # page paths to leave out of the sitemap
-EXCLUDE_PAGES = {'/404.html'}
+EXCLUDE_PAGES = {'/404.html', '/tools/wuwa-echo-calculator/'}
 
 
 def parse_front_matter(path):
