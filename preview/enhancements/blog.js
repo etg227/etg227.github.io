@@ -243,3 +243,105 @@
   }
   document.addEventListener('pjax:complete', boot);
 })();
+
+
+/* ETG227_WUWATOOL_EFFECTS */
+(() => {
+  if (window.etgEffectsReady) return;
+  window.etgEffectsReady = true;
+
+  const root = document.documentElement;
+  const reduced = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const THEME_TOGGLE = '#darkmode, .darkmode_switchbutton, #menu-darkmode';
+  const PRESS = [
+    '.categoryButton', '.ai-btn-item', '.research-button', '#rightside button', '.console-btn-item a',
+    '.card-tag-cloud a', '#tag-page-tags a', '.category-lists a', '.pagination a', '.menus_items .site-page',
+    '.post-meta__tags', 'button:not(:disabled)'
+  ].join(',');
+
+  // 点击反馈：按下轻微收缩、松手弹簧回弹，并从按下的位置漾开一圈光
+  document.addEventListener('pointerdown', (e) => {
+    if (e.button || reduced()) return;
+    const el = e.target.closest(PRESS);
+    if (!el || el.matches(THEME_TOGGLE)) return;
+    el.animate?.([{ scale: 1 }, { scale: 0.965 }], { duration: 110, easing: 'ease-out', fill: 'forwards' });
+    const up = () => {
+      removeEventListener('pointerup', up);
+      removeEventListener('pointercancel', up);
+      el.animate?.([{ scale: 0.965 }, { scale: 1 }], { duration: 520, easing: 'cubic-bezier(.34,1.56,.64,1)', fill: 'forwards' });
+    };
+    addEventListener('pointerup', up);
+    addEventListener('pointercancel', up);
+
+    const r = el.getBoundingClientRect();
+    if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+    const box = document.createElement('etg-press-light');
+    box.setAttribute('aria-hidden', 'true');
+    const dot = document.createElement('etg-dot');
+    const s = Math.min(Math.max(r.width, r.height) * 2.2, 200);
+    dot.style.cssText = `left:${e.clientX - r.left}px;top:${e.clientY - r.top}px;width:${s}px;height:${s}px`;
+    box.appendChild(dot);
+    el.appendChild(box);
+    setTimeout(() => box.remove(), 700);
+  }, { passive: true });
+
+  // 切换深色模式：先拦下点击，再把主题原来的切换放进 View Transition，新主题从按钮位置圆形铺开
+  let replaying = false;
+  document.addEventListener('click', (e) => {
+    if (replaying) return;
+    const btn = e.target.closest(THEME_TOGGLE);
+    if (!btn || !document.startViewTransition || reduced()) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    const r = btn.getBoundingClientRect();
+    const x = r.left + r.width / 2;
+    const y = r.top + r.height / 2;
+    const R = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    root.dataset.etgVt = 'theme';
+    const vt = document.startViewTransition(() => {
+      replaying = true;
+      try { btn.click(); } finally { replaying = false; }
+    });
+    vt.finished.finally(() => { if (root.dataset.etgVt === 'theme') delete root.dataset.etgVt; });
+    vt.ready.then(() => root.animate(
+      { clipPath: [`circle(0 at ${x}px ${y}px)`, `circle(${R}px at ${x}px ${y}px)`] },
+      { duration: 620, easing: 'cubic-bezier(.45,0,.2,1)', pseudoElement: '::view-transition-new(root)' }
+    )).catch(() => {});
+  }, true);
+
+  // 卡片浮入：滚到视野里才播，每张只播一次；同一批出现的卡片依次错开
+  const FLOAT = '#recent-posts > .recent-post-item, #aside-content .card-widget, #archive .article-sort-item:not(.year)';
+  let io = null;
+  const scan = () => {
+    if (reduced() || !('IntersectionObserver' in window)) return;
+    if (!io) {
+      io = new IntersectionObserver((records) => {
+        records.filter((r) => r.isIntersecting).forEach((r, i) => {
+          const el = r.target;
+          io.unobserve(el);
+          el.style.setProperty('--etg-delay', `${Math.min(i, 4) * 70}ms`);
+          el.classList.remove('etg-float-wait');
+          el.classList.add('etg-float-in');
+          const done = (ev) => {
+            if (ev.target !== el || ev.animationName !== 'etg-float-in') return;
+            el.removeEventListener('animationend', done);
+            el.classList.remove('etg-float-in');
+            el.style.removeProperty('--etg-delay');
+          };
+          el.addEventListener('animationend', done);
+        });
+      }, { threshold: 0.08 });
+    }
+    document.querySelectorAll(FLOAT).forEach((el) => {
+      if (el.dataset.etgFloat) return;
+      el.dataset.etgFloat = '1';
+      el.classList.add('etg-float-wait');
+    });
+    document.querySelectorAll('.etg-float-wait').forEach((el) => io.observe(el));
+  };
+  const boot = () => setTimeout(scan, 0);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
+  else boot();
+  document.addEventListener('pjax:send', () => { io?.disconnect(); io = null; });
+  document.addEventListener('pjax:complete', boot);
+})();
