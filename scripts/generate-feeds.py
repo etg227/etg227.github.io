@@ -2,7 +2,9 @@
 """Generate atom.xml, sitemap.xml and robots.txt for blog.etg227.com.
 
 Posts are read from content/posts/*.md front matter (title, date,
-permalink, tags, categories). Site pages are discovered by walking the
+updated, permalink, tags, categories, description). A post's feed
+summary is its `description`, else the first paragraph of its "摘要"
+section, else the start of the body. Site pages are discovered by walking the
 repository for index.html files, excluding the preview mirror and
 non-page directories. Stdlib only; run from anywhere:
 
@@ -46,6 +48,16 @@ def parse_front_matter(path):
     return meta, m.group(2)
 
 
+def summary_source(meta, body):
+    if meta.get('description'):
+        return meta['description']
+    abstract = re.search(r'^##\s*摘要\s*\n+(.+?)(?=\n\s*\n|\n#|\Z)', body, re.M | re.S)
+    if abstract:
+        return abstract.group(1)
+    # no abstract: skip raw HTML blocks (changelog boxes and the like) at the top
+    return re.sub(r'<(div|p)\b[^>]*>.*?</\1>', ' ', body, flags=re.S)
+
+
 def extract_summary(body):
     text = re.sub(r'<[^>]+>', ' ', body)               # html tags
     text = re.sub(r'^#{1,6} .*$', ' ', text, flags=re.M)  # headings
@@ -58,8 +70,7 @@ def extract_summary(body):
     return text
 
 
-def post_datetime(meta):
-    value = meta['date']
+def post_datetime(value):
     for fmt in ('%Y-%m-%d %H:%M:%S', '%Y-%m-%d'):
         try:
             return datetime.strptime(value, fmt).replace(tzinfo=timezone.utc)
@@ -81,9 +92,10 @@ def load_posts():
         posts.append({
             'title': meta['title'],
             'url': SITE + permalink,
-            'date': post_datetime(meta),
+            'date': post_datetime(meta['date']),
+            'updated': post_datetime(meta.get('updated') or meta['date']),
             'tags': meta['tags'] + meta['categories'],
-            'summary': extract_summary(body),
+            'summary': extract_summary(summary_source(meta, body)),
         })
     posts.sort(key=lambda p: p['date'], reverse=True)
     return posts
@@ -104,7 +116,7 @@ def discover_pages():
 
 
 def write_atom(posts):
-    updated = posts[0]['date'] if posts else datetime.now(timezone.utc)
+    updated = max(p['updated'] for p in posts) if posts else datetime.now(timezone.utc)
     e = html.escape
     lines = [
         '<?xml version="1.0" encoding="utf-8"?>',
@@ -124,7 +136,7 @@ def write_atom(posts):
             f'    <link href="{p["url"]}"/>',
             f'    <id>{p["url"]}</id>',
             f'    <published>{p["date"].isoformat()}</published>',
-            f'    <updated>{p["date"].isoformat()}</updated>',
+            f'    <updated>{p["updated"].isoformat()}</updated>',
             f'    <summary>{e(p["summary"])}</summary>',
         ]
         lines += [f'    <category term="{e(t)}"/>' for t in p['tags']]
@@ -134,7 +146,7 @@ def write_atom(posts):
 
 
 def write_sitemap(pages, posts):
-    lastmod = {p['url']: p['date'].date().isoformat() for p in posts}
+    lastmod = {p['url']: p['updated'].date().isoformat() for p in posts}
     lines = [
         '<?xml version="1.0" encoding="utf-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
