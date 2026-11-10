@@ -154,3 +154,6 @@ html[data-theme="dark"] #recent-posts .unvisited-post{color:var(--anzhiyu-second
     padding:34px!important;
   }
 }
+
+/* 文章表格：单元格里的数字和英文不拆成两行，放不下时整张表横向滚动 */
+#article-container table :is(th,td){overflow-wrap:normal;word-break:normal}
