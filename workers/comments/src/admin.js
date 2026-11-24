@@ -29,7 +29,7 @@ button:disabled{opacity:.5;cursor:default}
 .content{white-space:pre-wrap;word-break:break-word;margin:8px 0}
 .badge{display:inline-block;font-size:12px;border-radius:4px;padding:0 6px;border:1px solid currentColor}
 .s-pending{color:var(--warn)}.s-spam{color:var(--danger)}.s-approved{color:var(--ok)}
-.msg{min-height:1.6em;color:var(--muted)}
+.msg{min-height:1.6em;margin:0 0 12px;color:var(--muted)}
 .reply{margin-top:8px}
 a{color:var(--main)}
 </style>
@@ -37,6 +37,7 @@ a{color:var(--main)}
 <body data-site="__SITE_URL__">
 <div class="wrap">
   <h1>评论管理</h1>
+  <p class="msg" id="msg" role="status"></p>
   <div class="card" id="login">
     <div class="row">
       <input id="token" type="password" placeholder="管理口令（ADMIN_TOKEN）" autocomplete="current-password" style="flex:1;min-width:200px">
@@ -53,7 +54,6 @@ a{color:var(--main)}
       <span style="flex:1"></span>
       <button class="ghost" id="logout">退出</button>
     </div>
-    <p class="msg" id="msg" role="status"></p>
     <div id="list"></div>
     <button class="ghost" id="more" hidden>加载更多</button>
   </div>
@@ -76,7 +76,7 @@ a{color:var(--main)}
   async function api(path, opts = {}) {
     const res = await fetch(path, { ...opts, headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token, ...(opts.headers || {}) } });
     const data = await res.json().catch(() => ({}));
-    if (res.status === 401) { logout(); throw new Error('管理口令不正确'); }
+    if (res.status === 401 || res.status === 503) { logout(); throw new Error(data.error || '管理口令不正确'); }
     if (!res.ok) throw new Error(data.error || ('请求失败 ' + res.status));
     return data;
   }
@@ -163,7 +163,7 @@ a{color:var(--main)}
 
   $('enter').addEventListener('click', () => {
     token = $('token').value.trim();
-    if (!token) return;
+    if (!token) { say('请输入管理口令'); return; }
     try { sessionStorage.setItem(KEY, token); } catch {}
     setTab('pending');
   });
