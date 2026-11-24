@@ -25,10 +25,11 @@ Workers 免费版每天 10 万次请求、单次请求 10 毫秒 CPU；D1 免费
    npx wrangler login
    ```
 
-2. 创建数据库，把输出里的 `database_id` 填进 `wrangler.toml`，然后建表：
+2. 创建数据库，把输出里的 `database_id` 填进 `wrangler.toml`，然后建表。`--location apac` 把数据库放在亚太区，
+   离国内和香港的读者更近（不指定的话 Cloudflare 可能放在美国）：
 
    ```sh
-   npx wrangler d1 create blog-comments
+   npx wrangler d1 create blog-comments --location apac
    npm run db:init
    ```
 
@@ -39,8 +40,8 @@ Workers 免费版每天 10 万次请求、单次请求 10 毫秒 CPU；D1 免费
    npx wrangler secret put IP_SALT       # 任意随机串，同样可用 openssl rand -hex 24 生成
    ```
 
-4. 绑定自定义域名。`*.workers.dev` 在国内有 DNS 污染，访客会连不上，必须绑定自己的域名。
-   域名要托管在 Cloudflare 上。取消 `wrangler.toml` 里这一行的注释：
+4. 绑定自定义域名。`*.workers.dev` 在国内有 DNS 污染，访客会连不上，所以 `wrangler.toml` 里已经关掉了它，
+   并绑定了 `comments.etg227.com`（域名要托管在 Cloudflare 上）。换域名时改这一行：
 
    ```toml
    routes = [{ pattern = "comments.etg227.com", custom_domain = true }]

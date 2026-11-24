@@ -251,7 +251,7 @@
   window.etgCommentsReady = true;
 
   // 评论服务地址（Cloudflare Worker），例如 https://comments.etg227.com。留空时评论区保持“评论暂未开放”。
-  const API = '';
+  const API = 'https://comments.etg227.com';
   // 可选：Cloudflare Turnstile 的站点密钥（site key），与 Worker 的 TURNSTILE_SECRET 成对开启
   const TURNSTILE_SITEKEY = '';
 
