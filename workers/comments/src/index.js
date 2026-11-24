@@ -136,12 +136,18 @@ function timingSafeEqual(a, b) {
   return diff === 0;
 }
 
+const MIN_ADMIN_TOKEN = 16;
+const adminConfigured = (env) => typeof env.ADMIN_TOKEN === 'string' && env.ADMIN_TOKEN.length >= MIN_ADMIN_TOKEN;
+
 function isAdmin(request, env) {
   const token = (request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '');
-  return Boolean(env.ADMIN_TOKEN) && env.ADMIN_TOKEN.length >= 16 && Boolean(token) && timingSafeEqual(token, env.ADMIN_TOKEN);
+  return adminConfigured(env) && Boolean(token) && timingSafeEqual(token, env.ADMIN_TOKEN);
 }
 
 async function requireAdmin(request, env, cors, handler) {
+  if (!adminConfigured(env)) {
+    throw new HttpError(503, `管理口令未设置或少于 ${MIN_ADMIN_TOKEN} 位，管理功能已停用。请在 Cloudflare 的“变量和机密”里把 ADMIN_TOKEN 设为至少 ${MIN_ADMIN_TOKEN} 位后再登录。`);
+  }
   if (!isAdmin(request, env)) throw new HttpError(401, '管理口令不正确');
   return handler();
 }
