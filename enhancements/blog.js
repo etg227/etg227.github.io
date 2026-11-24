@@ -75,91 +75,6 @@
 })();
 
 
-/* ETG227_TWIKOO_BOOTSTRAP */
-(() => {
-  // Fill this with the Twikoo backend URL, e.g. https://your-project.vercel.app
-  const ENV_ID = '';
-
-  const loadScriptOnce = (src) => {
-    const existing = Array.from(document.scripts).find((s) => s.src === src);
-    if (existing) {
-      if (typeof window.twikoo === 'object') return Promise.resolve();
-      return new Promise((resolve, reject) => {
-        existing.addEventListener('load', resolve, { once: true });
-        existing.addEventListener('error', reject, { once: true });
-      });
-    }
-    return new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = src;
-      script.async = true;
-      script.onload = resolve;
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-  };
-
-  const initTwikoo = async () => {
-    const box = document.querySelector('#twikoo-wrap');
-    if (!box || box.dataset.etgTwikooReady === '1' || !ENV_ID) return;
-
-    box.dataset.etgTwikooReady = '1';
-    box.textContent = '评论加载中…';
-
-    try {
-      if (window.GLOBAL_CONFIG) window.GLOBAL_CONFIG.twikooEnvId = ENV_ID;
-
-      if (typeof window.twikoo !== 'object') {
-        await loadScriptOnce('https://cdn.cbd.int/twikoo@1.7.20/dist/twikoo.all.min.js');
-      }
-
-      box.replaceChildren();
-      await window.twikoo.init({
-        el: '#twikoo-wrap',
-        envId: ENV_ID,
-        region: '',
-        onCommentLoaded: () => {
-          if (window.anzhiyu && typeof window.anzhiyu.loadLightbox === 'function') {
-            window.anzhiyu.loadLightbox(
-              document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)')
-            );
-          }
-        }
-      });
-
-      const count = document.getElementById('twikoo-count');
-      if (count && typeof window.twikoo.getCommentsCount === 'function') {
-        try {
-          const result = await window.twikoo.getCommentsCount({
-            envId: ENV_ID,
-            region: '',
-            urls: [window.location.pathname],
-            includeReply: false
-          });
-          if (result && result[0]) count.textContent = result[0].count;
-        } catch (err) {
-          console.warn('[Twikoo] comment count failed:', err);
-        }
-      }
-    } catch (err) {
-      box.dataset.etgTwikooReady = '0';
-      box.textContent = '评论加载失败，请稍后重试。';
-      console.error('[Twikoo] init failed:', err);
-    }
-  };
-
-  const boot = () => setTimeout(initTwikoo, 0);
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot, { once: true });
-  } else {
-    boot();
-  }
-  document.addEventListener('pjax:complete', boot);
-})();
-
-
-
 /* ETG227_POST_AI_AND_OUTDATE */
 (() => {
   if (window.etgPostAiReady) return;
@@ -326,4 +241,305 @@
     boot();
   }
   document.addEventListener('pjax:complete', boot);
+})();
+
+
+
+/* ETG227_COMMENTS */
+(() => {
+  if (window.etgCommentsReady) return;
+  window.etgCommentsReady = true;
+
+  // 评论服务地址（Cloudflare Worker），例如 https://comments.etg227.com。留空时评论区保持“评论暂未开放”。
+  const API = '';
+  // 可选：Cloudflare Turnstile 的站点密钥（site key），与 Worker 的 TURNSTILE_SECRET 成对开启
+  const TURNSTILE_SITEKEY = '';
+
+  const PREFIX = location.pathname.startsWith('/preview/') ? '/preview' : '';
+  const PROFILE_KEY = 'etg-comment-profile';
+  const MAX_LENGTH = 2000;
+
+  const el = (tag, className, text) => {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  };
+
+  const pagePath = () => {
+    let path = location.pathname;
+    try { path = decodeURI(path); } catch (e) { /* keep raw */ }
+    if (PREFIX && path.startsWith(PREFIX + '/')) path = path.slice(PREFIX.length);
+    path = path.replace(/index\.html$/, '');
+    return path.endsWith('/') ? path : path + '/';
+  };
+
+  const loadProfile = () => {
+    try { return JSON.parse(localStorage.getItem(PROFILE_KEY)) || {}; } catch (e) { return {}; }
+  };
+  const saveProfile = (p) => {
+    try { localStorage.setItem(PROFILE_KEY, JSON.stringify(p)); } catch (e) { /* storage unavailable */ }
+  };
+
+  const relativeTime = (ms) => {
+    const diff = (Date.now() - ms) / 1000;
+    if (diff < 60) return '刚刚';
+    if (diff < 3600) return `${Math.floor(diff / 60)} 分钟前`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)} 小时前`;
+    if (diff < 86400 * 30) return `${Math.floor(diff / 86400)} 天前`;
+    const d = new Date(ms);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  };
+
+  const hue = (s) => {
+    let h = 0;
+    for (const ch of s) h = (h * 31 + ch.codePointAt(0)) % 360;
+    return h;
+  };
+
+  let turnstileScript;
+  const loadTurnstile = () => {
+    if (!TURNSTILE_SITEKEY) return Promise.resolve(null);
+    if (window.turnstile) return Promise.resolve(window.turnstile);
+    if (!turnstileScript) {
+      turnstileScript = new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        s.async = true;
+        s.onload = () => resolve(window.turnstile);
+        s.onerror = () => { turnstileScript = null; reject(new Error('turnstile')); };
+        document.head.appendChild(s);
+      });
+    }
+    return turnstileScript;
+  };
+
+  async function request(method, url, body) {
+    const res = await fetch(API.replace(/\/$/, '') + url, {
+      method,
+      headers: body ? { 'Content-Type': 'application/json' } : undefined,
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || `请求失败（${res.status}）`);
+    return data;
+  }
+
+  function mount(box) {
+    const path = pagePath();
+    const profile = loadProfile();
+    let replyTo = null;
+    let turnstileId = null;
+    let comments = [];
+
+    box.querySelector('.blog-note')?.remove();
+    const root = el('div', 'etg-cm');
+    const privacy = box.querySelector('a[href$="/privacy/"]');
+    if (privacy) box.insertBefore(root, privacy); else box.append(root);
+
+    // ---------- 表单 ----------
+    const form = el('form', 'etg-cm-form');
+    form.noValidate = true;
+    const field = (name, label, attrs) => {
+      const wrap = el('label', 'etg-cm-field');
+      wrap.append(el('span', '', label));
+      const input = el('input');
+      Object.assign(input, { name, ...attrs });
+      wrap.append(input);
+      return [wrap, input];
+    };
+    const [nickWrap, nick] = field('nick', '昵称', { maxLength: 32, required: true, autocomplete: 'nickname', value: profile.nick || '' });
+    const [mailWrap, email] = field('email', '邮箱（选填，不公开）', { type: 'email', maxLength: 100, autocomplete: 'email', value: profile.email || '' });
+    const [linkWrap, link] = field('link', '网址（选填）', { type: 'url', maxLength: 200, autocomplete: 'url', placeholder: 'https://', value: profile.link || '' });
+    const fields = el('div', 'etg-cm-fields');
+    fields.append(nickWrap, mailWrap, linkWrap);
+
+    const honeypot = el('input');
+    Object.assign(honeypot, { name: 'homepage', tabIndex: -1, autocomplete: 'off', className: 'etg-cm-hp' });
+    honeypot.setAttribute('aria-hidden', 'true');
+
+    const replyBar = el('div', 'etg-cm-replybar');
+    replyBar.hidden = true;
+    const replyText = el('span');
+    const cancelReply = el('button', 'etg-cm-link', '取消回复');
+    cancelReply.type = 'button';
+    replyBar.append(replyText, cancelReply);
+
+    const textarea = el('textarea', 'etg-cm-text');
+    Object.assign(textarea, { name: 'content', maxLength: MAX_LENGTH, rows: 4, placeholder: '说点什么吧…（Ctrl + Enter 发送）' });
+    textarea.setAttribute('aria-label', '评论内容');
+
+    const captcha = el('div', 'etg-cm-captcha');
+    const footer = el('div', 'etg-cm-footer');
+    const counter = el('span', 'etg-cm-counter', `0 / ${MAX_LENGTH}`);
+    const submit = el('button', 'etg-cm-submit', '发送');
+    submit.type = 'submit';
+    footer.append(counter, submit);
+    const status = el('p', 'etg-cm-status');
+    status.setAttribute('role', 'status');
+    form.append(fields, honeypot, replyBar, textarea, captcha, footer, status);
+
+    // ---------- 列表 ----------
+    const countLine = el('div', 'etg-cm-count');
+    const list = el('ol', 'etg-cm-list');
+    root.append(form, countLine, list);
+
+    const setStatus = (text, kind) => {
+      status.textContent = text || '';
+      status.dataset.kind = kind || '';
+    };
+
+    const setReply = (c) => {
+      replyTo = c;
+      replyBar.hidden = !c;
+      replyText.textContent = c ? `回复 @${c.nick}` : '';
+      if (c) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        textarea.focus({ preventScroll: true });
+      }
+    };
+    cancelReply.addEventListener('click', () => setReply(null));
+
+    const renderComment = (c, byId) => {
+      const li = el('li', 'etg-cm-item');
+      li.id = `comment-${c.id}`;
+      const avatar = el('span', 'etg-cm-avatar', Array.from(c.nick)[0] || '?');
+      avatar.style.setProperty('--h', hue(c.nick));
+      avatar.setAttribute('aria-hidden', 'true');
+      const body = el('div', 'etg-cm-body');
+      const head = el('div', 'etg-cm-head');
+      let name;
+      if (c.link) {
+        name = el('a', 'etg-cm-nick', c.nick);
+        name.href = c.link;
+        name.target = '_blank';
+        name.rel = 'noopener noreferrer nofollow ugc';
+      } else {
+        name = el('span', 'etg-cm-nick', c.nick);
+      }
+      head.append(name);
+      if (c.is_admin) head.append(el('span', 'etg-cm-badge', '博主'));
+      const parent = c.parent_id && c.parent_id !== c.root_id ? byId.get(c.parent_id) : null;
+      if (parent) head.append(el('span', 'etg-cm-to', `回复 @${parent.nick}`));
+      const time = el('time', 'etg-cm-time', relativeTime(c.created_at));
+      time.dateTime = new Date(c.created_at).toISOString();
+      time.title = new Date(c.created_at).toLocaleString('zh-CN', { hour12: false });
+      head.append(time);
+      const content = el('div', 'etg-cm-content', c.content);
+      const actions = el('div', 'etg-cm-actions');
+      const reply = el('button', 'etg-cm-link', '回复');
+      reply.type = 'button';
+      reply.addEventListener('click', () => setReply(c));
+      actions.append(reply);
+      body.append(head, content, actions);
+      li.append(avatar, body);
+      return li;
+    };
+
+    const render = () => {
+      const byId = new Map(comments.map((c) => [c.id, c]));
+      const roots = comments.filter((c) => !c.root_id || !byId.has(c.root_id));
+      const replies = new Map();
+      for (const c of comments) {
+        if (c.root_id && byId.has(c.root_id)) {
+          if (!replies.has(c.root_id)) replies.set(c.root_id, []);
+          replies.get(c.root_id).push(c);
+        }
+      }
+      list.replaceChildren();
+      for (const r of roots.slice().reverse()) {
+        const item = renderComment(r, byId);
+        const children = replies.get(r.id);
+        if (children) {
+          const sub = el('ol', 'etg-cm-replies');
+          children.forEach((c) => sub.append(renderComment(c, byId)));
+          item.querySelector('.etg-cm-body').append(sub);
+        }
+        list.append(item);
+      }
+      countLine.textContent = comments.length ? `${comments.length} 条评论` : '还没有评论，来抢沙发吧';
+    };
+
+    const load = async () => {
+      countLine.textContent = '评论加载中…';
+      try {
+        const data = await request('GET', `/api/comments?path=${encodeURIComponent(path)}`);
+        comments = data.comments;
+        render();
+        if (location.hash.startsWith('#comment-')) document.getElementById(location.hash.slice(1))?.scrollIntoView({ block: 'center' });
+      } catch (e) {
+        countLine.replaceChildren(document.createTextNode('评论加载失败。'));
+        const retry = el('button', 'etg-cm-link', '重试');
+        retry.type = 'button';
+        retry.addEventListener('click', load);
+        countLine.append(retry);
+      }
+    };
+
+    textarea.addEventListener('input', () => { counter.textContent = `${textarea.value.length} / ${MAX_LENGTH}`; });
+    textarea.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); form.requestSubmit(); }
+    });
+    textarea.addEventListener('focus', () => {
+      if (!TURNSTILE_SITEKEY || turnstileId !== null) return;
+      loadTurnstile().then((ts) => {
+        if (ts && turnstileId === null && captcha.isConnected) turnstileId = ts.render(captcha, { sitekey: TURNSTILE_SITEKEY, size: 'flexible', language: 'zh-cn' });
+      }).catch(() => setStatus('人机验证加载失败，请刷新页面重试', 'error'));
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        path,
+        nick: nick.value.trim(),
+        email: email.value.trim(),
+        link: link.value.trim(),
+        content: textarea.value.trim(),
+        homepage: honeypot.value,
+        parent_id: replyTo ? replyTo.id : undefined,
+      };
+      if (!payload.nick) { setStatus('请填写昵称', 'error'); nick.focus(); return; }
+      if (!payload.content) { setStatus('评论内容不能为空', 'error'); textarea.focus(); return; }
+      if (TURNSTILE_SITEKEY) {
+        payload.turnstile = turnstileId !== null && window.turnstile ? window.turnstile.getResponse(turnstileId) : '';
+        if (!payload.turnstile) { setStatus('请先完成人机验证', 'error'); textarea.dispatchEvent(new Event('focus')); return; }
+      }
+      submit.disabled = true;
+      setStatus('发送中…');
+      try {
+        const data = await request('POST', '/api/comments', payload);
+        saveProfile({ nick: payload.nick, email: payload.email, link: payload.link });
+        textarea.value = '';
+        counter.textContent = `0 / ${MAX_LENGTH}`;
+        setReply(null);
+        if (data.status === 'approved') {
+          comments.push(data.comment);
+          render();
+          setStatus('发表成功', 'ok');
+          document.getElementById(`comment-${data.comment.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          setStatus('评论已提交，审核通过后会显示', 'ok');
+        }
+      } catch (err) {
+        setStatus(err.message, 'error');
+      } finally {
+        submit.disabled = false;
+        if (turnstileId !== null && window.turnstile) window.turnstile.reset(turnstileId);
+      }
+    });
+
+    load();
+  }
+
+  const init = () => {
+    if (!API) return;
+    const box = document.querySelector('#post-comment');
+    if (!box || box.dataset.etgComments === '1') return;
+    box.dataset.etgComments = '1';
+    mount(box);
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+  else init();
+  document.addEventListener('pjax:complete', () => setTimeout(init, 0));
 })();

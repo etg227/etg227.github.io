@@ -1,0 +1,38 @@
+# 花澪博客评论服务。部署步骤见 README.md。
+name = "blog-comments"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "blog-comments"
+# 运行 `npx wrangler d1 create blog-comments` 后，把输出里的 database_id 填到这里
+database_id = "00000000-0000-0000-0000-000000000000"
+
+[vars]
+# 允许调用接口的网站，多个用英文逗号分隔
+ALLOWED_ORIGINS = "https://blog.etg227.com"
+SITE_URL = "https://blog.etg227.com"
+# 以管理口令发表的评论显示的昵称；其他人不能使用这个昵称
+ADMIN_NICK = "花澪"
+# on：新评论先进入待审核，在 /admin 通过后才显示；off：直接显示
+MODERATION = "off"
+# 同一 IP 每 10 分钟最多发表几条
+RATE_LIMIT_PER_10MIN = "5"
+
+# 机密配置用 `npx wrangler secret put <名字>` 设置，不要写在这里：
+#   ADMIN_TOKEN       管理口令，至少 16 位
+#   IP_SALT           对 IP 做哈希时加的随机串
+#   TURNSTILE_SECRET  可选，开启 Cloudflare Turnstile 人机验证
+
+# 可选：绑定自定义域名（域名需托管在 Cloudflare）。*.workers.dev 在国内访问不稳定，建议绑定。
+# routes = [{ pattern = "comments.etg227.com", custom_domain = true }]
+
+# 可选：新评论邮件提醒（需要在该域名开启 Cloudflare Email Routing，并验证收件地址）
+# [[send_email]]
+# name = "NOTIFY"
+# destination_address = "你的邮箱"
+# 同时在上面的 [vars] 里加：
+#   NOTIFY_FROM = "comments@etg227.com"
+#   NOTIFY_TO = "你的邮箱"
+#   WORKER_URL = "https://comments.etg227.com"

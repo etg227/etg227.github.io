@@ -179,3 +179,48 @@ etg-press-light > etg-dot{display:block;position:absolute;border-radius:50%;tran
 
 /* 文章表格：单元格里的数字和英文不拆成两行，放不下时整张表横向滚动 */
 #article-container table :is(th,td){overflow-wrap:normal;word-break:normal}
+
+
+/* ---------- 评论区（Cloudflare Workers + D1，见 blog.js 的 ETG227_COMMENTS） ---------- */
+.etg-cm{margin-top:.6rem}
+.etg-cm-form{padding:14px;border:var(--style-border-always);border-radius:12px;background:var(--anzhiyu-card-bg)}
+.etg-cm-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:10px}
+.etg-cm-field{display:flex;flex-direction:column;gap:4px;font-size:.8rem;color:var(--anzhiyu-secondtext);min-width:0}
+.etg-cm-field input,.etg-cm-text{width:100%;box-sizing:border-box;font:inherit;font-size:.95rem;color:var(--anzhiyu-fontcolor);background:var(--anzhiyu-secondbg);border:var(--style-border-always);border-radius:8px;padding:8px 10px;outline:none;transition:border-color .2s}
+.etg-cm-field input:focus,.etg-cm-text:focus{border-color:var(--anzhiyu-main)}
+.etg-cm-text{display:block;min-height:96px;resize:vertical;line-height:1.7}
+.etg-cm-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.etg-cm-replybar{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.85rem;color:var(--anzhiyu-main)}
+.etg-cm-replybar[hidden]{display:none}
+.etg-cm-captcha:empty{display:none}
+.etg-cm-captcha{margin-top:10px}
+.etg-cm-footer{display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-top:10px}
+.etg-cm-counter{font-size:.8rem;color:var(--anzhiyu-secondtext)}
+.etg-cm-submit{border:0;border-radius:8px;padding:6px 20px;font-size:.95rem;color:var(--anzhiyu-white);background:var(--anzhiyu-main);cursor:pointer;transition:opacity .2s}
+.etg-cm-submit:disabled{opacity:.55;cursor:default}
+.etg-cm-status{min-height:1.4em;margin:6px 0 0!important;font-size:.85rem;color:var(--anzhiyu-secondtext)}
+.etg-cm-status[data-kind="error"]{color:var(--anzhiyu-red)}
+.etg-cm-status[data-kind="ok"]{color:var(--anzhiyu-main)}
+.etg-cm-count{margin:18px 0 6px;font-size:.95rem;font-weight:700;color:var(--anzhiyu-fontcolor)}
+.etg-cm-list,.etg-cm-replies{list-style:none;margin:0;padding:0}
+.etg-cm-list>.etg-cm-item{padding:14px 0;border-bottom:1px dashed var(--anzhiyu-card-border)}
+.etg-cm-list>.etg-cm-item:last-child{border-bottom:0}
+.etg-cm-item{display:flex;gap:12px;align-items:flex-start}
+.etg-cm-item::before{display:none!important}
+.etg-cm-replies{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--anzhiyu-secondbg)}
+.etg-cm-replies>.etg-cm-item+.etg-cm-item{margin-top:12px}
+.etg-cm-avatar{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;font-weight:700;color:#fff;background:hsl(var(--h,220) 55% 55%)}
+.etg-cm-replies .etg-cm-avatar{width:30px;height:30px;font-size:.85rem}
+.etg-cm-body{flex:1;min-width:0}
+.etg-cm-head{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:.85rem;line-height:1.5}
+.etg-cm-nick{font-weight:700;color:var(--anzhiyu-fontcolor)}
+a.etg-cm-nick{color:var(--anzhiyu-main);text-decoration:none}
+.etg-cm-badge{font-size:.72rem;line-height:1.5;padding:0 6px;border-radius:4px;color:var(--anzhiyu-white);background:var(--anzhiyu-main)}
+.etg-cm-to,.etg-cm-time{color:var(--anzhiyu-secondtext)}
+.etg-cm-content{margin:4px 0 2px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.75;color:var(--anzhiyu-fontcolor)}
+.etg-cm-actions{font-size:.8rem}
+.etg-cm-link{border:0;background:none;padding:0;font:inherit;font-size:.8rem;color:var(--anzhiyu-secondtext);cursor:pointer}
+.etg-cm-link:hover{color:var(--anzhiyu-main)}
+.etg-cm-count .etg-cm-link{margin-left:8px;font-size:.9rem;color:var(--anzhiyu-main)}
+.etg-cm-item:target>.etg-cm-body>.etg-cm-content{background:var(--anzhiyu-main-op);border-radius:6px}
+@media (max-width:640px){.etg-cm-fields{grid-template-columns:1fr}}
